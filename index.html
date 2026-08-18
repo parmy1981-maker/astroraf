@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroRaf.be — Binnenkort online</title>
+<style>
+  :root {
+    --bg-1: #05060f;
+    --bg-2: #0b0f2a;
+    --star: #ffffff;
+    --accent: #a9c4ff;
+    --text: #eef1ff;
+    --text-dim: #9aa3c7;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 20%, var(--bg-2), var(--bg-1) 70%);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+  .stars, .stars2, .stars3 {
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+    animation: drift 200s linear infinite;
+  }
+  .stars {
+    background-image: radial-gradient(1.5px 1.5px at 20px 30px, var(--star), transparent),
+      radial-gradient(1px 1px at 90px 80px, var(--star), transparent),
+      radial-gradient(1.5px 1.5px at 150px 160px, var(--star), transparent),
+      radial-gradient(1px 1px at 220px 50px, var(--star), transparent),
+      radial-gradient(1px 1px at 60px 190px, var(--star), transparent);
+    background-size: 260px 260px;
+    opacity: 0.9;
+  }
+  .stars2 {
+    background-image: radial-gradient(1px 1px at 40px 60px, var(--star), transparent),
+      radial-gradient(1px 1px at 130px 20px, var(--star), transparent),
+      radial-gradient(1px 1px at 200px 140px, var(--star), transparent);
+    background-size: 340px 340px;
+    opacity: 0.5;
+    animation-duration: 300s;
+    animation-direction: reverse;
+  }
+  .stars3 {
+    background-image: radial-gradient(2px 2px at 80px 100px, var(--accent), transparent),
+      radial-gradient(1.5px 1.5px at 240px 40px, var(--accent), transparent),
+      radial-gradient(1.5px 1.5px at 170px 220px, var(--accent), transparent);
+    background-size: 400px 400px;
+    opacity: 0.6;
+    animation-duration: 260s;
+  }
+  @keyframes drift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-1000px); }
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  .logo {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 0;
+    background: linear-gradient(180deg, #ffffff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tagline {
+    margin-top: 0.75rem;
+    font-size: clamp(1rem, 2.4vw, 1.3rem);
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+  .badge {
+    margin-top: 2.5rem;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid rgba(169, 196, 255, 0.35);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .planet {
+    position: absolute;
+    bottom: -18vw;
+    right: -10vw;
+    width: 45vw;
+    height: 45vw;
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #6d7fd6, #1a1f4d 70%);
+    box-shadow: 0 0 120px rgba(109, 127, 214, 0.35);
+    z-index: 0;
+  }
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+  <div class="sky">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    <div class="planet"></div>
+  </div>
+  <div class="content">
+    <h1 class="logo">AstroRaf</h1>
+    <p class="tagline">De sterrenhemel opent binnenkort.</p>
+    <span class="badge">Under construction</span>
+  </div>
+  <footer>&copy; 2026 AstroRaf.be</footer>
+</body>
+</html>
