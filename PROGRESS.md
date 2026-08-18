@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-18 (avond)
 
-## Status: Under construction pagina live (in opbouw)
+## Status: Under construction pagina live (in opbouw) — v1.1
 
 ## Gedaan
 - [x] GitHub CLI, Git en Node.js lokaal geïnstalleerd en geconfigureerd
@@ -29,6 +29,10 @@ Wachten op DNS-propagatie voor **astroraf.com** (records staan al sinds 2026-08-
 - Vercel account: parmy1981-6326, team/scope: woutp ("Wouter's projects")
 - Vercel project: astroraf → https://astroraf.vercel.app
 - Database/backend (later): Supabase — nog niet opgezet
+
+## Versiegeschiedenis
+- v1.1 (2026-08-18) — versienummer toegevoegd in de footer van de pagina
+- v1.0 (2026-08-18) — initiële under-construction pagina live op astroraf.be
 
 ## Beslissingen
 - Gestart met een simpele statische HTML-pagina (geen framework) voor snelheid. Kan later migreren naar Next.js wanneer er echte features (bv. met Supabase) bijkomen.
