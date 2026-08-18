@@ -1,6 +1,6 @@
 # AstroRaf.be — Voortgang
 
-Laatste update: 2026-08-18
+Laatste update: 2026-08-18 (avond)
 
 ## Status: Under construction pagina live (in opbouw)
 
@@ -14,20 +14,13 @@ Laatste update: 2026-08-18
 - [x] Custom domains `astroraf.be` en `www.astroraf.be` toegevoegd in Vercel
 - [x] DNS-records ingesteld bij one.com voor astroraf.be — **live en geverifieerd** (2026-08-18)
 - [x] Custom domains `astroraf.com` en `www.astroraf.com` toegevoegd in Vercel
-- [ ] DNS-records ingesteld bij one.com voor astroraf.com — **wacht op gebruiker**, zie hieronder
+- [x] DNS-records ingesteld bij one.com voor astroraf.com (2026-08-18) — nog niet gepropageerd, werkt nog niet onmiddellijk
 - [ ] Supabase project aangemaakt (nog niet nodig voor under-construction pagina, later voor echte features)
 
 ## Volgende stap
-DNS-records instellen bij one.com voor **astroraf.com** (apart domein, aparte DNS-instellingen dan .be), user moet dit zelf doen daar Claude geen toegang heeft tot het one.com-account:
+Wachten op DNS-propagatie voor **astroraf.com** (records staan al sinds 2026-08-18, kan tot enkele uren duren). Gebruiker checkt morgen (2026-08-19) opnieuw. Als het dan nog niet werkt: vraag Claude Code om `vercel domains inspect astroraf.com` te draaien om te verifiëren wat er misloopt.
 
-| Type | Naam/Host | Waarde |
-|------|-----------|--------|
-| A | `@` | `76.76.21.21` |
-| A | `www` | `76.76.21.21` |
-
-Verwijder eventuele bestaande one.com parkeerpagina A-records voor `@`/`www` eerst. Na het instellen: vraag Claude Code om `vercel domains inspect astroraf.com` te draaien om te verifiëren of DNS goed staat (propagatie kan uren duren).
-
-(Zelfde recept werd al succesvol toegepast voor astroraf.be, zie hierboven.)
+(Zelfde recept werd al succesvol toegepast voor astroraf.be, zie hierboven — dat propageerde wel snel.)
 
 ## Belangrijke gegevens
 - Domeinen: astroraf.be (live) en astroraf.com (DNS nog te configureren — zie boven), beide via one.com
