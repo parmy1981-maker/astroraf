@@ -12,22 +12,25 @@ Laatste update: 2026-08-18
 - [x] Vercel CLI geïnstalleerd + ingelogd (account: parmy1981-6326, team scope: woutp / "Wouter's projects" — bevestigd dat dit van de gebruiker is)
 - [x] Project gedeployed op Vercel: https://astroraf.vercel.app (project `astroraf` onder team `woutp`)
 - [x] Custom domains `astroraf.be` en `www.astroraf.be` toegevoegd in Vercel
-- [ ] DNS-records ingesteld bij one.com — **wacht op gebruiker**, zie hieronder
-- [ ] Domain-verificatie bevestigen zodra DNS live staat
+- [x] DNS-records ingesteld bij one.com voor astroraf.be — **live en geverifieerd** (2026-08-18)
+- [x] Custom domains `astroraf.com` en `www.astroraf.com` toegevoegd in Vercel
+- [ ] DNS-records ingesteld bij one.com voor astroraf.com — **wacht op gebruiker**, zie hieronder
 - [ ] Supabase project aangemaakt (nog niet nodig voor under-construction pagina, later voor echte features)
 
 ## Volgende stap
-DNS-records instellen bij one.com (registrar), user moet dit zelf doen daar Claude geen toegang heeft tot het one.com-account:
+DNS-records instellen bij one.com voor **astroraf.com** (apart domein, aparte DNS-instellingen dan .be), user moet dit zelf doen daar Claude geen toegang heeft tot het one.com-account:
 
 | Type | Naam/Host | Waarde |
 |------|-----------|--------|
 | A | `@` | `76.76.21.21` |
 | A | `www` | `76.76.21.21` |
 
-Verwijder eventuele bestaande one.com parkeerpagina A-records voor `@`/`www` eerst. Na het instellen: vraag Claude Code om `vercel domains inspect astroraf.be` te draaien om te verifiëren of DNS goed staat (propagatie kan uren duren).
+Verwijder eventuele bestaande one.com parkeerpagina A-records voor `@`/`www` eerst. Na het instellen: vraag Claude Code om `vercel domains inspect astroraf.com` te draaien om te verifiëren of DNS goed staat (propagatie kan uren duren).
+
+(Zelfde recept werd al succesvol toegepast voor astroraf.be, zie hierboven.)
 
 ## Belangrijke gegevens
-- Domein: astroraf.be (aangekocht via one.com, DNS nog te configureren — zie boven)
+- Domeinen: astroraf.be (live) en astroraf.com (DNS nog te configureren — zie boven), beide via one.com
 - GitHub account: parmy1981-maker
 - GitHub repo: https://github.com/parmy1981-maker/astroraf
 - Vercel account: parmy1981-6326, team/scope: woutp ("Wouter's projects")
