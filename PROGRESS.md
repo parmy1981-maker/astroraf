@@ -2,7 +2,9 @@
 
 Laatste update: 2026-08-18 (avond)
 
-## Status: Under construction pagina live (in opbouw) — v1.1
+## Status: v1.2 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+
+**BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
 ## Gedaan
 - [x] GitHub CLI, Git en Node.js lokaal geïnstalleerd en geconfigureerd
@@ -31,6 +33,7 @@ Wachten op DNS-propagatie voor **astroraf.com** (records staan al sinds 2026-08-
 - Database/backend (later): Supabase — nog niet opgezet
 
 ## Versiegeschiedenis
+- v1.2 (2026-08-18, lokaal — nog niet live) — volledige home page opgebouwd: sticky header met logo + menu (Home/Foto's/Shop), grote hero met sterrenhemel + eclips-foto (Eclips_Corona.jpg, cirkelvormig bijgesneden met vervagende rand + backdrop-gat tegen doorschijnende sterren), verhaal-sectie (placeholder tekst), fotogrid (placeholders), footer-balk met social-iconen (placeholder links). Foto's/Shop als "binnenkort"-pagina's.
 - v1.1 (2026-08-18) — versienummer toegevoegd in de footer van de pagina
 - v1.0 (2026-08-18) — initiële under-construction pagina live op astroraf.be
 

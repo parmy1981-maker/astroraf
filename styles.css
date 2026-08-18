@@ -1,0 +1,332 @@
+:root {
+  --bg-1: #05060f;
+  --bg-2: #0b0f2a;
+  --bg-3: #0a0c1e;
+  --star: #ffffff;
+  --accent: #a9c4ff;
+  --text: #eef1ff;
+  --text-dim: #9aa3c7;
+  --header-bg: rgba(5, 6, 15, 0.6);
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-1);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem clamp(1.25rem, 4vw, 3rem);
+  background: var(--header-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  background: linear-gradient(180deg, #ffffff, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.main-nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+
+.main-nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.main-nav a:hover { color: var(--text); }
+
+.main-nav a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 6rem 1.5rem 2rem;
+  background: radial-gradient(ellipse at 50% 20%, var(--bg-2), var(--bg-1) 70%);
+}
+
+.sky { position: absolute; inset: 0; z-index: 0; }
+
+.stars, .stars2, .stars3 {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  animation: drift 200s linear infinite;
+}
+
+.stars {
+  background-image: radial-gradient(1.5px 1.5px at 20px 30px, var(--star), transparent),
+    radial-gradient(1px 1px at 90px 80px, var(--star), transparent),
+    radial-gradient(1.5px 1.5px at 150px 160px, var(--star), transparent),
+    radial-gradient(1px 1px at 220px 50px, var(--star), transparent),
+    radial-gradient(1px 1px at 60px 190px, var(--star), transparent);
+  background-size: 260px 260px;
+  opacity: 0.9;
+}
+
+.stars2 {
+  background-image: radial-gradient(1px 1px at 40px 60px, var(--star), transparent),
+    radial-gradient(1px 1px at 130px 20px, var(--star), transparent),
+    radial-gradient(1px 1px at 200px 140px, var(--star), transparent);
+  background-size: 340px 340px;
+  opacity: 0.5;
+  animation-duration: 300s;
+  animation-direction: reverse;
+}
+
+.stars3 {
+  background-image: radial-gradient(2px 2px at 80px 100px, var(--accent), transparent),
+    radial-gradient(1.5px 1.5px at 240px 40px, var(--accent), transparent),
+    radial-gradient(1.5px 1.5px at 170px 220px, var(--accent), transparent);
+  background-size: 400px 400px;
+  opacity: 0.6;
+  animation-duration: 260s;
+}
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
+.planet-slot {
+  position: absolute;
+  bottom: -18vw;
+  right: -10vw;
+  width: 45vw;
+  height: 45vw;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.planet-backdrop {
+  background: var(--bg-1);
+}
+
+.planet {
+  overflow: hidden;
+  mask-image: radial-gradient(circle, black 15%, transparent 88%);
+  -webkit-mask-image: radial-gradient(circle, black 15%, transparent 88%);
+}
+
+.planet img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  transform: scale(1.15);
+  transform-origin: 50% 42%;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.hero-title {
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0;
+  background: linear-gradient(180deg, #ffffff, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-tagline {
+  margin-top: 0.75rem;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid rgba(169, 196, 255, 0.35);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(238, 241, 255, 0.4);
+  border-radius: 12px;
+}
+
+.scroll-cue::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  margin-left: -2px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: scrollcue 1.6s ease-in-out infinite;
+}
+
+@keyframes scrollcue {
+  0% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+
+/* ---------- Generic sections ---------- */
+.section {
+  padding: 5rem clamp(1.25rem, 6vw, 4rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-alt { background: var(--bg-3); }
+
+.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  margin: 0 0 1.5rem;
+  color: var(--text);
+}
+
+.section-text {
+  color: var(--text-dim);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  max-width: 65ch;
+}
+
+.placeholder-note {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+/* ---------- Photo grid ---------- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.photo-placeholder {
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: radial-gradient(circle at 30% 30%, #1c2452, #05060f 75%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+}
+
+.photo-placeholder svg { width: 28px; height: 28px; margin-bottom: 0.5rem; opacity: 0.6; }
+
+.photo-placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+  background: var(--header-bg);
+  border-top: 1px solid var(--border);
+}
+
+.footer-copy {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+.socials { display: flex; gap: 1rem; }
+
+.socials a {
+  color: var(--text-dim);
+  transition: color 0.2s ease;
+}
+
+.socials a:hover { color: var(--accent); }
+
+.socials svg { width: 20px; height: 20px; }
+
+/* ---------- Simple page (Foto's / Shop stubs) ---------- */
+.stub-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 1.5rem 4rem;
+  background: radial-gradient(ellipse at 50% 20%, var(--bg-2), var(--bg-1) 70%);
+}
