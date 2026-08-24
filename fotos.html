@@ -6,6 +6,7 @@
 <title>AstroRaf.be — Foto's</title>
 <link rel="stylesheet" href="styles.css">
 <script src="i18n.js" defer></script>
+<script src="gallery.js" defer></script>
 </head>
 <body>
 
@@ -24,10 +25,41 @@
     </div>
   </header>
 
-  <section class="stub-page">
+  <section class="gallery-page">
     <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3rem);" data-i18n="stub_photos_title">Foto's</h1>
-    <p class="section-text" data-i18n="stub_photos_text">Binnenkort vind je hier de fotogalerij.</p>
+
+    <div class="album-grid" id="albumView">
+      <button class="album-card" type="button" data-open-album="zonsverduistering">
+        <span class="album-cover">
+          <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
+        </span>
+        <span class="album-name" data-i18n="album_zonsverduistering">Zonsverduistering</span>
+      </button>
+    </div>
+
+    <div class="album-detail" data-album-detail="zonsverduistering" hidden>
+      <button class="back-link" type="button" data-close-album>
+        &larr; <span data-i18n="back_to_albums">Terug naar albums</span>
+      </button>
+      <h2 class="section-title" data-i18n="album_zonsverduistering">Zonsverduistering</h2>
+      <div class="photo-grid">
+        <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Eclips_Start.jpg">
+          <img src="foto's/Eclips_Start.jpg" alt="Start van de zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_start">
+        </button>
+        <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Eclips_Corona.jpg">
+          <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
+        </button>
+        <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Eclips_Einde.jpg">
+          <img src="foto's/Eclips_Einde.jpg" alt="Einde van de zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_einde">
+        </button>
+      </div>
+    </div>
   </section>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
 
   <footer class="site-footer">
     <span class="footer-copy">&copy; 2026 AstroRaf.be &middot; v1.2.1</span>

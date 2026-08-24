@@ -21,6 +21,8 @@ const translations = {
     alt_gallery_start: `Start van de zonsverduistering, astrofotografie door AstroRaf`,
     alt_gallery_corona: `Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf`,
     alt_gallery_einde: `Einde van de zonsverduistering, astrofotografie door AstroRaf`,
+    album_zonsverduistering: `Zonsverduistering`,
+    back_to_albums: `Terug naar albums`,
   },
   en: {
     nav_home: `Home`,
@@ -44,6 +46,8 @@ const translations = {
     alt_gallery_start: `Start of the solar eclipse, astrophotography by AstroRaf`,
     alt_gallery_corona: `Corona during the total solar eclipse, astrophotography by AstroRaf`,
     alt_gallery_einde: `End of the solar eclipse, astrophotography by AstroRaf`,
+    album_zonsverduistering: `Solar eclipse`,
+    back_to_albums: `Back to albums`,
   },
   fr: {
     nav_home: `Accueil`,
@@ -67,6 +71,8 @@ const translations = {
     alt_gallery_start: `Début de l'éclipse solaire, astrophotographie par AstroRaf`,
     alt_gallery_corona: `Couronne solaire pendant l'éclipse totale, astrophotographie par AstroRaf`,
     alt_gallery_einde: `Fin de l'éclipse solaire, astrophotographie par AstroRaf`,
+    album_zonsverduistering: `Éclipse solaire`,
+    back_to_albums: `Retour aux albums`,
   },
   de: {
     nav_home: `Startseite`,
@@ -90,6 +96,8 @@ const translations = {
     alt_gallery_start: `Beginn der Sonnenfinsternis, Astrofotografie von AstroRaf`,
     alt_gallery_corona: `Korona während der totalen Sonnenfinsternis, Astrofotografie von AstroRaf`,
     alt_gallery_einde: `Ende der Sonnenfinsternis, Astrofotografie von AstroRaf`,
+    album_zonsverduistering: `Sonnenfinsternis`,
+    back_to_albums: `Zurück zu den Alben`,
   },
 };
 
