@@ -5,21 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AstroRaf.be — Shop</title>
 <link rel="stylesheet" href="styles.css">
+<script src="i18n.js" defer></script>
 </head>
 <body>
 
   <header class="site-header">
     <a href="index.html" class="logo">AstroRaf</a>
     <nav class="main-nav">
-      <a href="index.html">Home</a>
-      <a href="fotos.html">Foto's</a>
-      <a href="shop.html" class="active">Shop</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="fotos.html" data-i18n="nav_photos">Foto's</a>
+      <a href="shop.html" class="active" data-i18n="nav_shop">Shop</a>
     </nav>
+    <div class="lang-switch">
+      <button type="button" data-lang="nl">NL</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="de">DE</button>
+    </div>
   </header>
 
   <section class="stub-page">
-    <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3rem);">Shop</h1>
-    <p class="section-text">Binnenkort vind je hier de shop.</p>
+    <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3rem);" data-i18n="stub_shop_title">Shop</h1>
+    <p class="section-text" data-i18n="stub_shop_text">Binnenkort vind je hier de shop.</p>
   </section>
 
   <footer class="site-footer">

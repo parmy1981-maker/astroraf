@@ -5,16 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AstroRaf.be — Home</title>
 <link rel="stylesheet" href="styles.css">
+<script src="i18n.js" defer></script>
 </head>
 <body>
 
   <header class="site-header">
     <a href="index.html" class="logo">AstroRaf</a>
     <nav class="main-nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="fotos.html">Foto's</a>
-      <a href="shop.html">Shop</a>
+      <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+      <a href="fotos.html" data-i18n="nav_photos">Foto's</a>
+      <a href="shop.html" data-i18n="nav_shop">Shop</a>
     </nav>
+    <div class="lang-switch">
+      <button type="button" data-lang="nl">NL</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="de">DE</button>
+    </div>
   </header>
 
   <section class="hero">
@@ -24,30 +31,30 @@
       <div class="stars3"></div>
       <div class="planet-slot planet-backdrop"></div>
       <div class="planet-slot planet">
-        <img src="foto's/Eclips_Corona.jpg" alt="Totale zonsverduistering, astrofotografie door AstroRaf">
+        <img src="foto's/Eclips_Corona.jpg" alt="Totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_hero_corona">
       </div>
     </div>
     <div class="hero-content">
       <h1 class="hero-title">AstroRaf</h1>
-      <p class="hero-tagline">De sterrenhemel is er speciaal voor jou.</p>
+      <p class="hero-tagline" data-i18n="hero_tagline">De sterrenhemel is er speciaal voor jou.</p>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">Het verhaal van AstroRaf</h2>
-    <p class="section-text">
+    <h2 class="section-title" data-i18n="story_title">Het verhaal van AstroRaf</h2>
+    <p class="section-text" data-i18n-html="story_p1">
       Het verhaal begon 3 jaar geleden, toen ik voor het eerst in contact kwam met Astrolab IRIS.
       Ik was nog heel jong, maar toch werd ik er meteen in meegenomen. In de jaren die volgden,
       leerde ik van alles bij over astronomie: van raketten tot fotografie. Die astrofotografie
       doe ik nog niet zo lang, maar na zo'n drie maanden in die groep voelde het al aan als één
       hechte groep.
     </p>
-    <p class="section-text">
+    <p class="section-text" data-i18n-html="story_p2">
       Op 29 maart 2025 was er een zonsverduistering in België. Ik zag het en ik was verliefd.
       Ik was bij Astrolab, waar de zon en de maan geprojecteerd werden op een wit doek. Toen wist
       ik het: ik keek naar het kaartje en zag 2 augustus 2026 staan.
     </p>
-    <p class="section-text">
+    <p class="section-text" data-i18n-html="story_p3">
       Een paar weken later hoorde ik dat veel mensen van Astrolab naar Spanje zouden gaan. Ik
       dacht: als iedereen dat doet om de volledige zonsverduistering te zien, dan zie ik dat ook
       wel zitten. Mijn moeder overtuigen was natuurlijk niet moeilijk &#9829;. Maar mijn vader
@@ -56,7 +63,7 @@
       &ldquo;de campinggroep&rdquo;, stuk voor stuk fantastische mensen. Ze zijn allemaal van
       België naar Spanje gereden, voor mij &#9829;&#9829;&#9829;.
     </p>
-    <p class="section-text">
+    <p class="section-text" data-i18n-html="story_p4">
       Die dagen daar heb ik afgezien &mdash; het was er veel te warm &mdash; maar de energie zat
       er wel. We hebben één dag voorbereid op de zonsverduistering, en op de dag zelf stonden we
       er al zes uur op voorhand. Maar het was het waard: een prachtige ervaring, met telescoop en
@@ -64,11 +71,11 @@
       mensen leren kennen, stuk voor stuk erg geïnteresseerd &mdash; en zeker de fysicus. Iedereen
       was zo lief...
     </p>
-    <p class="section-text">
+    <p class="section-text" data-i18n-html="story_p5">
       Daarna gingen we weg van de camping, maar voor we vertrokken, zei mijn meter: &ldquo;Een
       naam voor jou zou misschien AstroRaf kunnen zijn.&rdquo; En zo.
     </p>
-    <p class="section-text">
+    <p class="section-text" data-i18n-html="story_p6">
       Nu wil ik zeker iedereen bedanken: mijn coach, iedereen van Astrolab IRIS, de
       astrofotografie, en zeker de campinggroep (het is soms lastig op een camping, maar jullie
       blijven fantastisch). En zeker ook niet te vergeten: de mensen die ik daar heb leren kennen,
@@ -77,19 +84,19 @@
   </section>
 
   <section class="section section-alt">
-    <h2 class="section-title">Een glimp van de sterrenhemel</h2>
+    <h2 class="section-title" data-i18n="gallery_title">Een glimp van de sterrenhemel</h2>
     <div class="photo-grid">
       <div class="photo-placeholder">
-        <img src="foto's/Eclips_Start.jpg" alt="Start van de zonsverduistering, astrofotografie door AstroRaf">
+        <img src="foto's/Eclips_Start.jpg" alt="Start van de zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_start">
       </div>
       <div class="photo-placeholder">
-        <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf">
+        <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
       </div>
       <div class="photo-placeholder">
-        <img src="foto's/Eclips_Einde.jpg" alt="Einde van de zonsverduistering, astrofotografie door AstroRaf">
+        <img src="foto's/Eclips_Einde.jpg" alt="Einde van de zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_einde">
       </div>
     </div>
-    <a href="fotos.html" class="cta-link">Bekijk alle foto's &rarr;</a>
+    <a href="fotos.html" class="cta-link" data-i18n-html="gallery_cta">Bekijk alle foto's &rarr;</a>
   </section>
 
   <footer class="site-footer">

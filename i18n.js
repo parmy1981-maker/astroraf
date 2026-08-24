@@ -1,0 +1,128 @@
+const translations = {
+  nl: {
+    nav_home: `Home`,
+    nav_photos: `Foto's`,
+    nav_shop: `Shop`,
+    hero_tagline: `De sterrenhemel is er speciaal voor jou.`,
+    story_title: `Het verhaal van AstroRaf`,
+    story_p1: `Het verhaal begon 3 jaar geleden, toen ik voor het eerst in contact kwam met Astrolab IRIS. Ik was nog heel jong, maar toch werd ik er meteen in meegenomen. In de jaren die volgden, leerde ik van alles bij over astronomie: van raketten tot fotografie. Die astrofotografie doe ik nog niet zo lang, maar na zo'n drie maanden in die groep voelde het al aan als één hechte groep.`,
+    story_p2: `Op 29 maart 2025 was er een zonsverduistering in België. Ik zag het en ik was verliefd. Ik was bij Astrolab, waar de zon en de maan geprojecteerd werden op een wit doek. Toen wist ik het: ik keek naar het kaartje en zag 2 augustus 2026 staan.`,
+    story_p3: `Een paar weken later hoorde ik dat veel mensen van Astrolab naar Spanje zouden gaan. Ik dacht: als iedereen dat doet om de volledige zonsverduistering te zien, dan zie ik dat ook wel zitten. Mijn moeder overtuigen was natuurlijk niet moeilijk &#9829;. Maar mijn vader heeft soms gezondheidsproblemen, en zeker op zo'n afstand twijfelde hij... Uiteindelijk is het toch gelukt om hem te overtuigen &mdash; ook omdat we met een hele groep zouden gaan: &ldquo;de campinggroep&rdquo;, stuk voor stuk fantastische mensen. Ze zijn allemaal van België naar Spanje gereden, voor mij &#9829;&#9829;&#9829;.`,
+    story_p4: `Die dagen daar heb ik afgezien &mdash; het was er veel te warm &mdash; maar de energie zat er wel. We hebben één dag voorbereid op de zonsverduistering, en op de dag zelf stonden we er al zes uur op voorhand. Maar het was het waard: een prachtige ervaring, met telescoop en al. Een van de beste ervaringen ooit, misschien zelfs de beste. Ik heb daar fantastische mensen leren kennen, stuk voor stuk erg geïnteresseerd &mdash; en zeker de fysicus. Iedereen was zo lief...`,
+    story_p5: `Daarna gingen we weg van de camping, maar voor we vertrokken, zei mijn meter: &ldquo;Een naam voor jou zou misschien AstroRaf kunnen zijn.&rdquo; En zo.`,
+    story_p6: `Nu wil ik zeker iedereen bedanken: mijn coach, iedereen van Astrolab IRIS, de astrofotografie, en zeker de campinggroep (het is soms lastig op een camping, maar jullie blijven fantastisch). En zeker ook niet te vergeten: de mensen die ik daar heb leren kennen, en ook jullie die dit lezen ;)`,
+    gallery_title: `Een glimp van de sterrenhemel`,
+    gallery_cta: `Bekijk alle foto's &rarr;`,
+    stub_photos_title: `Foto's`,
+    stub_photos_text: `Binnenkort vind je hier de fotogalerij.`,
+    stub_shop_title: `Shop`,
+    stub_shop_text: `Binnenkort vind je hier de shop.`,
+    alt_hero_corona: `Totale zonsverduistering, astrofotografie door AstroRaf`,
+    alt_gallery_start: `Start van de zonsverduistering, astrofotografie door AstroRaf`,
+    alt_gallery_corona: `Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf`,
+    alt_gallery_einde: `Einde van de zonsverduistering, astrofotografie door AstroRaf`,
+  },
+  en: {
+    nav_home: `Home`,
+    nav_photos: `Photos`,
+    nav_shop: `Shop`,
+    hero_tagline: `The night sky is here just for you.`,
+    story_title: `The story of AstroRaf`,
+    story_p1: `The story began 3 years ago, when I first came into contact with Astrolab IRIS. I was still very young, but I was drawn straight into it. Over the years that followed, I learned all kinds of things about astronomy: from rockets to photography. I haven't been doing astrophotography for very long, but after about three months in that group, it already felt like one close-knit community.`,
+    story_p2: `On March 29, 2025, there was a solar eclipse in Belgium. I saw it, and I fell in love. I was at Astrolab, where the sun and moon were projected onto a white screen. That's when I knew: I looked at the little card and saw August 2, 2026.`,
+    story_p3: `A few weeks later I heard that a lot of people from Astrolab were going to Spain. I thought: if everyone's doing that to see the total solar eclipse, then I'm in too. Convincing my mother was of course not hard &#9829;. But my father sometimes has health issues, and especially over such a distance he had his doubts... In the end we still managed to convince him &mdash; partly because we'd be going with a whole group: &ldquo;the camping group&rdquo;, every one of them fantastic people. They all drove from Belgium to Spain for me &#9829;&#9829;&#9829;.`,
+    story_p4: `Those days out there were tough &mdash; it was way too hot &mdash; but the energy was definitely there. We spent one day preparing for the eclipse, and on the day itself we were already there six hours in advance. But it was worth it: a beautiful experience, telescope and all. One of the best experiences ever, maybe even the best. I met fantastic people there, every one of them so interested &mdash; and especially the physicist. Everyone was so kind...`,
+    story_p5: `Afterwards we left the campsite, but before we set off, my godmother said: &ldquo;A name for you could maybe be AstroRaf.&rdquo; And that's how it happened.`,
+    story_p6: `Now I really want to thank everyone: my coach, everyone from Astrolab IRIS, the astrophotography community, and especially the camping group (it's sometimes tough on a campsite, but you all stay amazing). And definitely not to forget: the people I met there, and also you, reading this ;)`,
+    gallery_title: `A glimpse of the night sky`,
+    gallery_cta: `View all photos &rarr;`,
+    stub_photos_title: `Photos`,
+    stub_photos_text: `The photo gallery will be here soon.`,
+    stub_shop_title: `Shop`,
+    stub_shop_text: `The shop will be here soon.`,
+    alt_hero_corona: `Total solar eclipse, astrophotography by AstroRaf`,
+    alt_gallery_start: `Start of the solar eclipse, astrophotography by AstroRaf`,
+    alt_gallery_corona: `Corona during the total solar eclipse, astrophotography by AstroRaf`,
+    alt_gallery_einde: `End of the solar eclipse, astrophotography by AstroRaf`,
+  },
+  fr: {
+    nav_home: `Accueil`,
+    nav_photos: `Photos`,
+    nav_shop: `Boutique`,
+    hero_tagline: `Le ciel étoilé est là, rien que pour toi.`,
+    story_title: `L'histoire d'AstroRaf`,
+    story_p1: `L'histoire a commencé il y a 3 ans, quand j'ai découvert Astrolab IRIS pour la première fois. J'étais encore très jeune, mais on m'y a tout de suite intégré. Au fil des années suivantes, j'ai appris toutes sortes de choses sur l'astronomie&nbsp;: des fusées à la photographie. Je ne fais de l'astrophotographie que depuis peu, mais après environ trois mois dans ce groupe, cela ressemblait déjà à une véritable petite famille.`,
+    story_p2: `Le 29 mars 2025, il y a eu une éclipse solaire en Belgique. Je l'ai vue, et j'en suis tombé amoureux. J'étais à l'Astrolab, où le soleil et la lune étaient projetés sur un écran blanc. C'est là que j'ai su&nbsp;: j'ai regardé la petite carte et j'ai vu la date du 2 août 2026.`,
+    story_p3: `Quelques semaines plus tard, j'ai appris que beaucoup de gens de l'Astrolab allaient partir en Espagne. Je me suis dit&nbsp;: si tout le monde fait ça pour voir l'éclipse totale, alors moi aussi, ça me tente. Convaincre ma mère n'a bien sûr pas été difficile &#9829;. Mais mon père a parfois des soucis de santé, et surtout sur une telle distance, il hésitait... Finalement, on a quand même réussi à le convaincre &mdash; aussi parce qu'on partait avec tout un groupe&nbsp;: &laquo;&nbsp;le groupe du camping&nbsp;&raquo;, des gens absolument formidables. Ils sont tous partis de Belgique jusqu'en Espagne pour moi &#9829;&#9829;&#9829;.`,
+    story_p4: `Ces jours-là, j'en ai bavé &mdash; il faisait bien trop chaud là-bas &mdash; mais l'énergie était bien présente. Nous avons préparé l'éclipse pendant une journée, et le jour même, nous étions déjà sur place six heures à l'avance. Mais cela en valait la peine&nbsp;: une expérience magnifique, télescope compris. Une des meilleures expériences de ma vie, peut-être même la meilleure. J'y ai rencontré des gens formidables, tous passionnés &mdash; et surtout le physicien. Tout le monde était tellement gentil...`,
+    story_p5: `Ensuite, nous avons quitté le camping, mais avant de partir, ma marraine a dit&nbsp;: &laquo;&nbsp;Un nom pour toi pourrait peut-être être AstroRaf.&nbsp;&raquo; Et voilà.`,
+    story_p6: `Maintenant, je tiens vraiment à remercier tout le monde&nbsp;: mon coach, tout le monde de l'Astrolab IRIS, l'astrophotographie, et surtout le groupe du camping (ce n'est pas toujours facile sur un camping, mais vous restez formidables). Et surtout, à ne pas oublier&nbsp;: les gens que j'y ai rencontrés, et vous aussi, qui lisez ceci ;)`,
+    gallery_title: `Un aperçu du ciel étoilé`,
+    gallery_cta: `Voir toutes les photos &rarr;`,
+    stub_photos_title: `Photos`,
+    stub_photos_text: `La galerie de photos arrive bientôt.`,
+    stub_shop_title: `Boutique`,
+    stub_shop_text: `La boutique arrive bientôt.`,
+    alt_hero_corona: `Éclipse solaire totale, astrophotographie par AstroRaf`,
+    alt_gallery_start: `Début de l'éclipse solaire, astrophotographie par AstroRaf`,
+    alt_gallery_corona: `Couronne solaire pendant l'éclipse totale, astrophotographie par AstroRaf`,
+    alt_gallery_einde: `Fin de l'éclipse solaire, astrophotographie par AstroRaf`,
+  },
+  de: {
+    nav_home: `Startseite`,
+    nav_photos: `Fotos`,
+    nav_shop: `Shop`,
+    hero_tagline: `Der Sternenhimmel ist ganz besonders für dich da.`,
+    story_title: `Die Geschichte von AstroRaf`,
+    story_p1: `Die Geschichte begann vor 3 Jahren, als ich zum ersten Mal mit Astrolab IRIS in Kontakt kam. Ich war noch sehr jung, wurde aber sofort mit hineingenommen. In den folgenden Jahren habe ich alles Mögliche über Astronomie gelernt: von Raketen bis zur Fotografie. Mit der Astrofotografie beschäftige ich mich noch nicht so lange, aber nach etwa drei Monaten in dieser Gruppe fühlte es sich schon wie eine eingeschworene Gemeinschaft an.`,
+    story_p2: `Am 29. März 2025 gab es eine Sonnenfinsternis in Belgien. Ich sah sie, und ich war verliebt. Ich war im Astrolab, wo Sonne und Mond auf eine weiße Leinwand projiziert wurden. Da wusste ich es: Ich schaute auf die Karte und sah den 2. August 2026.`,
+    story_p3: `Ein paar Wochen später hörte ich, dass viele Leute vom Astrolab nach Spanien fahren würden. Ich dachte mir: Wenn das alle machen, um die totale Sonnenfinsternis zu sehen, dann bin ich auch dabei. Meine Mutter zu überzeugen war natürlich kein Problem &#9829;. Aber mein Vater hat manchmal gesundheitliche Probleme, und gerade bei so einer Entfernung zweifelte er... Am Ende ist es trotzdem gelungen, ihn zu überzeugen &mdash; auch weil wir mit einer ganzen Gruppe fahren würden: &bdquo;die Camping-Gruppe&ldquo;, durch die Bank fantastische Menschen. Sie sind alle von Belgien bis nach Spanien gefahren, für mich &#9829;&#9829;&#9829;.`,
+    story_p4: `Diese Tage dort waren hart &mdash; es war viel zu heiß &mdash; aber die Energie war trotzdem da. Wir haben einen Tag lang die Sonnenfinsternis vorbereitet, und am Tag selbst standen wir schon sechs Stunden vorher bereit. Aber es war es wert: eine wunderschöne Erfahrung, mit Teleskop und allem. Eine der besten Erfahrungen überhaupt, vielleicht sogar die beste. Ich habe dort fantastische Menschen kennengelernt, allesamt sehr interessiert &mdash; und ganz besonders den Physiker. Alle waren so lieb...`,
+    story_p5: `Danach verließen wir den Campingplatz, aber bevor wir losfuhren, sagte meine Patin: &bdquo;Ein Name für dich könnte vielleicht AstroRaf sein.&ldquo; Und so kam es.`,
+    story_p6: `Jetzt möchte ich unbedingt allen danken: meinem Coach, allen von Astrolab IRIS, der Astrofotografie-Community, und ganz besonders der Camping-Gruppe (es ist manchmal nicht einfach auf einem Campingplatz, aber ihr bleibt fantastisch). Und auf keinen Fall zu vergessen: die Menschen, die ich dort kennengelernt habe, und auch euch, die ihr das hier lest ;)`,
+    gallery_title: `Ein Blick in den Sternenhimmel`,
+    gallery_cta: `Alle Fotos ansehen &rarr;`,
+    stub_photos_title: `Fotos`,
+    stub_photos_text: `Die Fotogalerie folgt hier bald.`,
+    stub_shop_title: `Shop`,
+    stub_shop_text: `Der Shop folgt hier bald.`,
+    alt_hero_corona: `Totale Sonnenfinsternis, Astrofotografie von AstroRaf`,
+    alt_gallery_start: `Beginn der Sonnenfinsternis, Astrofotografie von AstroRaf`,
+    alt_gallery_corona: `Korona während der totalen Sonnenfinsternis, Astrofotografie von AstroRaf`,
+    alt_gallery_einde: `Ende der Sonnenfinsternis, Astrofotografie von AstroRaf`,
+  },
+};
+
+function applyLanguage(lang) {
+  const dict = translations[lang] || translations.nl;
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-html');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+
+  document.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-alt');
+    if (dict[key] !== undefined) el.setAttribute('alt', dict[key]);
+  });
+
+  document.querySelectorAll('.lang-switch button').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  localStorage.setItem('astroraf-lang', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('astroraf-lang') || 'nl';
+  applyLanguage(saved);
+  document.querySelectorAll('.lang-switch button').forEach((btn) => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+  });
+});
