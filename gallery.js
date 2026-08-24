@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   const albumView = document.getElementById('albumView');
   const albumDetails = document.querySelectorAll('[data-album-detail]');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  let openAlbum = null;
+  let openLightbox = null;
 
   if (albumView) {
-    const openAlbum = (id) => {
+    openAlbum = (id) => {
       albumView.hidden = true;
       albumDetails.forEach((section) => {
         section.hidden = section.getAttribute('data-album-detail') !== id;
@@ -21,19 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
         history.replaceState(null, '', window.location.pathname);
       });
     });
-
-    const hashId = window.location.hash.replace('#', '');
-    if (hashId && document.querySelector(`[data-album-detail="${hashId}"]`)) {
-      openAlbum(hashId);
-    }
   }
 
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxClose = document.getElementById('lightboxClose');
-
   if (lightbox && lightboxImg) {
-    const openLightbox = (src, alt) => {
+    openLightbox = (src, alt) => {
       lightboxImg.src = src;
       lightboxImg.alt = alt || '';
       lightbox.hidden = false;
@@ -60,5 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
     });
+  }
+
+  const rawHash = decodeURIComponent(window.location.hash.replace('#', ''));
+  const [hashAlbum, hashPhoto] = rawHash.split(':');
+
+  if (hashAlbum && openAlbum && document.querySelector(`[data-album-detail="${hashAlbum}"]`)) {
+    openAlbum(hashAlbum);
+
+    if (hashPhoto && openLightbox) {
+      const targetBtn = document.querySelector(`[data-lightbox-src$="${hashPhoto}"]`);
+      if (targetBtn) {
+        const img = targetBtn.querySelector('img');
+        openLightbox(targetBtn.getAttribute('data-lightbox-src'), img ? img.alt : '');
+      }
+    }
   }
 });

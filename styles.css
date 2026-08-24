@@ -378,7 +378,7 @@ img { max-width: 100%; display: block; }
 /* ---------- Photo gallery (albums) ---------- */
 .gallery-page {
   min-height: 100vh;
-  padding: 8rem clamp(1.25rem, 6vw, 4rem) 4rem;
+  padding: 6.5rem clamp(1.25rem, 6vw, 4rem) 4rem;
   max-width: 1100px;
   margin: 0 auto;
   text-align: center;
@@ -387,10 +387,10 @@ img { max-width: 100%; display: block; }
 
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 200px));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
   justify-content: center;
   gap: 1.5rem;
-  margin-top: 2.5rem;
+  margin-top: 3.5rem;
 }
 
 .album-card {
