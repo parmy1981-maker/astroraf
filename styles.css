@@ -259,7 +259,7 @@ img { max-width: 100%; display: block; }
 }
 
 .photo-placeholder {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: radial-gradient(circle at 30% 30%, #1c2452, #05060f 75%);
