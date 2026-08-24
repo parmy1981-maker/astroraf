@@ -12,6 +12,8 @@
 
 * { box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -385,7 +387,8 @@ img { max-width: 100%; display: block; }
 
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 200px));
+  justify-content: center;
   gap: 1.5rem;
   margin-top: 2.5rem;
 }

@@ -3,22 +3,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const albumDetails = document.querySelectorAll('[data-album-detail]');
 
   if (albumView) {
-    document.querySelectorAll('[data-open-album]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-open-album');
-        albumView.hidden = true;
-        albumDetails.forEach((section) => {
-          section.hidden = section.getAttribute('data-album-detail') !== id;
-        });
+    const openAlbum = (id) => {
+      albumView.hidden = true;
+      albumDetails.forEach((section) => {
+        section.hidden = section.getAttribute('data-album-detail') !== id;
       });
+    };
+
+    document.querySelectorAll('[data-open-album]').forEach((btn) => {
+      btn.addEventListener('click', () => openAlbum(btn.getAttribute('data-open-album')));
     });
 
     document.querySelectorAll('[data-close-album]').forEach((btn) => {
       btn.addEventListener('click', () => {
         albumDetails.forEach((section) => { section.hidden = true; });
         albumView.hidden = false;
+        history.replaceState(null, '', window.location.pathname);
       });
     });
+
+    const hashId = window.location.hash.replace('#', '');
+    if (hashId && document.querySelector(`[data-album-detail="${hashId}"]`)) {
+      openAlbum(hashId);
+    }
   }
 
   const lightbox = document.getElementById('lightbox');
