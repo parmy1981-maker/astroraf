@@ -1,8 +1,8 @@
 # AstroRaf.be — Voortgang
 
-Laatste update: 2026-08-24 (avond)
+Laatste update: 2026-08-24 (avond, later)
 
-## Status: v1.2.1 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.3 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -33,6 +33,7 @@ Wachten op DNS-propagatie voor **astroraf.com** (records staan al sinds 2026-08-
 - Database/backend (later): Supabase — nog niet opgezet
 
 ## Versiegeschiedenis
+- v1.3 (2026-08-24, lokaal — nog niet live) — Foto's-pagina herbouwd als klikbare albums (`gallery.js`): tegel "Zonsverduistering" opent de 3 eclips-foto's, klik op een foto opent een lightbox (vergroot, sluiten via kruisje/buiten klikken/Escape); bugfix waarbij het `hidden`-attribuut werd overschreven door `display:grid` (globale `[hidden]{display:none!important}`-regel toegevoegd); albumtegels vergroot zodat er net 3 naast elkaar passen; titel "Foto's" hernoemd naar "Albums", hoger geplaatst met meer ruimte tot de albums; foto's op de homepage linken nu naar het juiste album op de Foto's-pagina én openen daar automatisch dezelfde foto vergroot (via URL-hash `#album:bestandsnaam`); albums vertaalbaar via bestaande taalknop
 - v1.2.1 (2026-08-24, lokaal — nog niet live) — echt verhaal van AstroRaf toegevoegd in de verhaal-sectie (spelling/zinsbouw gecorrigeerd, inhoud van gebruiker), bedankingsparagraaf toegevoegd, "Under construction"-badge en scroll-cue-balkje uit de hero verwijderd, hero-tagline aangepast naar "De sterrenhemel is er speciaal voor jou.", echte eclips-foto's (Start/Corona/Einde) in de fotogrid gezet, kaders van de fotogrid aangepast naar 16:9 (echte fotoverhouding), zoom-in hover-animatie op de foto's toegevoegd, taalknop (NL/EN/FR/DE) toegevoegd in de header met volledige vertaling van alle site-tekst (`i18n.js`), keuze wordt onthouden via localStorage
 - v1.2 (2026-08-18, lokaal — nog niet live) — volledige home page opgebouwd: sticky header met logo + menu (Home/Foto's/Shop), grote hero met sterrenhemel + eclips-foto (Eclips_Corona.jpg, cirkelvormig bijgesneden met vervagende rand + backdrop-gat tegen doorschijnende sterren), verhaal-sectie (placeholder tekst), fotogrid (placeholders), footer-balk met social-iconen (placeholder links). Foto's/Shop als "binnenkort"-pagina's.
 - v1.1 (2026-08-18) — versienummer toegevoegd in de footer van de pagina
