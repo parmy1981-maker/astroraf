@@ -383,17 +383,74 @@ img { max-width: 100%; display: block; }
 
 .socials svg { width: 20px; height: 20px; }
 
-/* ---------- Simple page (Shop stub) ---------- */
-.stub-page {
-  min-height: 100vh;
+/* ---------- Shop ---------- */
+.shop-intro { margin: 1rem auto 0; }
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 320px));
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.shop-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.25rem 1.75rem;
+  background: radial-gradient(circle at 30% 20%, rgba(169, 196, 255, 0.08), transparent 60%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 8rem 1.5rem 4rem;
-  background: radial-gradient(ellipse at 50% 20%, var(--bg-2), var(--bg-1) 70%);
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
+
+.shop-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.shop-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.shop-icon svg { width: 28px; height: 28px; }
+
+.shop-card-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.shop-card-text {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.shop-pill {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(169, 196, 255, 0.35);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.shop-note { margin: 3rem auto 0; }
 
 /* ---------- Photo gallery (albums) ---------- */
 .gallery-page {
