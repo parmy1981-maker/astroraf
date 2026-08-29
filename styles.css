@@ -243,10 +243,8 @@ img { max-width: 100%; display: block; }
 }
 
 .checkout-btn {
-  display: block;
-  width: 100%;
   margin-top: 1rem;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 1.6rem;
   border-radius: 999px;
   border: 1px solid var(--accent);
   background: var(--accent);
@@ -258,10 +256,18 @@ img { max-width: 100%; display: block; }
   transition: opacity 0.2s ease;
 }
 
+.cart-panel .checkout-btn,
+.poster-options .checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+}
+
 .checkout-btn:hover { opacity: 0.85; }
 
 .checkout-note {
-  margin: 0.75rem 0 0;
+  margin: 0.75rem auto 0;
+  max-width: 40ch;
   font-size: 0.78rem;
   color: var(--text-dim);
   line-height: 1.5;

@@ -111,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartItems = document.getElementById('cartItems');
   const cartEmpty = document.getElementById('cartEmpty');
   const cartCount = document.getElementById('cartCount');
-  const checkoutBtn = document.getElementById('checkoutBtn');
-  const checkoutNote = document.getElementById('checkoutNote');
+  const checkoutBtns = document.querySelectorAll('.checkout-btn');
+  const checkoutNotes = document.querySelectorAll('.checkout-note');
 
   function currentLang() {
     return localStorage.getItem('astroraf-lang') || 'nl';
@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cartItems.innerHTML = '';
     cartEmpty.hidden = cart.length > 0;
-    if (checkoutBtn) checkoutBtn.hidden = cart.length === 0;
-    if (checkoutNote) checkoutNote.hidden = true;
+    checkoutBtns.forEach((btn) => { btn.hidden = cart.length === 0; });
+    checkoutNotes.forEach((note) => { note.hidden = true; });
 
     cart.forEach((item) => {
       const row = document.createElement('div');
@@ -207,11 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (checkoutBtn && checkoutNote) {
-    checkoutBtn.addEventListener('click', () => {
-      checkoutNote.hidden = false;
+  checkoutBtns.forEach((btn) => {
+    const note = btn.nextElementSibling;
+    if (!note || !note.classList.contains('checkout-note')) return;
+    btn.addEventListener('click', () => {
+      note.hidden = false;
     });
-  }
+  });
 
   if (cartToggle && cartPanel) {
     cartToggle.addEventListener('click', () => {
@@ -222,7 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', (e) => {
-      if (!cartPanel.hidden && !cartPanel.contains(e.target) && !cartToggle.contains(e.target)) {
+      if (cartPanel.hidden) return;
+      const path = e.composedPath ? e.composedPath() : [e.target];
+      const staysOpen = path.includes(cartPanel) || path.includes(cartToggle) ||
+        path.some((el) => el.classList && el.classList.contains('shop-detail'));
+      if (!staysOpen) {
         cartPanel.hidden = true;
         cartToggle.classList.remove('active');
         cartToggle.setAttribute('aria-expanded', 'false');
