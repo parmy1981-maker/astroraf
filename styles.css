@@ -375,6 +375,8 @@ img { max-width: 100%; display: block; }
   color: transparent;
 }
 
+.hero-title-sm { font-size: clamp(2rem, 5vw, 3rem); }
+
 .hero-logo-wrap { margin: 0; }
 
 .hero-logo {

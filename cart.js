@@ -142,25 +142,38 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.forEach((item) => {
       const row = document.createElement('div');
       row.className = 'cart-item';
-      row.innerHTML = `
-        <img src="${item.image}" alt="">
-        <div>
-          <div class="cart-item-material">${materialLabel(item.material)}</div>
-          <div class="cart-item-qty">
-            <button type="button" data-cart-decrease aria-label="-">&minus;</button>
-            <span>${item.qty}</span>
-            <button type="button" data-cart-increase aria-label="+">&plus;</button>
-          </div>
-        </div>
-      `;
 
-      row.querySelector('[data-cart-decrease]').addEventListener('click', () => {
-        changeQty(item.id, -1);
-      });
-      row.querySelector('[data-cart-increase]').addEventListener('click', () => {
-        changeQty(item.id, 1);
-      });
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.alt = '';
 
+      const info = document.createElement('div');
+
+      const materialEl = document.createElement('div');
+      materialEl.className = 'cart-item-material';
+      materialEl.textContent = materialLabel(item.material);
+
+      const qtyRow = document.createElement('div');
+      qtyRow.className = 'cart-item-qty';
+
+      const decreaseBtn = document.createElement('button');
+      decreaseBtn.type = 'button';
+      decreaseBtn.setAttribute('aria-label', '-');
+      decreaseBtn.textContent = '−';
+      decreaseBtn.addEventListener('click', () => changeQty(item.id, -1));
+
+      const qtyLabel = document.createElement('span');
+      qtyLabel.textContent = String(item.qty);
+
+      const increaseBtn = document.createElement('button');
+      increaseBtn.type = 'button';
+      increaseBtn.setAttribute('aria-label', '+');
+      increaseBtn.textContent = '+';
+      increaseBtn.addEventListener('click', () => changeQty(item.id, 1));
+
+      qtyRow.append(decreaseBtn, qtyLabel, increaseBtn);
+      info.append(materialEl, qtyRow);
+      row.append(img, info);
       cartItems.appendChild(row);
     });
   }
