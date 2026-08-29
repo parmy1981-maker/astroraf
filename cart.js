@@ -25,7 +25,7 @@ function positionCartWidget() {
   const header = document.querySelector('.site-header');
   const widget = document.getElementById('cartWidget');
   if (!header || !widget) return;
-  widget.style.top = (header.offsetHeight + 12) + 'px';
+  widget.style.top = header.offsetHeight + 'px';
 }
 
 window.addEventListener('resize', positionCartWidget);
@@ -111,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartItems = document.getElementById('cartItems');
   const cartEmpty = document.getElementById('cartEmpty');
   const cartCount = document.getElementById('cartCount');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const checkoutNote = document.getElementById('checkoutNote');
 
   function currentLang() {
     return localStorage.getItem('astroraf-lang') || 'nl';
@@ -134,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cartItems.innerHTML = '';
     cartEmpty.hidden = cart.length > 0;
+    if (checkoutBtn) checkoutBtn.hidden = cart.length === 0;
+    if (checkoutNote) checkoutNote.hidden = true;
 
     cart.forEach((item) => {
       const row = document.createElement('div');
@@ -200,6 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
         posterAddToCart.classList.remove('is-added');
         posterAddToCart.textContent = originalText;
       }, 1200);
+    });
+  }
+
+  if (checkoutBtn && checkoutNote) {
+    checkoutBtn.addEventListener('click', () => {
+      checkoutNote.hidden = false;
     });
   }
 
