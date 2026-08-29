@@ -1,8 +1,8 @@
-const posterNames = {
-  nl: { start: 'Start', corona: 'Corona', einde: 'Einde' },
-  en: { start: 'Start', corona: 'Corona', einde: 'End' },
-  fr: { start: 'Début', corona: 'Corona', einde: 'Fin' },
-  de: { start: 'Start', corona: 'Corona', einde: 'Ende' },
+const materialNames = {
+  nl: { mat: 'Mat', glans: 'Glans' },
+  en: { mat: 'Matte', glans: 'Glossy' },
+  fr: { mat: 'Mat', glans: 'Brillant' },
+  de: { mat: 'Matt', glans: 'Glänzend' },
 };
 
 const CART_KEY = 'astroraf-cart';
@@ -21,7 +21,19 @@ function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
+function positionCartWidget() {
+  const header = document.querySelector('.site-header');
+  const widget = document.getElementById('cartWidget');
+  if (!header || !widget) return;
+  widget.style.top = (header.offsetHeight + 12) + 'px';
+}
+
+window.addEventListener('resize', positionCartWidget);
+window.addEventListener('load', positionCartWidget);
+
 document.addEventListener('DOMContentLoaded', () => {
+  positionCartWidget();
+
   /* ---------- Shop menu (Posters) ---------- */
   const shopMenu = document.getElementById('shopMenu');
   const shopDetails = document.querySelectorAll('[data-shop-detail]');
@@ -45,21 +57,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- Poster quantity steppers ---------- */
-  document.querySelectorAll('.poster-card').forEach((card) => {
-    const input = card.querySelector('.qty-input');
-    const decrease = card.querySelector('[data-qty-decrease]');
-    const increase = card.querySelector('[data-qty-increase]');
-    if (!input) return;
+  /* ---------- Poster configurator ---------- */
+  const posterThumbs = document.querySelectorAll('.poster-thumb');
+  const posterPreviewImg = document.getElementById('posterPreviewImg');
+  const materialBtns = document.querySelectorAll('.material-btn');
+  const posterQtyInput = document.getElementById('posterQtyInput');
+  const posterQtyDecrease = document.getElementById('posterQtyDecrease');
+  const posterQtyIncrease = document.getElementById('posterQtyIncrease');
+  const posterAddToCart = document.getElementById('posterAddToCart');
 
-    decrease.addEventListener('click', () => {
-      input.value = Math.max(1, (parseInt(input.value, 10) || 1) - 1);
-    });
+  let selectedKey = 'corona';
+  let selectedImage = "foto's/Eclips_Corona.jpg";
+  let selectedMaterial = 'mat';
 
-    increase.addEventListener('click', () => {
-      input.value = (parseInt(input.value, 10) || 1) + 1;
+  posterThumbs.forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      posterThumbs.forEach((t) => t.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+      selectedKey = thumb.getAttribute('data-poster-key');
+      selectedImage = thumb.getAttribute('data-image');
+
+      if (posterPreviewImg) {
+        const thumbImg = thumb.querySelector('img');
+        posterPreviewImg.src = selectedImage;
+        posterPreviewImg.alt = thumbImg ? thumbImg.alt : '';
+      }
     });
   });
+
+  materialBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      materialBtns.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      selectedMaterial = btn.getAttribute('data-material');
+    });
+  });
+
+  if (posterQtyDecrease && posterQtyInput) {
+    posterQtyDecrease.addEventListener('click', () => {
+      posterQtyInput.value = Math.max(1, (parseInt(posterQtyInput.value, 10) || 1) - 1);
+    });
+  }
+
+  if (posterQtyIncrease && posterQtyInput) {
+    posterQtyIncrease.addEventListener('click', () => {
+      posterQtyInput.value = (parseInt(posterQtyInput.value, 10) || 1) + 1;
+    });
+  }
 
   /* ---------- Cart ---------- */
   const cartToggle = document.getElementById('cartToggle');
@@ -72,9 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return localStorage.getItem('astroraf-lang') || 'nl';
   }
 
-  function posterName(key) {
-    const dict = posterNames[currentLang()] || posterNames.nl;
-    return dict[key] || key;
+  function materialLabel(material) {
+    const dict = materialNames[currentLang()] || materialNames.nl;
+    return dict[material] || material;
   }
 
   function renderCart() {
@@ -97,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       row.innerHTML = `
         <img src="${item.image}" alt="">
         <div>
-          <div class="cart-item-name">${posterName(item.key)}</div>
+          <div class="cart-item-material">${materialLabel(item.material)}</div>
           <div class="cart-item-qty">
             <button type="button" data-cart-decrease aria-label="-">&minus;</button>
             <span>${item.qty}</span>
@@ -117,13 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(id, key, image, qty) {
+  function addToCart(id, key, material, image, qty) {
     const cart = loadCart();
     const existing = cart.find((item) => item.id === id);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ id, key, image, qty });
+      cart.push({ id, key, material, image, qty });
     }
     saveCart(cart);
     renderCart();
@@ -139,6 +183,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     saveCart(cart);
     renderCart();
+  }
+
+  if (posterAddToCart) {
+    posterAddToCart.addEventListener('click', () => {
+      const qty = posterQtyInput ? Math.max(1, parseInt(posterQtyInput.value, 10) || 1) : 1;
+
+      addToCart(`poster-${selectedKey}-${selectedMaterial}`, selectedKey, selectedMaterial, selectedImage, qty);
+
+      if (posterQtyInput) posterQtyInput.value = 1;
+
+      const originalText = posterAddToCart.textContent;
+      posterAddToCart.classList.add('is-added');
+      posterAddToCart.textContent = '✓';
+      setTimeout(() => {
+        posterAddToCart.classList.remove('is-added');
+        posterAddToCart.textContent = originalText;
+      }, 1200);
+    });
   }
 
   if (cartToggle && cartPanel) {
@@ -165,28 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  document.querySelectorAll('[data-add-to-cart]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.poster-card');
-      const qtyInput = card ? card.querySelector('.qty-input') : null;
-      const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
-      const key = btn.getAttribute('data-poster-key');
-      const image = btn.getAttribute('data-image');
-
-      addToCart(`poster-${key}`, key, image, qty);
-
-      if (qtyInput) qtyInput.value = 1;
-
-      const originalText = btn.textContent;
-      btn.classList.add('is-added');
-      btn.textContent = '✓';
-      setTimeout(() => {
-        btn.classList.remove('is-added');
-        btn.textContent = originalText;
-      }, 1200);
-    });
-  });
 
   document.addEventListener('astroraf-lang-changed', renderCart);
 

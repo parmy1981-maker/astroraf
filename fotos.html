@@ -21,25 +21,24 @@
     <a href="index.html" class="logo">
       <img src="foto's/Logo_AstroRaf.png" alt="AstroRaf">
     </a>
-    <div class="nav-col">
-      <nav class="main-nav">
-        <a href="index.html" data-i18n="nav_home">Home</a>
-        <a href="fotos.html" class="active" data-i18n="nav_photos">Foto's</a>
-        <a href="shop.html" data-i18n="nav_shop">Shop</a>
-      </nav>
-      <div class="cart-widget">
-        <button type="button" class="cart-toggle" id="cartToggle" aria-label="Winkelmandje" aria-expanded="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
-          <span class="cart-count" id="cartCount" hidden>0</span>
-        </button>
-        <div class="cart-panel" id="cartPanel" hidden>
-          <p class="cart-panel-title" data-i18n="cart_title">Winkelmandje</p>
-          <div class="cart-items" id="cartItems"></div>
-          <p class="cart-empty" id="cartEmpty" data-i18n="cart_empty">Je winkelmandje is leeg.</p>
-        </div>
-      </div>
-    </div>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="fotos.html" class="active" data-i18n="nav_photos">Foto's</a>
+      <a href="shop.html" data-i18n="nav_shop">Shop</a>
+    </nav>
   </header>
+
+  <div class="cart-widget" id="cartWidget">
+    <button type="button" class="cart-toggle" id="cartToggle" aria-label="Winkelmandje" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+      <span class="cart-count" id="cartCount" hidden>0</span>
+    </button>
+    <div class="cart-panel" id="cartPanel" hidden>
+      <p class="cart-panel-title" data-i18n="cart_title">Winkelmandje</p>
+      <div class="cart-items" id="cartItems"></div>
+      <p class="cart-empty" id="cartEmpty" data-i18n="cart_empty">Je winkelmandje is leeg.</p>
+    </div>
+  </div>
 
   <section class="gallery-page">
     <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3rem);" data-i18n="albums_title">Albums</h1>
