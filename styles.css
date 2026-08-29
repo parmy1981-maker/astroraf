@@ -31,11 +31,10 @@ img { max-width: 100%; display: block; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 0.6rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.6rem 1rem;
   padding: 1rem clamp(1.25rem, 4vw, 3rem);
   background: var(--header-bg);
   backdrop-filter: blur(14px);
@@ -46,6 +45,7 @@ img { max-width: 100%; display: block; }
 .lang-switch {
   display: flex;
   gap: 0.35rem;
+  justify-self: start;
 }
 
 .lang-switch button {
@@ -73,17 +73,17 @@ img { max-width: 100%; display: block; }
 }
 
 .logo {
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  background: linear-gradient(180deg, #ffffff, var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  justify-self: center;
+  display: flex;
+  align-items: center;
 }
 
-.main-nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+.logo img {
+  height: clamp(2.2rem, 6vw, 2.8rem);
+  width: auto;
+}
+
+.main-nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); justify-self: end; }
 
 .main-nav a {
   color: var(--text-dim);
@@ -101,6 +101,16 @@ img { max-width: 100%; display: block; }
 .main-nav a.active {
   color: var(--accent);
   border-bottom-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .lang-switch, .main-nav { justify-self: center; }
 }
 
 /* ---------- Hero ---------- */
@@ -202,6 +212,16 @@ img { max-width: 100%; display: block; }
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.hero-logo-wrap { margin: 0; }
+
+.hero-logo {
+  display: block;
+  width: clamp(15rem, 42vw, 26rem);
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 24px rgba(169, 196, 255, 0.35));
 }
 
 .hero-tagline {
