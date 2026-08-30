@@ -61,6 +61,8 @@ const formatDimensions = {
 
 const PREVIEW_MAX_WIDTH = 340;
 const PREVIEW_MAX_HEIGHT = 440;
+const PREVIEW_MIN_WIDTH = 240;
+const PREVIEW_MIN_HEIGHT = 320;
 
 const ORDER_EMAIL = 'info@astroraf.be';
 
@@ -139,8 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const dims = formatDimensions[format];
       if (dims) {
         const scale = Math.min(PREVIEW_MAX_WIDTH / dims[0], PREVIEW_MAX_HEIGHT / dims[1]);
-        posterPreview.style.width = Math.round(dims[0] * scale) + 'px';
-        posterPreview.style.height = Math.round(dims[1] * scale) + 'px';
+        const w = Math.min(PREVIEW_MAX_WIDTH, Math.max(PREVIEW_MIN_WIDTH, Math.round(dims[0] * scale)));
+        const h = Math.min(PREVIEW_MAX_HEIGHT, Math.max(PREVIEW_MIN_HEIGHT, Math.round(dims[1] * scale)));
+        posterPreview.style.width = w + 'px';
+        posterPreview.style.height = h + 'px';
       }
     }
   }

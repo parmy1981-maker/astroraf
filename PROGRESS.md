@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-30
 
-## Status: v1.4.8 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.4.9 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -44,6 +44,7 @@ Gebruiker vroeg om de site zo goed mogelijk te beveiligen tegen hacken. Context:
 - **Belangrijk voor later:** zodra er een echt backend bijkomt (Supabase, login, bestelformulier, betalingen), moet er een nieuwe beveiligingsronde gebeuren specifiek voor die onderdelen (input-validatie, Row Level Security, rate limiting, etc.) — dat kan nu nog niet, want die onderdelen bestaan nog niet.
 
 ## Versiegeschiedenis
+- v1.4.9 (2026-08-30, lokaal — nog niet live) — Minimum-breedte/hoogte (240×320px) toegevoegd naast de bestaande maximum (340×440px), zodat extreem smalle formaten zoals A2 lang niet meer tot een smal streepje krimpen (was 156px breed, nu minstens 240px). De overgangsanimatie tussen formaten oogt hierdoor een stuk rustiger, geen foto is meer te klein of te groot.
 - v1.4.8 (2026-08-30, lokaal — nog niet live) — Terug bijgestuurd na feedback: v1.4.7's echte-schaal-aanpak maakte de foto bij kleine formaten (A4, A3...) veel te klein. Nu vult elk formaat opnieuw zoveel mogelijk een (iets kleiner dan voorheen) vak van 340×440px — dus A4 is weer ongeveer even groot als Abri, elk in zijn eigen echte verhouding (A2 lang toont dus wel terecht een smalle lange foto).
 - v1.4.7 (2026-08-30, lokaal — nog niet live) — Correctie op v1.4.6: de voorbeeldfoto wordt nu écht groter/kleiner op schaal, niet enkel van vorm veranderd. Er wordt één vaste schaal (px per cm) berekend op basis van het grootste formaat (Abri), en diezelfde schaal wordt op elk formaat toegepast — dus A4 toont een duidelijk kleine voorbeeldfoto (~58×81px) en Abri een grote (325×480px), in verhouding tot elkaar zoals in het echt.
 - v1.4.6 (2026-08-30, lokaal — nog niet live) — De voorbeeldfoto in de poster-configurator verandert nu mee van vorm/verhouding op basis van het gekozen formaat (bv. "A2 lang" toont een lange smalle voorbeeldfoto, "A4" een normale rechthoek), zodat je een idee krijgt hoe de poster er in het echt uitziet. Container heeft een maximale breedte/hoogte zodat extreme formaten niet uit de pagina groeien.
