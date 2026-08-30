@@ -43,6 +43,22 @@ function formatLabelFull(format) {
   return name ? `${name} (${size})` : size;
 }
 
+const formatDimensions = {
+  a4: [21, 29.7],
+  a3: [29.7, 42],
+  '40x60': [40, 60],
+  a2: [42, 59.4],
+  'a2-lang': [29.7, 84],
+  b2: [50, 70],
+  '60x80': [60, 80],
+  a1: [59.4, 84],
+  '60x90': [60, 90],
+  b1: [70, 100],
+  a0: [84, 118.8],
+  b0: [100, 140],
+  abri: [118.5, 175],
+};
+
 const ORDER_EMAIL = 'info@astroraf.be';
 
 const CART_KEY = 'astroraf-cart';
@@ -99,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Poster configurator ---------- */
   const posterThumbs = document.querySelectorAll('.poster-thumb');
+  const posterPreview = document.getElementById('posterPreview');
   const posterPreviewImg = document.getElementById('posterPreviewImg');
   const materialBtns = document.querySelectorAll('.material-btn');
   const posterFormat = document.getElementById('posterFormat');
@@ -113,10 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedMaterial = 'mat';
   let selectedFormat = posterFormat ? posterFormat.value : 'a3';
 
+  function applyPreviewFormat(format) {
+    if (posterFormatDims) posterFormatDims.textContent = formatSizes[format] || '';
+    if (posterPreview) {
+      const dims = formatDimensions[format];
+      if (dims) posterPreview.style.aspectRatio = `${dims[0]} / ${dims[1]}`;
+    }
+  }
+
+  applyPreviewFormat(selectedFormat);
+
   if (posterFormat) {
     posterFormat.addEventListener('change', () => {
       selectedFormat = posterFormat.value;
-      if (posterFormatDims) posterFormatDims.textContent = formatSizes[selectedFormat] || '';
+      applyPreviewFormat(selectedFormat);
     });
   }
 
