@@ -59,6 +59,13 @@ const formatDimensions = {
   abri: [118.5, 175],
 };
 
+const PREVIEW_MAX_WIDTH = 380;
+const PREVIEW_MAX_HEIGHT = 480;
+const PREVIEW_SCALE = Math.min(
+  PREVIEW_MAX_WIDTH / formatDimensions.abri[0],
+  PREVIEW_MAX_HEIGHT / formatDimensions.abri[1]
+);
+
 const ORDER_EMAIL = 'info@astroraf.be';
 
 const CART_KEY = 'astroraf-cart';
@@ -134,7 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (posterFormatDims) posterFormatDims.textContent = formatSizes[format] || '';
     if (posterPreview) {
       const dims = formatDimensions[format];
-      if (dims) posterPreview.style.aspectRatio = `${dims[0]} / ${dims[1]}`;
+      if (dims) {
+        posterPreview.style.width = Math.round(dims[0] * PREVIEW_SCALE) + 'px';
+        posterPreview.style.height = Math.round(dims[1] * PREVIEW_SCALE) + 'px';
+      }
     }
   }
 

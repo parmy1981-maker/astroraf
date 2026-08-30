@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-30
 
-## Status: v1.4.6 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.4.7 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -44,6 +44,7 @@ Gebruiker vroeg om de site zo goed mogelijk te beveiligen tegen hacken. Context:
 - **Belangrijk voor later:** zodra er een echt backend bijkomt (Supabase, login, bestelformulier, betalingen), moet er een nieuwe beveiligingsronde gebeuren specifiek voor die onderdelen (input-validatie, Row Level Security, rate limiting, etc.) — dat kan nu nog niet, want die onderdelen bestaan nog niet.
 
 ## Versiegeschiedenis
+- v1.4.7 (2026-08-30, lokaal — nog niet live) — Correctie op v1.4.6: de voorbeeldfoto wordt nu écht groter/kleiner op schaal, niet enkel van vorm veranderd. Er wordt één vaste schaal (px per cm) berekend op basis van het grootste formaat (Abri), en diezelfde schaal wordt op elk formaat toegepast — dus A4 toont een duidelijk kleine voorbeeldfoto (~58×81px) en Abri een grote (325×480px), in verhouding tot elkaar zoals in het echt.
 - v1.4.6 (2026-08-30, lokaal — nog niet live) — De voorbeeldfoto in de poster-configurator verandert nu mee van vorm/verhouding op basis van het gekozen formaat (bv. "A2 lang" toont een lange smalle voorbeeldfoto, "A4" een normale rechthoek), zodat je een idee krijgt hoe de poster er in het echt uitziet. Container heeft een maximale breedte/hoogte zodat extreme formaten niet uit de pagina groeien.
 - v1.4.5 (2026-08-30, lokaal — nog niet live) — 4 extra formaten toegevoegd: B2 (50 × 70 cm), en drie naamloze maten 40 × 60 cm, 60 × 80 cm en 60 × 90 cm, ingevoegd op de juiste plaats in de van-klein-naar-groot sortering.
 - v1.4.4 (2026-08-30, lokaal — nog niet live) — A3, A1 en A0 gemarkeerd als "— populair" in de formaat-dropdown (vertaalbaar via de taalknop).

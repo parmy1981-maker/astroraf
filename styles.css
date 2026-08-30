@@ -759,15 +759,13 @@ button.shop-card {
 }
 
 .poster-preview {
-  width: 100%;
-  max-width: 440px;
-  max-height: 70vh;
-  aspect-ratio: 3 / 4;
+  max-width: 380px;
+  max-height: 480px;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
   flex-shrink: 0;
-  transition: aspect-ratio 0.25s ease;
+  transition: width 0.25s ease, height 0.25s ease;
 }
 
 .poster-preview img {
