@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const posterQtyDecrease = document.getElementById('posterQtyDecrease');
   const posterQtyIncrease = document.getElementById('posterQtyIncrease');
   const posterAddToCart = document.getElementById('posterAddToCart');
+  const posterFormatDims = document.getElementById('posterFormatDims');
 
   let selectedKey = 'corona';
   let selectedImage = "foto's/Eclips_Corona.jpg";
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (posterFormat) {
     posterFormat.addEventListener('change', () => {
       selectedFormat = posterFormat.value;
+      if (posterFormatDims) posterFormatDims.textContent = formatSizes[selectedFormat] || '';
     });
   }
 

@@ -885,6 +885,13 @@ button.shop-card {
   border-color: var(--accent);
 }
 
+.format-dims {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
 .poster-notes {
   display: flex;
   flex-direction: column;
