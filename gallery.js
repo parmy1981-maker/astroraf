@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let openAlbum = null;
   let openLightbox = null;
+  let openPhotoButtonExternal = null;
 
   function setLikeUI(el, liked) {
     el.classList.toggle('is-liked', liked);
@@ -109,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  let currentPhotoButtons = [];
+  let currentPhotoIndex = -1;
+
   if (lightbox && lightboxImg) {
     openLightbox = (src, alt) => {
       lightboxImg.src = src;
@@ -122,16 +126,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    const openPhotoButton = (btn) => {
+      const grid = btn.closest('.photo-grid');
+      currentPhotoButtons = grid ? Array.from(grid.querySelectorAll('[data-lightbox-src]')) : [btn];
+      currentPhotoIndex = currentPhotoButtons.indexOf(btn);
+      const img = btn.querySelector('img');
+      openLightbox(btn.getAttribute('data-lightbox-src'), img ? img.alt : '');
+    };
+    openPhotoButtonExternal = openPhotoButton;
+
+    const openPhotoAt = (index) => {
+      const total = currentPhotoButtons.length;
+      if (!total) return;
+      currentPhotoIndex = (index + total) % total;
+      openPhotoButton(currentPhotoButtons[currentPhotoIndex]);
+    };
+
     const closeLightbox = () => {
       lightbox.hidden = true;
       lightboxImg.src = '';
     };
 
     document.querySelectorAll('[data-lightbox-src]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const img = btn.querySelector('img');
-        openLightbox(btn.getAttribute('data-lightbox-src'), img ? img.alt : '');
-      });
+      btn.addEventListener('click', () => openPhotoButton(btn));
     });
 
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
@@ -141,7 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+      if (lightbox.hidden) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') openPhotoAt(currentPhotoIndex + 1);
+      if (e.key === 'ArrowLeft') openPhotoAt(currentPhotoIndex - 1);
     });
   }
 
@@ -151,12 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (hashAlbum && openAlbum && document.querySelector(`[data-album-detail="${hashAlbum}"]`)) {
     openAlbum(hashAlbum);
 
-    if (hashPhoto && openLightbox) {
+    if (hashPhoto && openPhotoButtonExternal) {
       const targetBtn = document.querySelector(`[data-lightbox-src$="${hashPhoto}"]`);
-      if (targetBtn) {
-        const img = targetBtn.querySelector('img');
-        openLightbox(targetBtn.getAttribute('data-lightbox-src'), img ? img.alt : '');
-      }
+      if (targetBtn) openPhotoButtonExternal(targetBtn);
     }
   }
 });
