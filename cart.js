@@ -12,6 +12,31 @@ const posterNames = {
   de: { start: 'Start', corona: 'Corona', einde: 'Ende' },
 };
 
+const formatNames = {
+  a4: 'A4', a3: 'A3', a2: 'A2', 'a2-lang': 'A2 lang',
+  a1: 'A1', a0: 'A0', b1: 'B1', b0: 'B0', abri: 'Abri',
+};
+
+const formatSizes = {
+  a4: '21 × 29,7 cm',
+  a3: '29,7 × 42 cm',
+  a2: '42 × 59,4 cm',
+  'a2-lang': '29,7 × 84 cm',
+  a1: '59,4 × 84 cm',
+  a0: '84 × 118,8 cm',
+  b1: '70 × 100 cm',
+  b0: '100 × 140 cm',
+  abri: '118,5 × 175 cm',
+};
+
+function formatLabel(format) {
+  return formatNames[format] || format;
+}
+
+function formatLabelFull(format) {
+  return `${formatLabel(format)} (${formatSizes[format] || '?'})`;
+}
+
 const ORDER_EMAIL = 'info@astroraf.be';
 
 const CART_KEY = 'astroraf-cart';
@@ -70,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const posterThumbs = document.querySelectorAll('.poster-thumb');
   const posterPreviewImg = document.getElementById('posterPreviewImg');
   const materialBtns = document.querySelectorAll('.material-btn');
+  const posterFormat = document.getElementById('posterFormat');
   const posterQtyInput = document.getElementById('posterQtyInput');
   const posterQtyDecrease = document.getElementById('posterQtyDecrease');
   const posterQtyIncrease = document.getElementById('posterQtyIncrease');
@@ -78,6 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedKey = 'corona';
   let selectedImage = "foto's/Eclips_Corona.jpg";
   let selectedMaterial = 'mat';
+  let selectedFormat = posterFormat ? posterFormat.value : 'a3';
+
+  if (posterFormat) {
+    posterFormat.addEventListener('change', () => {
+      selectedFormat = posterFormat.value;
+    });
+  }
 
   posterThumbs.forEach((thumb) => {
     thumb.addEventListener('click', () => {
@@ -166,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const materialEl = document.createElement('div');
       materialEl.className = 'cart-item-material';
-      materialEl.textContent = materialLabel(item.material);
+      materialEl.textContent = `${formatLabel(item.format)} · ${materialLabel(item.material)}`;
 
       const qtyRow = document.createElement('div');
       qtyRow.className = 'cart-item-qty';
@@ -193,13 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(id, key, material, image, qty) {
+  function addToCart(id, key, material, format, image, qty) {
     const cart = loadCart();
     const existing = cart.find((item) => item.id === id);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ id, key, material, image, qty });
+      cart.push({ id, key, material, format, image, qty });
     }
     saveCart(cart);
     renderCart();
@@ -221,7 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
     posterAddToCart.addEventListener('click', () => {
       const qty = posterQtyInput ? Math.max(1, parseInt(posterQtyInput.value, 10) || 1) : 1;
 
-      addToCart(`poster-${selectedKey}-${selectedMaterial}`, selectedKey, selectedMaterial, selectedImage, qty);
+      addToCart(
+        `poster-${selectedKey}-${selectedMaterial}-${selectedFormat}`,
+        selectedKey, selectedMaterial, selectedFormat, selectedImage, qty
+      );
 
       if (posterQtyInput) posterQtyInput.value = 1;
 
@@ -248,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = '';
 
       const text = document.createElement('span');
-      text.textContent = `${posterLabel(item.key)} — ${materialLabel(item.material)} × ${item.qty}`;
+      text.textContent = `${posterLabel(item.key)} — ${formatLabelFull(item.format)} — ${materialLabel(item.material)} × ${item.qty}`;
 
       row.append(img, text);
       checkoutSummary.appendChild(row);
@@ -290,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const notes = data.get('notes') || '';
 
       const orderLines = loadCart().map(
-        (item) => `- ${posterLabel(item.key)} (${materialLabel(item.material)}) x${item.qty}`
+        (item) => `- ${posterLabel(item.key)}, ${formatLabelFull(item.format)}, ${materialLabel(item.material)} x${item.qty}`
       );
 
       const bodyLines = [

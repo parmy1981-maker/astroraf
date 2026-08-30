@@ -868,6 +868,23 @@ button.shop-card {
   padding: 0.3rem 0;
 }
 
+.format-select {
+  width: 100%;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.format-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 .poster-notes {
   display: flex;
   flex-direction: column;
