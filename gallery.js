@@ -87,6 +87,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const albumSearch = document.getElementById('albumSearch');
+  const albumGrid = document.getElementById('albumGrid');
+  const albumSearchEmpty = document.getElementById('albumSearchEmpty');
+
+  if (albumSearch && albumGrid) {
+    const albumCards = albumGrid.querySelectorAll('.album-card');
+
+    albumSearch.addEventListener('input', () => {
+      const query = albumSearch.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      albumCards.forEach((card) => {
+        const name = card.querySelector('.album-name');
+        const matches = !query || (name && name.textContent.toLowerCase().includes(query));
+        card.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
+
+      if (albumSearchEmpty) albumSearchEmpty.hidden = visibleCount > 0;
+    });
+  }
+
   if (lightbox && lightboxImg) {
     openLightbox = (src, alt) => {
       lightboxImg.src = src;

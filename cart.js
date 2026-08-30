@@ -6,10 +6,26 @@ const materialNames = {
 };
 
 const posterNames = {
-  nl: { start: 'Start', corona: 'Corona', einde: 'Einde' },
-  en: { start: 'Start', corona: 'Corona', einde: 'End' },
-  fr: { start: 'Début', corona: 'Corona', einde: 'Fin' },
-  de: { start: 'Start', corona: 'Corona', einde: 'Ende' },
+  nl: {
+    start: 'Start', corona: 'Corona', einde: 'Einde',
+    maan_wolken: 'Maan achter wolken', maan_gedeeltelijk: 'Gedeeltelijke maansverduistering',
+    maan_sikkel: 'Maansverduistering (sikkel)', maan_totaal: 'Totale maansverduistering',
+  },
+  en: {
+    start: 'Start', corona: 'Corona', einde: 'End',
+    maan_wolken: 'Moon behind clouds', maan_gedeeltelijk: 'Partial lunar eclipse',
+    maan_sikkel: 'Lunar eclipse (crescent)', maan_totaal: 'Total lunar eclipse',
+  },
+  fr: {
+    start: 'Début', corona: 'Corona', einde: 'Fin',
+    maan_wolken: 'Lune derrière les nuages', maan_gedeeltelijk: 'Éclipse lunaire partielle',
+    maan_sikkel: 'Éclipse lunaire (croissant)', maan_totaal: 'Éclipse lunaire totale',
+  },
+  de: {
+    start: 'Start', corona: 'Corona', einde: 'Ende',
+    maan_wolken: 'Mond hinter Wolken', maan_gedeeltelijk: 'Partielle Mondfinsternis',
+    maan_sikkel: 'Mondfinsternis (Sichel)', maan_totaal: 'Totale Mondfinsternis',
+  },
 };
 
 const formatNames = {

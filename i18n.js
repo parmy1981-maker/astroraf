@@ -1,7 +1,7 @@
 const translations = {
   nl: {
     nav_home: `Home`,
-    nav_photos: `Foto's`,
+    nav_photos: `Albums`,
     nav_shop: `Shop`,
     hero_tagline: `De sterrenhemel is er speciaal voor jou.`,
     story_title: `Het verhaal van AstroRaf`,
@@ -14,6 +14,8 @@ const translations = {
     gallery_title: `Een glimp van de sterrenhemel`,
     gallery_cta: `Bekijk alle foto's &rarr;`,
     albums_title: `Albums`,
+    album_search_placeholder: `Zoek een album...`,
+    album_search_empty: `Geen albums gevonden.`,
     stub_shop_title: `Shop`,
     shop_intro: `Mijn astrofotografie is binnenkort verkrijgbaar als poster en op T-shirt.`,
     shop_posters_title: `Posters`,
@@ -60,7 +62,7 @@ const translations = {
   },
   en: {
     nav_home: `Home`,
-    nav_photos: `Photos`,
+    nav_photos: `Albums`,
     nav_shop: `Shop`,
     hero_tagline: `The night sky is here just for you.`,
     story_title: `The story of AstroRaf`,
@@ -73,6 +75,8 @@ const translations = {
     gallery_title: `A glimpse of the night sky`,
     gallery_cta: `View all photos &rarr;`,
     albums_title: `Albums`,
+    album_search_placeholder: `Search for an album...`,
+    album_search_empty: `No albums found.`,
     stub_shop_title: `Shop`,
     shop_intro: `My astrophotography will soon be available as posters and on T-shirts.`,
     shop_posters_title: `Posters`,
@@ -119,7 +123,7 @@ const translations = {
   },
   fr: {
     nav_home: `Accueil`,
-    nav_photos: `Photos`,
+    nav_photos: `Albums`,
     nav_shop: `Boutique`,
     hero_tagline: `Le ciel étoilé est là, rien que pour toi.`,
     story_title: `L'histoire d'AstroRaf`,
@@ -132,6 +136,8 @@ const translations = {
     gallery_title: `Un aperçu du ciel étoilé`,
     gallery_cta: `Voir toutes les photos &rarr;`,
     albums_title: `Albums`,
+    album_search_placeholder: `Rechercher un album...`,
+    album_search_empty: `Aucun album trouvé.`,
     stub_shop_title: `Boutique`,
     shop_intro: `Mes photos d'astrophotographie seront bientôt disponibles en posters et sur T-shirts.`,
     shop_posters_title: `Posters`,
@@ -178,7 +184,7 @@ const translations = {
   },
   de: {
     nav_home: `Startseite`,
-    nav_photos: `Fotos`,
+    nav_photos: `Alben`,
     nav_shop: `Shop`,
     hero_tagline: `Der Sternenhimmel ist ganz besonders für dich da.`,
     story_title: `Die Geschichte von AstroRaf`,
@@ -191,6 +197,8 @@ const translations = {
     gallery_title: `Ein Blick in den Sternenhimmel`,
     gallery_cta: `Alle Fotos ansehen &rarr;`,
     albums_title: `Alben`,
+    album_search_placeholder: `Album suchen...`,
+    album_search_empty: `Keine Alben gefunden.`,
     stub_shop_title: `Shop`,
     shop_intro: `Meine Astrofotografie gibt es bald als Poster und auf T-Shirts.`,
     shop_posters_title: `Poster`,
@@ -254,6 +262,11 @@ function applyLanguage(lang) {
   document.querySelectorAll('[data-i18n-alt]').forEach((el) => {
     const key = el.getAttribute('data-i18n-alt');
     if (dict[key] !== undefined) el.setAttribute('alt', dict[key]);
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
   });
 
   document.querySelectorAll('.lang-switch button').forEach((btn) => {

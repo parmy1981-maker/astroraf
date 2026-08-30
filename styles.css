@@ -802,7 +802,7 @@ button.shop-card {
   gap: 1.5rem;
 }
 
-.poster-thumbs { display: flex; gap: 0.75rem; }
+.poster-thumbs { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
 .poster-thumb {
   width: 60px;
@@ -958,12 +958,40 @@ button.shop-card {
   background: radial-gradient(ellipse at 50% 20%, var(--bg-2), var(--bg-1) 70%);
 }
 
+.album-search {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+.album-search input {
+  width: 100%;
+  max-width: 360px;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.65rem 1.2rem;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.album-search input:focus { outline: none; border-color: var(--accent); }
+
+.album-search input::placeholder { color: var(--text-dim); }
+
+.album-search-empty {
+  margin-top: 2rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
 .album-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
   justify-content: center;
   gap: 1.5rem;
-  margin-top: 3.5rem;
+  margin-top: 1.75rem;
 }
 
 .album-card {

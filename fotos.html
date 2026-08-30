@@ -23,7 +23,7 @@
     </a>
     <nav class="main-nav">
       <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="fotos.html" class="active" data-i18n="nav_photos">Foto's</a>
+      <a href="fotos.html" class="active" data-i18n="nav_photos">Albums</a>
       <a href="shop.html" data-i18n="nav_shop">Shop</a>
     </nav>
   </header>
@@ -75,19 +75,27 @@
   <section class="gallery-page">
     <h1 class="hero-title hero-title-sm" data-i18n="albums_title">Albums</h1>
 
-    <div class="album-grid" id="albumView">
-      <button class="album-card" type="button" data-open-album="zonsverduistering">
-        <span class="album-cover">
-          <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
-        </span>
-        <span class="album-name" data-i18n="album_zonsverduistering">Zonsverduistering</span>
-      </button>
-      <button class="album-card" type="button" data-open-album="maansverduistering">
-        <span class="album-cover">
-          <img src="foto's/Maan_Totaal.jpg" alt="Totale maansverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_totaal">
-        </span>
-        <span class="album-name" data-i18n="album_maansverduistering">Maansverduistering</span>
-      </button>
+    <div id="albumView">
+      <div class="album-search">
+        <input type="search" id="albumSearch" data-i18n-placeholder="album_search_placeholder" placeholder="Zoek een album...">
+      </div>
+
+      <div class="album-grid" id="albumGrid">
+        <button class="album-card" type="button" data-open-album="zonsverduistering">
+          <span class="album-cover">
+            <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
+          </span>
+          <span class="album-name" data-i18n="album_zonsverduistering">Zonsverduistering</span>
+        </button>
+        <button class="album-card" type="button" data-open-album="maansverduistering">
+          <span class="album-cover">
+            <img src="foto's/Maan_Totaal.jpg" alt="Totale maansverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_totaal">
+          </span>
+          <span class="album-name" data-i18n="album_maansverduistering">Maansverduistering</span>
+        </button>
+      </div>
+
+      <p class="album-search-empty" id="albumSearchEmpty" hidden data-i18n="album_search_empty">Geen albums gevonden.</p>
     </div>
 
     <div class="album-detail" data-album-detail="zonsverduistering" hidden>
@@ -174,7 +182,7 @@
   </div>
 
   <footer class="site-footer">
-    <span class="footer-copy">&copy; 2026 AstroRaf.be &middot; v1.4.16</span>
+    <span class="footer-copy">&copy; 2026 AstroRaf.be &middot; v1.4.17</span>
     <div class="socials">
       <a href="mailto:info@astroraf.be" aria-label="E-mail" title="Stuur een e-mail naar info@astroraf.be">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>
