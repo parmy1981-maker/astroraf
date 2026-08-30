@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-30
 
-## Status: v1.4.15 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.4.16 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -44,6 +44,7 @@ Gebruiker vroeg om de site zo goed mogelijk te beveiligen tegen hacken. Context:
 - **Belangrijk voor later:** zodra er een echt backend bijkomt (Supabase, login, bestelformulier, betalingen), moet er een nieuwe beveiligingsronde gebeuren specifiek voor die onderdelen (input-validatie, Row Level Security, rate limiting, etc.) — dat kan nu nog niet, want die onderdelen bestaan nog niet.
 
 ## Versiegeschiedenis
+- v1.4.16 (2026-08-30, lokaal — nog niet live) — Nieuw album "Maansverduistering" toegevoegd op de Foto's-pagina, met de 4 nieuwe maansverduistering-foto's die gebruiker in de `foto's`-map had gezet (hernoemd naar `Maan_Wolken.jpg`, `Maan_Gedeeltelijk.jpg`, `Maan_Sikkel.jpg`, `Maan_Totaal.jpg`, oplopend qua verduisteringsfase). Werkt automatisch mee met de bestaande album/lightbox/like-functionaliteit (geen JS-wijzigingen nodig, alles generiek via data-attributen). Vertaald naar EN/FR/DE.
 - v1.4.15 (2026-08-30, lokaal — nog niet live) — Het persoonlijke tekstje (winst/raketlanceerder) verplaatst van boven de poster-configurator naar binnenin, net onder de "Toevoegen aan winkelmandje"-knop (en boven "Afrekenen"). Staat dus niet meer op de algemene shop-pagina, enkel nog zichtbaar wanneer je de posters bekijkt.
 - v1.4.14 (2026-08-30, lokaal — nog niet live) — Onderste tekstje op de shop-pagina (het oude "shop is nog in opbouw"-tekstje) vervangen door: "Je mag mij altijd contacteren, ik hou ervan als jullie mij bij jullie bezorgdheden betrekken." Vertaald naar EN/FR/DE.
 - v1.4.13 (2026-08-30, lokaal — nog niet live) — Persoonlijk tekstje van Raf toegevoegd op de shop-pagina, onder de Posters/T-shirts-kaarten, in een apart kadertje: waarom de winst naar de site gaat, het huidige raketlanceerder-project (zonder chemische stoffen, met middelpuntvliedende kracht), dat hij ook niet-online foto's op aanvraag kan leveren, en een bedankje aan bezoekers. Tekst lichtjes gecorrigeerd op spelling/zinsbouw (zoals eerder bij het verhaal-gedeelte), inhoud van gebruiker; vertaald naar EN/FR/DE.
