@@ -59,10 +59,10 @@ const formatDimensions = {
   abri: [118.5, 175],
 };
 
-const PREVIEW_MAX_WIDTH = 340;
-const PREVIEW_MIN_WIDTH = 150;
-const PREVIEW_MIN_LONG_SIDE = 260;
-const PREVIEW_MAX_LONG_SIDE = 440;
+const PREVIEW_MAX_WIDTH = 370;
+const PREVIEW_MIN_WIDTH = 165;
+const PREVIEW_MIN_LONG_SIDE = 285;
+const PREVIEW_MAX_LONG_SIDE = 480;
 
 const PREVIEW_CM_MIN = Math.sqrt(Math.min(...Object.values(formatDimensions).map((d) => Math.max(d[0], d[1]))));
 const PREVIEW_CM_MAX = Math.sqrt(Math.max(...Object.values(formatDimensions).map((d) => Math.max(d[0], d[1]))));

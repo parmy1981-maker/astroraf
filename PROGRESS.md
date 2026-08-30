@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-30
 
-## Status: v1.4.11 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.4.12 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -44,6 +44,7 @@ Gebruiker vroeg om de site zo goed mogelijk te beveiligen tegen hacken. Context:
 - **Belangrijk voor later:** zodra er een echt backend bijkomt (Supabase, login, bestelformulier, betalingen), moet er een nieuwe beveiligingsronde gebeuren specifiek voor die onderdelen (input-validatie, Row Level Security, rate limiting, etc.) — dat kan nu nog niet, want die onderdelen bestaan nog niet.
 
 ## Versiegeschiedenis
+- v1.4.12 (2026-08-30, lokaal — nog niet live) — Voorbeeldfoto in de poster-configurator over de hele lijn een tikkeltje groter gemaakt (max. vak 340×440 → 370×480px, min. 150/260 → 165/285px), zelfde verhoudingen/gedrag als v1.4.10-11, gewoon iets ruimer.
 - v1.4.11 (2026-08-30, lokaal — nog niet live) — De voorbeeldfoto wordt niet meer bijgesneden: `object-fit` van `cover` naar `contain` gezet, zodat de volledige foto altijd zichtbaar en gecentreerd blijft in het vak (met een donkere achtergrondkleur voor de eventuele lege randen i.p.v. bijsnijden).
 - v1.4.10 (2026-08-30, lokaal — nog niet live) — Nieuwe balans na feedback: de voorbeeldfoto vergroot/verkleint weer echt mee met het gekozen formaat (zoals v1.4.7), maar gedempt via een vierkantswortel-schaal in plaats van lineair, zodat A4 (~184×260px) duidelijk kleiner oogt dan Abri (298×440px) zonder dat het extreem wordt zoals voorheen (toen was A4 maar 58×81px). Ondergrens van 150px breedte blijft behouden zodat smalle formaten zoals A2 lang niet tot een streepje krimpen.
 - v1.4.9 (2026-08-30, lokaal — nog niet live) — Minimum-breedte/hoogte (240×320px) toegevoegd naast de bestaande maximum (340×440px), zodat extreem smalle formaten zoals A2 lang niet meer tot een smal streepje krimpen (was 156px breed, nu minstens 240px). De overgangsanimatie tussen formaten oogt hierdoor een stuk rustiger, geen foto is meer te klein of te groot.

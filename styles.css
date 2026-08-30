@@ -759,8 +759,8 @@ button.shop-card {
 }
 
 .poster-preview {
-  max-width: 340px;
-  max-height: 440px;
+  max-width: 370px;
+  max-height: 480px;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
