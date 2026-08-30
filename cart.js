@@ -13,28 +13,34 @@ const posterNames = {
 };
 
 const formatNames = {
-  a4: 'A4', a3: 'A3', a2: 'A2', 'a2-lang': 'A2 lang',
-  a1: 'A1', a0: 'A0', b1: 'B1', b0: 'B0', abri: 'Abri',
+  a4: 'A4', a3: 'A3', a2: 'A2', 'a2-lang': 'A2 lang', b2: 'B2',
+  a1: 'A1', b1: 'B1', a0: 'A0', b0: 'B0', abri: 'Abri',
 };
 
 const formatSizes = {
   a4: '21 × 29,7 cm',
   a3: '29,7 × 42 cm',
+  '40x60': '40 × 60 cm',
   a2: '42 × 59,4 cm',
   'a2-lang': '29,7 × 84 cm',
+  b2: '50 × 70 cm',
+  '60x80': '60 × 80 cm',
   a1: '59,4 × 84 cm',
-  a0: '84 × 118,8 cm',
+  '60x90': '60 × 90 cm',
   b1: '70 × 100 cm',
+  a0: '84 × 118,8 cm',
   b0: '100 × 140 cm',
   abri: '118,5 × 175 cm',
 };
 
 function formatLabel(format) {
-  return formatNames[format] || format;
+  return formatNames[format] || formatSizes[format] || format;
 }
 
 function formatLabelFull(format) {
-  return `${formatLabel(format)} (${formatSizes[format] || '?'})`;
+  const name = formatNames[format];
+  const size = formatSizes[format] || '?';
+  return name ? `${name} (${size})` : size;
 }
 
 const ORDER_EMAIL = 'info@astroraf.be';
