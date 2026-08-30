@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-30
 
-## Status: v1.5.3 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.5.4 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -44,6 +44,7 @@ Gebruiker vroeg om de site zo goed mogelijk te beveiligen tegen hacken. Context:
 - **Belangrijk voor later:** zodra er een echt backend bijkomt (Supabase, login, bestelformulier, betalingen), moet er een nieuwe beveiligingsronde gebeuren specifiek voor die onderdelen (input-validatie, Row Level Security, rate limiting, etc.) — dat kan nu nog niet, want die onderdelen bestaan nog niet.
 
 ## Versiegeschiedenis
+- v1.5.4 (2026-08-30, lokaal — nog niet live) — Het persoonlijke tekstje bij de poster-configurator wordt nu gecentreerd getoond in plaats van links uitgelijnd.
 - v1.5.3 (2026-08-30, lokaal — nog niet live) — Twee correcties: homepage toont nu de bloedmaan-foto (Maan_Totaal.jpg) i.p.v. de sikkelfoto; het persoonlijke tekstje (winst/raketlanceerder) staat terug onder de "Toevoegen aan winkelmandje"-knop in de poster-configurator (was per abuis teruggezet naar de algemene shop-pagina in v1.5.1 — dat bleek een verkeerde interpretatie van de vorige vraag).
 - v1.5.2 (2026-08-30, lokaal — nog niet live) — Verduidelijkt met gebruiker: Eclips_Start.jpg verwijderd van de homepage-fotogrid. Homepage-gallery toont nu Corona, Einde en de nieuwe sikkelvormige maansverduistering-foto (3 foto's, zoals voorheen).
 - v1.5.1 (2026-08-30, lokaal — nog niet live) — Het lange persoonlijke tekstje (winst/raketlanceerder) terug verplaatst naar de shop-pagina zelf (tussen de Posters/T-shirts-kaarten en de configurator), weg uit de configurator. "Gedeeltelijke maansverduistering"-foto verwijderd als keuzeoptie in de shop-configurator (blijft wel gewoon in het Maansverduistering-album). De sikkelvormige maansverduistering-foto (~90% bedekt) toegevoegd aan de fotogrid op de homepage, linkt door naar het juiste album. **Opmerking:** "doe de 1ste foto weg, in de plaats die met het kleine hapje uit de zon" was niet volledig duidelijk — de huidige 1ste foto (Start) toont zelf al het kleinste hapje van de 3 zon-foto's, dus die niet aangeraakt tot verduidelijkt.
