@@ -2,7 +2,7 @@
 
 Laatste update: 2026-08-30
 
-## Status: v1.5 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.5.1 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
@@ -44,6 +44,7 @@ Gebruiker vroeg om de site zo goed mogelijk te beveiligen tegen hacken. Context:
 - **Belangrijk voor later:** zodra er een echt backend bijkomt (Supabase, login, bestelformulier, betalingen), moet er een nieuwe beveiligingsronde gebeuren specifiek voor die onderdelen (input-validatie, Row Level Security, rate limiting, etc.) — dat kan nu nog niet, want die onderdelen bestaan nog niet.
 
 ## Versiegeschiedenis
+- v1.5.1 (2026-08-30, lokaal — nog niet live) — Het lange persoonlijke tekstje (winst/raketlanceerder) terug verplaatst naar de shop-pagina zelf (tussen de Posters/T-shirts-kaarten en de configurator), weg uit de configurator. "Gedeeltelijke maansverduistering"-foto verwijderd als keuzeoptie in de shop-configurator (blijft wel gewoon in het Maansverduistering-album). De sikkelvormige maansverduistering-foto (~90% bedekt) toegevoegd aan de fotogrid op de homepage, linkt door naar het juiste album. **Opmerking:** "doe de 1ste foto weg, in de plaats die met het kleine hapje uit de zon" was niet volledig duidelijk — de huidige 1ste foto (Start) toont zelf al het kleinste hapje van de 3 zon-foto's, dus die niet aangeraakt tot verduidelijkt.
 - v1.5 (2026-08-30, lokaal — nog niet live) — Pijltjestoetsen toegevoegd in de lightbox: links/rechts wisselt naar de vorige/volgende foto binnen hetzelfde album (rondlopend), Escape sluit nog steeds. Werkt ook correct bij het openen van een foto via een diepe link vanaf de homepage.
 - v1.4.17 (2026-08-30, lokaal — nog niet live) — Menu-item "Foto's" hernoemd naar "Albums" op alle pagina's (vertaald). Zoekbalk toegevoegd bovenaan de Albums-pagina die albums live filtert op naam, met "Geen albums gevonden"-melding als er niks matcht (nieuwe generieke `data-i18n-placeholder`-ondersteuning in `i18n.js`). De 4 maansverduistering-foto's zijn nu ook kiesbaar in de poster-configurator op de shop-pagina (naast de 3 zonsverduistering-foto's), met eigen namen in het winkelmandje/bestel-overzicht.
 - v1.4.16 (2026-08-30, lokaal — nog niet live) — Nieuw album "Maansverduistering" toegevoegd op de Foto's-pagina, met de 4 nieuwe maansverduistering-foto's die gebruiker in de `foto's`-map had gezet (hernoemd naar `Maan_Wolken.jpg`, `Maan_Gedeeltelijk.jpg`, `Maan_Sikkel.jpg`, `Maan_Totaal.jpg`, oplopend qua verduisteringsfase). Werkt automatisch mee met de bestaande album/lightbox/like-functionaliteit (geen JS-wijzigingen nodig, alles generiek via data-attributen). Vertaald naar EN/FR/DE.
