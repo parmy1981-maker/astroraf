@@ -1,12 +1,70 @@
+const LIKES_KEY = 'astroraf-likes';
+
+function loadLikes() {
+  try {
+    const raw = localStorage.getItem(LIKES_KEY);
+    const likes = raw ? JSON.parse(raw) : [];
+    return Array.isArray(likes) ? likes : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLikes(likes) {
+  localStorage.setItem(LIKES_KEY, JSON.stringify(likes));
+}
+
+function isLiked(photoId) {
+  return loadLikes().includes(photoId);
+}
+
+function toggleLike(photoId) {
+  const likes = loadLikes();
+  const idx = likes.indexOf(photoId);
+  if (idx === -1) likes.push(photoId); else likes.splice(idx, 1);
+  saveLikes(likes);
+  return likes.includes(photoId);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const albumView = document.getElementById('albumView');
   const albumDetails = document.querySelectorAll('[data-album-detail]');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxLike = document.getElementById('lightboxLike');
 
   let openAlbum = null;
   let openLightbox = null;
+
+  function setLikeUI(el, liked) {
+    el.classList.toggle('is-liked', liked);
+    el.setAttribute('aria-pressed', String(liked));
+  }
+
+  function applyLikeState(id) {
+    const liked = isLiked(id);
+    document.querySelectorAll('[data-like]').forEach((el) => {
+      if (el.dataset.like === id) setLikeUI(el, liked);
+    });
+  }
+
+  document.querySelectorAll('.like-btn[data-like]').forEach((btn) => {
+    applyLikeState(btn.dataset.like);
+    btn.addEventListener('click', () => {
+      toggleLike(btn.dataset.like);
+      applyLikeState(btn.dataset.like);
+    });
+  });
+
+  if (lightboxLike) {
+    lightboxLike.addEventListener('click', () => {
+      const id = lightboxLike.dataset.like;
+      if (!id) return;
+      toggleLike(id);
+      applyLikeState(id);
+    });
+  }
 
   if (albumView) {
     openAlbum = (id) => {
@@ -34,6 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxImg.src = src;
       lightboxImg.alt = alt || '';
       lightbox.hidden = false;
+
+      if (lightboxLike) {
+        const id = src.split('/').pop();
+        lightboxLike.dataset.like = id;
+        applyLikeState(id);
+      }
     };
 
     const closeLightbox = () => {

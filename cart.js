@@ -5,6 +5,15 @@ const materialNames = {
   de: { mat: 'Matt', glans: 'Glänzend' },
 };
 
+const posterNames = {
+  nl: { start: 'Start', corona: 'Corona', einde: 'Einde' },
+  en: { start: 'Start', corona: 'Corona', einde: 'End' },
+  fr: { start: 'Début', corona: 'Corona', einde: 'Fin' },
+  de: { start: 'Start', corona: 'Corona', einde: 'Ende' },
+};
+
+const ORDER_EMAIL = 'info@astroraf.be';
+
 const CART_KEY = 'astroraf-cart';
 
 function loadCart() {
@@ -112,7 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartEmpty = document.getElementById('cartEmpty');
   const cartCount = document.getElementById('cartCount');
   const checkoutBtns = document.querySelectorAll('.checkout-btn');
-  const checkoutNotes = document.querySelectorAll('.checkout-note');
+  const checkoutModal = document.getElementById('checkoutModal');
+  const checkoutSummary = document.getElementById('checkoutSummary');
+  const checkoutForm = document.getElementById('checkoutForm');
 
   function currentLang() {
     return localStorage.getItem('astroraf-lang') || 'nl';
@@ -121,6 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function materialLabel(material) {
     const dict = materialNames[currentLang()] || materialNames.nl;
     return dict[material] || material;
+  }
+
+  function posterLabel(key) {
+    const dict = posterNames[currentLang()] || posterNames.nl;
+    return dict[key] || key;
   }
 
   function renderCart() {
@@ -137,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cartItems.innerHTML = '';
     cartEmpty.hidden = cart.length > 0;
     checkoutBtns.forEach((btn) => { btn.hidden = cart.length === 0; });
-    checkoutNotes.forEach((note) => { note.hidden = true; });
 
     cart.forEach((item) => {
       const row = document.createElement('div');
@@ -220,13 +235,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  checkoutBtns.forEach((btn) => {
-    const note = btn.nextElementSibling;
-    if (!note || !note.classList.contains('checkout-note')) return;
-    btn.addEventListener('click', () => {
-      note.hidden = false;
+  function renderCheckoutSummary() {
+    if (!checkoutSummary) return;
+    checkoutSummary.innerHTML = '';
+
+    loadCart().forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'checkout-summary-item';
+
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.alt = '';
+
+      const text = document.createElement('span');
+      text.textContent = `${posterLabel(item.key)} — ${materialLabel(item.material)} × ${item.qty}`;
+
+      row.append(img, text);
+      checkoutSummary.appendChild(row);
     });
+  }
+
+  function openCheckoutModal() {
+    if (!checkoutModal) return;
+    renderCheckoutSummary();
+    checkoutModal.hidden = false;
+  }
+
+  function closeCheckoutModal() {
+    if (checkoutModal) checkoutModal.hidden = true;
+  }
+
+  checkoutBtns.forEach((btn) => {
+    btn.addEventListener('click', openCheckoutModal);
   });
+
+  if (checkoutModal) {
+    checkoutModal.querySelectorAll('[data-modal-close]').forEach((el) => {
+      el.addEventListener('click', closeCheckoutModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !checkoutModal.hidden) closeCheckoutModal();
+    });
+  }
+
+  if (checkoutForm) {
+    checkoutForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = new FormData(checkoutForm);
+      const name = data.get('name') || '';
+      const email = data.get('email') || '';
+      const address = data.get('address') || '';
+      const notes = data.get('notes') || '';
+
+      const orderLines = loadCart().map(
+        (item) => `- ${posterLabel(item.key)} (${materialLabel(item.material)}) x${item.qty}`
+      );
+
+      const bodyLines = [
+        'Nieuwe bestelling via AstroRaf.be',
+        '',
+        ...orderLines,
+        '',
+        `Naam: ${name}`,
+        `E-mail: ${email}`,
+        `Adres: ${address}`,
+        `Opmerkingen: ${notes || '-'}`,
+      ];
+
+      const subject = encodeURIComponent('Nieuwe bestelling - AstroRaf.be');
+      const body = encodeURIComponent(bodyLines.join('\n'));
+      window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+
+      saveCart([]);
+      renderCart();
+      checkoutForm.reset();
+      closeCheckoutModal();
+    });
+  }
 
   if (cartToggle && cartPanel) {
     cartToggle.addEventListener('click', () => {
