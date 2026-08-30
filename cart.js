@@ -60,9 +60,12 @@ const formatDimensions = {
 };
 
 const PREVIEW_MAX_WIDTH = 340;
-const PREVIEW_MAX_HEIGHT = 440;
-const PREVIEW_MIN_WIDTH = 240;
-const PREVIEW_MIN_HEIGHT = 320;
+const PREVIEW_MIN_WIDTH = 150;
+const PREVIEW_MIN_LONG_SIDE = 260;
+const PREVIEW_MAX_LONG_SIDE = 440;
+
+const PREVIEW_CM_MIN = Math.sqrt(Math.min(...Object.values(formatDimensions).map((d) => Math.max(d[0], d[1]))));
+const PREVIEW_CM_MAX = Math.sqrt(Math.max(...Object.values(formatDimensions).map((d) => Math.max(d[0], d[1]))));
 
 const ORDER_EMAIL = 'info@astroraf.be';
 
@@ -140,9 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (posterPreview) {
       const dims = formatDimensions[format];
       if (dims) {
-        const scale = Math.min(PREVIEW_MAX_WIDTH / dims[0], PREVIEW_MAX_HEIGHT / dims[1]);
+        // Long side scales gently (square root) between the smallest and
+        // largest format, so bigger posters look bigger without the
+        // smallest ones shrinking to near-invisible.
+        const long = Math.max(dims[0], dims[1]);
+        const norm = (Math.sqrt(long) - PREVIEW_CM_MIN) / (PREVIEW_CM_MAX - PREVIEW_CM_MIN);
+        const targetLong = PREVIEW_MIN_LONG_SIDE + norm * (PREVIEW_MAX_LONG_SIDE - PREVIEW_MIN_LONG_SIDE);
+        const scale = targetLong / long;
+
         const w = Math.min(PREVIEW_MAX_WIDTH, Math.max(PREVIEW_MIN_WIDTH, Math.round(dims[0] * scale)));
-        const h = Math.min(PREVIEW_MAX_HEIGHT, Math.max(PREVIEW_MIN_HEIGHT, Math.round(dims[1] * scale)));
+        const h = Math.min(PREVIEW_MAX_LONG_SIDE, Math.round(dims[1] * scale));
         posterPreview.style.width = w + 'px';
         posterPreview.style.height = h + 'px';
       }
