@@ -6,7 +6,7 @@
   --accent: #a9c4ff;
   --text: #eef1ff;
   --text-dim: #9aa3c7;
-  --header-bg: rgba(5, 6, 15, 0.6);
+  --header-bg: rgba(0, 21, 52, 0.6);
   --border: rgba(255, 255, 255, 0.08);
 }
 
@@ -36,7 +36,7 @@ img { max-width: 100%; display: block; }
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 0.6rem 1rem;
-  padding: 1rem clamp(1.25rem, 4vw, 3rem);
+  padding: 0.7rem clamp(1.25rem, 4vw, 3rem);
   background: var(--header-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -46,7 +46,7 @@ img { max-width: 100%; display: block; }
 .lang-switch {
   display: flex;
   gap: 0.35rem;
-  justify-self: start;
+  justify-self: end;
 }
 
 .lang-switch button {
@@ -74,17 +74,17 @@ img { max-width: 100%; display: block; }
 }
 
 .logo {
-  justify-self: center;
+  justify-self: start;
   display: flex;
   align-items: center;
 }
 
 .logo img {
-  height: clamp(2.2rem, 6vw, 2.8rem);
+  height: clamp(2.3rem, 5.5vw, 3rem);
   width: auto;
 }
 
-.main-nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); justify-self: end; }
+.main-nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); justify-self: center; }
 
 .main-nav a {
   color: var(--text-dim);
