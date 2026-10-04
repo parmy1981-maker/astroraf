@@ -16,7 +16,7 @@ const translations = {
     story_p5: `Daarna gingen we weg van de camping, maar voor we vertrokken, zei mijn meter: &ldquo;Een naam voor jou zou misschien AstroRaf kunnen zijn.&rdquo; En zo is het ontstaan van AstroRaf begonnen.`,
     story_p6: `Nu wil ik zeker iedereen bedanken: mijn coach, iedereen van Astrolab IRIS, de astrofotografie, en zeker de campinggroep (het is soms lastig op een camping, maar jullie blijven fantastisch). En zeker ook niet te vergeten: de mensen die ik daar heb leren kennen, en ook jullie die dit lezen ;)`,
     gallery_title: `Een glimp van de sterrenhemel`,
-    gallery_cta: `Bekijk alle foto's &rarr;`,
+    gallery_cta: `Ga naar alle albums &rarr;`,
     albums_title: `Albums`,
     album_search_placeholder: `Zoek een album...`,
     album_search_empty: `Geen albums gevonden.`,

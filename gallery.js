@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentPhotoButtons = [];
   let currentPhotoIndex = -1;
+  let returnToOrigin = false;
 
   if (lightbox && lightboxImg) {
     openLightbox = (src, alt) => {
@@ -126,11 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const openPhotoButton = (btn) => {
+    const openPhotoButton = (btn, isOriginLink) => {
       const grid = btn.closest('.photo-grid');
       currentPhotoButtons = grid ? Array.from(grid.querySelectorAll('[data-lightbox-src]')) : [btn];
       currentPhotoIndex = currentPhotoButtons.indexOf(btn);
       const img = btn.querySelector('img');
+      returnToOrigin = Boolean(isOriginLink);
       openLightbox(btn.getAttribute('data-lightbox-src'), img ? img.alt : '');
     };
     openPhotoButtonExternal = openPhotoButton;
@@ -145,6 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeLightbox = () => {
       lightbox.hidden = true;
       lightboxImg.src = '';
+      if (returnToOrigin) {
+        returnToOrigin = false;
+        history.back();
+      }
     };
 
     document.querySelectorAll('[data-lightbox-src]').forEach((btn) => {
@@ -173,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hashPhoto && openPhotoButtonExternal) {
       const targetBtn = document.querySelector(`[data-lightbox-src$="${hashPhoto}"]`);
-      if (targetBtn) openPhotoButtonExternal(targetBtn);
+      if (targetBtn) openPhotoButtonExternal(targetBtn, true);
     }
   }
 });
