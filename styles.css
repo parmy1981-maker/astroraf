@@ -603,6 +603,7 @@ img { max-width: 100%; display: block; }
 }
 
 .story-photo {
+  position: relative;
   margin: 2rem 0;
   max-width: 65ch;
 }
