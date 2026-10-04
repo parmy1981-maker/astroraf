@@ -26,3 +26,4 @@ automatisch live gezet door Vercel.
 
 | # | Label | Beschrijving | Commit | Status |
 |---|-------|--------------|--------|--------|
+| 1 | Opstart local-host Bat-bestand | Portabel `.bat`-bestand (`start-local-server.bat`) om de lokale server handmatig te starten; dubbelklikken opent automatisch `http://localhost:8080/AstroRaf/`. Kopieerbaar naar een andere pc — enkel de `PROJECT_PATH`-regel bovenaan moet daar aangepast worden. | `a00e473` | In review |
