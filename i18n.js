@@ -4,6 +4,7 @@ const translations = {
     nav_photos: `Albums`,
     nav_shop: `Shop`,
     hero_tagline: `De sterrenhemel is er speciaal voor jou.`,
+    scroll_cue_text: `Lees het verhaal`,
     story_title: `Het verhaal van AstroRaf`,
     story_p1: `Het verhaal begon 3 jaar geleden, toen ik voor het eerst in contact kwam met <a href="https://astrolab.be/bezoek/" target="_blank" rel="noopener noreferrer">Astrolab IRIS</a>. Ik was nog heel jong, maar toch werd ik er meteen in meegenomen. In de jaren die volgden, leerde ik van alles bij over astronomie: van raketten tot fotografie. Die astrofotografie doe ik nog niet zo lang, maar na zo'n drie maanden in die groep voelde het al aan als één hechte groep.`,
     story_p2: `Op 29 maart 2025 was er een zonsverduistering in België. Ik zag het en ik was verliefd. Ik was bij Astrolab, waar de zon en de maan geprojecteerd werden op een wit doek. Toen wist ik het: ik keek naar het kaartje en zag 2 augustus 2026 staan.`,

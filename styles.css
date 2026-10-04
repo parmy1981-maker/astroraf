@@ -536,29 +536,35 @@ img { max-width: 100%; display: block; }
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  width: 22px;
-  height: 36px;
-  border: 2px solid rgba(238, 241, 255, 0.4);
-  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-.scroll-cue::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  width: 4px;
-  height: 8px;
-  margin-left: -2px;
-  background: var(--accent);
-  border-radius: 2px;
-  animation: scrollcue 1.6s ease-in-out infinite;
+.scroll-cue:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.scroll-cue-arrow {
+  width: 18px;
+  height: 18px;
+  animation: scrollcue 1.8s ease-in-out infinite;
+}
+
+.scroll-cue-arrow:last-child {
+  animation-delay: 0.2s;
 }
 
 @keyframes scrollcue {
-  0% { opacity: 1; transform: translateY(0); }
-  70% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 0; transform: translateY(10px); }
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(4px); opacity: 1; }
 }
 
 /* ---------- Generic sections ---------- */
