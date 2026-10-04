@@ -9,7 +9,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     .sort((a, b) => b.likeCount - a.likeCount)
     .slice(0, 6);
 
-  if (!topPhotos.length) return;
+  if (!topPhotos.length) {
+    grid.querySelectorAll('.photo-grid-item').forEach((item) => {
+      const img = item.querySelector('img');
+      const id = img ? img.getAttribute('src').split('/').pop() : null;
+      const countEl = item.querySelector('.photo-like-total');
+      if (countEl) countEl.textContent = `♥ ${counts[id] || 0}`;
+    });
+    return;
+  }
 
   grid.innerHTML = '';
 
@@ -26,13 +34,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     img.setAttribute('data-i18n-alt', p.altKey);
     link.appendChild(img);
 
+    const meta = document.createElement('div');
+    meta.className = 'photo-meta';
+
     const tag = document.createElement('a');
     tag.className = 'photo-album-tag';
     tag.href = `fotos.html#${p.album}`;
     tag.setAttribute('data-i18n-html', p.albumTagKey);
 
+    const likeTotal = document.createElement('span');
+    likeTotal.className = 'photo-like-total';
+    likeTotal.textContent = `♥ ${p.likeCount}`;
+
+    meta.appendChild(tag);
+    meta.appendChild(likeTotal);
+
     item.appendChild(link);
-    item.appendChild(tag);
+    item.appendChild(meta);
     grid.appendChild(item);
   });
 

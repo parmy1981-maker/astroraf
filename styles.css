@@ -688,8 +688,14 @@ img { max-width: 100%; display: block; }
   gap: 0.5rem;
 }
 
+.photo-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .photo-album-tag {
-  align-self: flex-start;
   font-size: 0.78rem;
   color: var(--text-dim);
   text-decoration: none;
@@ -699,6 +705,13 @@ img { max-width: 100%; display: block; }
 
 .photo-album-tag:hover {
   color: var(--accent);
+}
+
+.photo-like-total {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  opacity: 0.8;
 }
 
 .photo-placeholder img {
