@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AstroRaf.be — Foto's</title>
 <link rel="stylesheet" href="styles.css">
+<script src="vendor/supabase.js" defer></script>
+<script src="likes.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="gallery.js" defer></script>
 <script src="cart.js" defer></script>
@@ -110,6 +112,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Eclips_Start.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
         <div class="photo-tile">
@@ -118,6 +121,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Eclips_Corona.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
         <div class="photo-tile">
@@ -126,6 +130,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Eclips_Einde.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
       </div>
@@ -143,6 +148,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Maan_Wolken.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
         <div class="photo-tile">
@@ -151,6 +157,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Maan_Gedeeltelijk.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
         <div class="photo-tile">
@@ -159,6 +166,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Maan_Sikkel.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
         <div class="photo-tile">
@@ -167,6 +175,7 @@
           </button>
           <button class="like-btn" type="button" data-like="Maan_Totaal.jpg" aria-label="Like" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+          <span class="like-count">0</span>
           </button>
         </div>
       </div>
@@ -177,6 +186,7 @@
     <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close">&times;</button>
     <button class="lightbox-like" type="button" id="lightboxLike" aria-label="Like" aria-pressed="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
+    <span class="like-count">0</span>
     </button>
     <img id="lightboxImg" src="" alt="">
   </div>

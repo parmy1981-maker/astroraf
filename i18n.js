@@ -61,6 +61,8 @@ const translations = {
     alt_gallery_einde: `Einde van de zonsverduistering, astrofotografie door AstroRaf`,
     album_zonsverduistering: `Zonsverduistering`,
     album_maansverduistering: `Maansverduistering`,
+    photo_album_tag_zonsverduistering: `Album: Zonsverduistering &rarr;`,
+    photo_album_tag_maansverduistering: `Album: Maansverduistering &rarr;`,
     alt_gallery_maan_wolken: `Maan achter wolken tijdens de maansverduistering, astrofotografie door AstroRaf`,
     alt_gallery_maan_gedeeltelijk: `Gedeeltelijke maansverduistering, astrofotografie door AstroRaf`,
     alt_gallery_maan_sikkel: `Maansverduistering in sikkelvorm, astrofotografie door AstroRaf`,

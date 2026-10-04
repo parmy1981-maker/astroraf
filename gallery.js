@@ -1,32 +1,17 @@
-const LIKES_KEY = 'astroraf-likes';
+document.addEventListener('DOMContentLoaded', async () => {
+  let likeCounts = await fetchLikeCounts();
 
-function loadLikes() {
-  try {
-    const raw = localStorage.getItem(LIKES_KEY);
-    const likes = raw ? JSON.parse(raw) : [];
-    return Array.isArray(likes) ? likes : [];
-  } catch (e) {
-    return [];
+  function updateLikeCountDisplay(id) {
+    const count = likeCounts[id] || 0;
+    document.querySelectorAll(`[data-like="${id}"] .like-count`).forEach((span) => {
+      span.textContent = String(count);
+    });
   }
-}
 
-function saveLikes(likes) {
-  localStorage.setItem(LIKES_KEY, JSON.stringify(likes));
-}
+  document.querySelectorAll('[data-like]').forEach((el) => {
+    updateLikeCountDisplay(el.dataset.like);
+  });
 
-function isLiked(photoId) {
-  return loadLikes().includes(photoId);
-}
-
-function toggleLike(photoId) {
-  const likes = loadLikes();
-  const idx = likes.indexOf(photoId);
-  if (idx === -1) likes.push(photoId); else likes.splice(idx, 1);
-  saveLikes(likes);
-  return likes.includes(photoId);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
   const albumView = document.getElementById('albumView');
   const albumDetails = document.querySelectorAll('[data-album-detail]');
   const lightbox = document.getElementById('lightbox');
@@ -44,26 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyLikeState(id) {
-    const liked = isLiked(id);
+    const liked = isLikedLocally(id);
     document.querySelectorAll('[data-like]').forEach((el) => {
       if (el.dataset.like === id) setLikeUI(el, liked);
     });
   }
 
+  async function handleLikeClick(id) {
+    const nowLiked = await toggleRemoteLike(id);
+    if (nowLiked === null) return;
+    likeCounts[id] = (likeCounts[id] || 0) + (nowLiked ? 1 : -1);
+    updateLikeCountDisplay(id);
+    applyLikeState(id);
+  }
+
   document.querySelectorAll('.like-btn[data-like]').forEach((btn) => {
     applyLikeState(btn.dataset.like);
-    btn.addEventListener('click', () => {
-      toggleLike(btn.dataset.like);
-      applyLikeState(btn.dataset.like);
-    });
+    btn.addEventListener('click', () => handleLikeClick(btn.dataset.like));
   });
 
   if (lightboxLike) {
     lightboxLike.addEventListener('click', () => {
       const id = lightboxLike.dataset.like;
       if (!id) return;
-      toggleLike(id);
-      applyLikeState(id);
+      handleLikeClick(id);
     });
   }
 
@@ -124,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = src.split('/').pop();
         lightboxLike.dataset.like = id;
         applyLikeState(id);
+        updateLikeCountDisplay(id);
       }
     };
 
