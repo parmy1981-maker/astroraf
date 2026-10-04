@@ -669,6 +669,18 @@ img { max-width: 100%; display: block; }
   margin-top: 2rem;
 }
 
+#homeGalleryGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 860px) {
+  #homeGalleryGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  #homeGalleryGrid { grid-template-columns: 1fr; }
+}
+
 .photo-placeholder {
   aspect-ratio: 16 / 9;
   border-radius: 12px;
