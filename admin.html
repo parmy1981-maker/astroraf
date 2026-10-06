@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>AstroRaf.be — Beheer</title>
+<link rel="stylesheet" href="styles.css">
+<script src="vendor/supabase.js" defer></script>
+<script src="admin.js" defer></script>
+</head>
+<body>
+
+  <section class="gallery-page admin-page">
+    <h1 class="section-title">Albumbeheer</h1>
+
+    <div class="admin-panel">
+
+      <div class="admin-state" id="stateLoading">
+        <p>Bezig met laden…</p>
+      </div>
+
+      <div class="admin-state" id="stateLoggedOut" hidden>
+        <p>Log in met het Google-account dat toegang heeft gekregen.</p>
+        <button type="button" class="checkout-submit admin-google-btn" id="loginBtn">Inloggen met Google</button>
+      </div>
+
+      <div class="admin-state" id="stateNoAccess" hidden>
+        <p>Dit Google-account staat niet op de lijst van albumbeheerders.</p>
+        <p class="checkout-form-note" id="noAccessEmail"></p>
+        <button type="button" class="checkout-submit" id="logoutBtnNoAccess">Uitloggen</button>
+      </div>
+
+      <div class="admin-state" id="stateEditor" hidden>
+        <p class="checkout-form-note" id="editorEmail"></p>
+
+        <form id="albumForm" class="checkout-form">
+          <label class="form-field">
+            <span>Albumnaam</span>
+            <input type="text" name="albumName" id="albumName" required maxlength="80">
+          </label>
+          <label class="form-field">
+            <span>Foto's (jpeg, png of webp, max. 15MB per foto)</span>
+            <input type="file" name="photos" id="albumPhotos" accept="image/jpeg,image/png,image/webp" multiple required>
+          </label>
+          <button type="submit" class="checkout-submit" id="submitBtn">Album aanmaken</button>
+        </form>
+
+        <p class="admin-status" id="uploadStatus"></p>
+
+        <button type="button" class="checkout-submit admin-signout" id="logoutBtn">Uitloggen</button>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

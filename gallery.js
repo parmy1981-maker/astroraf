@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  await (window.astrorafDynamicAlbumsReady || Promise.resolve());
+
   let likeCounts = await fetchLikeCounts();
 
   function updateLikeCountDisplay(id) {
@@ -104,13 +106,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   let returnToOrigin = false;
 
   if (lightbox && lightboxImg) {
-    openLightbox = (src, alt) => {
+    openLightbox = (src, alt, likeId) => {
       lightboxImg.src = src;
       lightboxImg.alt = alt || '';
       lightbox.hidden = false;
 
       if (lightboxLike) {
-        const id = src.split('/').pop();
+        const id = likeId || src.split('/').pop();
         lightboxLike.dataset.like = id;
         applyLikeState(id);
         updateLikeCountDisplay(id);
@@ -122,8 +124,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       currentPhotoButtons = grid ? Array.from(grid.querySelectorAll('[data-lightbox-src]')) : [btn];
       currentPhotoIndex = currentPhotoButtons.indexOf(btn);
       const img = btn.querySelector('img');
+      const tile = btn.closest('.photo-tile');
+      const likeBtn = tile ? tile.querySelector('.like-btn[data-like]') : null;
       returnToOrigin = Boolean(isOriginLink);
-      openLightbox(btn.getAttribute('data-lightbox-src'), img ? img.alt : '');
+      openLightbox(btn.getAttribute('data-lightbox-src'), img ? img.alt : '', likeBtn ? likeBtn.dataset.like : null);
     };
     openPhotoButtonExternal = openPhotoButton;
 
