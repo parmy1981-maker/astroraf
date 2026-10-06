@@ -1,8 +1,14 @@
 # AstroRaf.be — Voortgang
 
-Laatste update: 2026-08-30
+Laatste update: 2026-09-14
 
-## Status: v1.5.4 lokaal klaar, NOG NIET online gezet (wacht op akkoord gebruiker)
+## Status: v1.5.4 is live (gepusht naar main, dus automatisch gedeployed door Vercel)
+
+## PC-migratie (2026-09-14)
+Het project is naar een nieuwe pc verhuisd. Volledige map overgekomen (inclusief `.env.local`, `.vercel/project.json`, `.claude`-settings) en de git-repo klopt exact met `origin/main` — niets verloren. Wel opnieuw moeten instellen op de nieuwe pc:
+- GitHub CLI (`gh`) geïnstalleerd via winget, ingelogd als `parmy1981-maker`.
+- Vercel CLI geïnstalleerd via npm, ingelogd als `parmy1981-6326` (team `woutp`).
+- Lokaal voorbeeld bekijken werkt via `http://localhost:8080/AstroRaf/` (een junction naar de projectmap wordt geserveerd met `npx serve -l tcp://127.0.0.1:8080 .` vanuit een scratch-map, zodat enkel dit project gedeeld wordt en enkel bereikbaar is vanaf deze pc — niet het hele netwerk).
 
 **BELANGRIJK — workflow-ontdekking:** Vercel's GitHub-integratie deployt automatisch naar productie bij elke `git push` naar `main`. Dus: lokaal werken/testen = geen `git push` doen. Pas na expliciet akkoord van de gebruiker pushen (en/of `vercel deploy --prod`) om live te gaan. Tot dan enkel lokaal committen.
 
