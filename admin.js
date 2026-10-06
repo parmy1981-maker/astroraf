@@ -29,7 +29,7 @@ async function init() {
   showState(stateLoading);
 
   const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session) {
+  if (!session || session.user.is_anonymous || !session.user.email) {
     showState(stateLoggedOut);
     return;
   }

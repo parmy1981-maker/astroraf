@@ -2,3 +2,4 @@
 .env*
 claude.exe
 .claude
+client_secret_*.json
