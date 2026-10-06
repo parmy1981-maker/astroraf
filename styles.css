@@ -43,11 +43,35 @@ img { max-width: 100%; display: block; }
   border-bottom: 1px solid var(--border);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-self: end;
+}
+
 .lang-switch {
   display: flex;
   gap: 0.35rem;
-  justify-self: end;
 }
+
+.account-switch { display: flex; }
+
+.account-link {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.account-link:hover { color: var(--text); border-color: var(--accent); }
 
 .lang-switch button {
   background: transparent;
@@ -111,7 +135,7 @@ img { max-width: 100%; display: block; }
     text-align: center;
   }
 
-  .lang-switch, .main-nav { justify-self: center; }
+  .header-actions, .main-nav { justify-self: center; }
 }
 
 /* ---------- Cart ---------- */
@@ -1111,6 +1135,7 @@ button.shop-card {
 }
 
 .album-card {
+  position: relative;
   background: none;
   border: none;
   padding: 0;
@@ -1312,15 +1337,76 @@ button.shop-card {
 
 .admin-google-btn { align-self: center; }
 
-.admin-signout {
-  background: transparent;
-  color: var(--text-dim);
-  border-color: var(--border);
-}
-
 .admin-status {
   margin: 0;
   font-size: 0.85rem;
   color: var(--text-dim);
   min-height: 1.2em;
+}
+
+/* ---------- Inline albumbeheer (editor-knoppen) ---------- */
+.icon-btn {
+  position: absolute;
+  top: 0.6rem;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(10, 12, 30, 0.85);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.icon-btn svg { width: 16px; height: 16px; }
+
+.icon-btn:hover { transform: scale(1.08); }
+
+.icon-btn-add { left: 0.6rem; color: #4ade80; border-color: #4ade80; }
+
+.icon-btn-delete { right: 0.6rem; color: #ff5d7a; border-color: #ff5d7a; }
+
+.photo-delete-btn {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #ff5d7a;
+  background: rgba(10, 12, 30, 0.85);
+  color: #ff5d7a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.photo-delete-btn svg { width: 15px; height: 15px; }
+
+.photo-delete-btn:hover { transform: scale(1.08); }
+
+.album-card-new-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  font-size: 2.5rem;
+  color: var(--text-dim);
+}
+
+.album-card-new:hover .album-card-new-icon {
+  color: var(--accent);
+  border-color: var(--accent);
 }

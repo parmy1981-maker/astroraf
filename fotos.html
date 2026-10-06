@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="styles.css">
 <script src="vendor/supabase.js" defer></script>
 <script src="likes.js" defer></script>
+<script src="account-nav.js" defer></script>
 <script src="dynamic-albums.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="gallery.js" defer></script>
@@ -23,11 +24,16 @@
       <a href="fotos.html" class="active" data-i18n="nav_photos">Albums</a>
       <a href="shop.html" data-i18n="nav_shop">Shop</a>
     </nav>
-    <div class="lang-switch">
-      <button type="button" data-lang="nl">NL</button>
-      <button type="button" data-lang="en">EN</button>
-      <button type="button" data-lang="fr">FR</button>
-      <button type="button" data-lang="de">DE</button>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button type="button" data-lang="nl">NL</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="de">DE</button>
+      </div>
+      <div class="account-switch">
+        <a href="admin.html" class="account-link" id="accountLink">Inloggen</a>
+      </div>
     </div>
   </header>
 
@@ -83,127 +89,9 @@
         <input type="search" id="albumSearch" data-i18n-placeholder="album_search_placeholder" placeholder="Zoek een album...">
       </div>
 
-      <div class="album-grid" id="albumGrid">
-        <button class="album-card" type="button" data-open-album="zonsverduistering">
-          <span class="album-cover">
-            <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
-          </span>
-          <span class="album-name" data-i18n="album_zonsverduistering">Zonsverduistering</span>
-        </button>
-        <button class="album-card" type="button" data-open-album="maansverduistering">
-          <span class="album-cover">
-            <img src="foto's/Maan_Totaal.jpg" alt="Totale maansverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_totaal">
-          </span>
-          <span class="album-name" data-i18n="album_maansverduistering">Maansverduistering</span>
-        </button>
-        <button class="album-card" type="button" data-open-album="maanreeks">
-          <span class="album-cover">
-            <img src="foto's/Maan.jpg" alt="De maan, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan">
-          </span>
-          <span class="album-name" data-i18n="album_maanreeks">Maanreeks</span>
-        </button>
-      </div>
+      <div class="album-grid" id="albumGrid"></div>
 
       <p class="album-search-empty" id="albumSearchEmpty" hidden data-i18n="album_search_empty">Geen albums gevonden.</p>
-    </div>
-
-    <div class="album-detail" data-album-detail="zonsverduistering" hidden>
-      <button class="back-link" type="button" data-close-album>
-        &larr; <span data-i18n="back_to_albums">Terug naar albums</span>
-      </button>
-      <h2 class="section-title" data-i18n="album_zonsverduistering">Zonsverduistering</h2>
-      <div class="photo-grid">
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Eclips_Start.jpg">
-            <img src="foto's/Eclips_Start.jpg" alt="Start van de zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_start">
-          </button>
-          <button class="like-btn" type="button" data-like="Eclips_Start.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Eclips_Corona.jpg">
-            <img src="foto's/Eclips_Corona.jpg" alt="Corona tijdens de totale zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_corona">
-          </button>
-          <button class="like-btn" type="button" data-like="Eclips_Corona.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Eclips_Einde.jpg">
-            <img src="foto's/Eclips_Einde.jpg" alt="Einde van de zonsverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_einde">
-          </button>
-          <button class="like-btn" type="button" data-like="Eclips_Einde.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="album-detail" data-album-detail="maansverduistering" hidden>
-      <button class="back-link" type="button" data-close-album>
-        &larr; <span data-i18n="back_to_albums">Terug naar albums</span>
-      </button>
-      <h2 class="section-title" data-i18n="album_maansverduistering">Maansverduistering</h2>
-      <div class="photo-grid">
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Maan_Wolken.jpg">
-            <img src="foto's/Maan_Wolken.jpg" alt="Maan achter wolken tijdens de maansverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_wolken">
-          </button>
-          <button class="like-btn" type="button" data-like="Maan_Wolken.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Maan_Gedeeltelijk.jpg">
-            <img src="foto's/Maan_Gedeeltelijk.jpg" alt="Gedeeltelijke maansverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_gedeeltelijk">
-          </button>
-          <button class="like-btn" type="button" data-like="Maan_Gedeeltelijk.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Maan_Sikkel.jpg">
-            <img src="foto's/Maan_Sikkel.jpg" alt="Maansverduistering in sikkelvorm, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_sikkel">
-          </button>
-          <button class="like-btn" type="button" data-like="Maan_Sikkel.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Maan_Totaal.jpg">
-            <img src="foto's/Maan_Totaal.jpg" alt="Totale maansverduistering, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan_totaal">
-          </button>
-          <button class="like-btn" type="button" data-like="Maan_Totaal.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-          <span class="like-count">0</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="album-detail" data-album-detail="maanreeks" hidden>
-      <button class="back-link" type="button" data-close-album>
-        &larr; <span data-i18n="back_to_albums">Terug naar albums</span>
-      </button>
-      <h2 class="section-title" data-i18n="album_maanreeks">Maanreeks</h2>
-      <div class="photo-grid">
-        <div class="photo-tile">
-          <button class="photo-placeholder photo-open" type="button" data-lightbox-src="foto's/Maan.jpg">
-            <img src="foto's/Maan.jpg" alt="De maan, astrofotografie door AstroRaf" data-i18n-alt="alt_gallery_maan">
-          </button>
-          <button class="like-btn" type="button" data-like="Maan.jpg" aria-label="Like" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-9.8-9.1C.6 8.1 2 4.8 5.2 4.1c2-.4 3.9.5 5 2.1a5.6 5.6 0 0 1 1.8-2c2.8-1.9 6.4-.6 7.6 2.4 1.6 3.9-1.1 8.5-7.6 13.9z"/></svg>
-            <span class="like-count">0</span>
-          </button>
-        </div>
-      </div>
     </div>
   </section>
 

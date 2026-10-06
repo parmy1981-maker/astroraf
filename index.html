@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="styles.css">
 <script src="vendor/supabase.js" defer></script>
 <script src="likes.js" defer></script>
+<script src="account-nav.js" defer></script>
 <script src="photos-data.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="home-gallery.js" defer></script>
@@ -24,11 +25,16 @@
       <a href="fotos.html" data-i18n="nav_photos">Albums</a>
       <a href="shop.html" data-i18n="nav_shop">Shop</a>
     </nav>
-    <div class="lang-switch">
-      <button type="button" data-lang="nl">NL</button>
-      <button type="button" data-lang="en">EN</button>
-      <button type="button" data-lang="fr">FR</button>
-      <button type="button" data-lang="de">DE</button>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button type="button" data-lang="nl">NL</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="de">DE</button>
+      </div>
+      <div class="account-switch">
+        <a href="admin.html" class="account-link" id="accountLink">Inloggen</a>
+      </div>
     </div>
   </header>
 

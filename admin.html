@@ -31,24 +31,8 @@
         <button type="button" class="checkout-submit" id="logoutBtnNoAccess">Uitloggen</button>
       </div>
 
-      <div class="admin-state" id="stateEditor" hidden>
-        <p class="checkout-form-note" id="editorEmail"></p>
-
-        <form id="albumForm" class="checkout-form">
-          <label class="form-field">
-            <span>Albumnaam</span>
-            <input type="text" name="albumName" id="albumName" required maxlength="80">
-          </label>
-          <label class="form-field">
-            <span>Foto's (jpeg, png of webp, max. 15MB per foto)</span>
-            <input type="file" name="photos" id="albumPhotos" accept="image/jpeg,image/png,image/webp" multiple required>
-          </label>
-          <button type="submit" class="checkout-submit" id="submitBtn">Album aanmaken</button>
-        </form>
-
-        <p class="admin-status" id="uploadStatus"></p>
-
-        <button type="button" class="checkout-submit admin-signout" id="logoutBtn">Uitloggen</button>
+      <div class="admin-state" id="stateRedirecting" hidden>
+        <p>Ingelogd — je wordt doorgestuurd naar de Foto's-pagina…</p>
       </div>
 
     </div>
