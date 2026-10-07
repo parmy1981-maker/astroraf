@@ -55,16 +55,6 @@ document.getElementById('loginBtn').addEventListener('click', () => {
   });
 });
 
-document.getElementById('logoutBtnNoAccess').addEventListener('click', async () => {
-  await supabaseClient.auth.signOut();
-  init();
-});
-
-document.getElementById('logoutBtnRequestSent').addEventListener('click', async () => {
-  await supabaseClient.auth.signOut();
-  init();
-});
-
 accessRequestForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   accessRequestError.hidden = true;

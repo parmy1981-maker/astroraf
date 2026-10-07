@@ -22,11 +22,23 @@ function accountLabelFor(key) {
 }
 
 const accountLink = document.getElementById('accountLink');
+const accountEmailEl = document.getElementById('accountEmail');
 let accountIsLoggedIn = false;
 
 function renderAccountLabel() {
   if (!accountLink) return;
   accountLink.textContent = accountLabelFor(accountIsLoggedIn ? 'logout' : 'login');
+}
+
+function renderAccountEmail(email) {
+  if (!accountEmailEl) return;
+  if (accountIsLoggedIn && email) {
+    accountEmailEl.textContent = email;
+    accountEmailEl.hidden = false;
+  } else {
+    accountEmailEl.textContent = '';
+    accountEmailEl.hidden = true;
+  }
 }
 
 async function accountLogoutClick(e) {
@@ -47,8 +59,15 @@ async function initAccountNav() {
   if (!accountLink) return;
 
   const { data: { session } } = await accountSupabase.auth.getSession();
-  accountIsLoggedIn = Boolean(session && !session.user.is_anonymous && session.user.email);
+  const hasGoogleSession = Boolean(session && !session.user.is_anonymous && session.user.email);
+
+  accountIsLoggedIn = false;
+  if (hasGoogleSession) {
+    const { data: isEditor } = await accountSupabase.rpc('is_editor');
+    accountIsLoggedIn = Boolean(isEditor);
+  }
   renderAccountLabel();
+  renderAccountEmail(session?.user?.email || null);
 
   if (accountIsLoggedIn) {
     accountLink.setAttribute('href', '#');
