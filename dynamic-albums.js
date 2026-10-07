@@ -49,7 +49,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
   async function loadData() {
     const { data: albumRows, error: albumsError } = await supabaseClient
       .from('albums')
-      .select('id,slug,name_nl,name_en,name_fr,name_de,created_at')
+      .select('id,slug,name_nl,name_en,name_fr,name_de,copyright,created_at')
       .order('created_at', { ascending: true });
     if (albumsError) throw albumsError;
     albums = albumRows || [];
@@ -118,10 +118,6 @@ window.astrorafDynamicAlbumsReady = (async () => {
     card.appendChild(nameSpan);
 
     if (isEditor) {
-      card.appendChild(makeIconButton('icon-btn-add', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>', "Foto's toevoegen", (e) => {
-        e.stopPropagation();
-        openAddPhotosModal(album);
-      }));
       card.appendChild(makeIconButton('icon-btn-delete', trashSvg(), 'Album verwijderen', (e) => {
         e.stopPropagation();
         deleteAlbum(album);
@@ -163,6 +159,61 @@ window.astrorafDynamicAlbumsReady = (async () => {
     return tile;
   }
 
+  function buildCopyrightField(album) {
+    if (isEditor) {
+      const wrap = document.createElement('div');
+      wrap.className = 'album-copyright-edit';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'album-copyright-input';
+      input.placeholder = 'Auteursrecht (bv. © Raf Janssens)';
+      input.maxLength = 200;
+      input.value = album.copyright || '';
+
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') input.blur(); });
+      input.addEventListener('blur', async () => {
+        const value = input.value.trim();
+        if (value === (album.copyright || '')) return;
+        const { error } = await supabaseClient.from('albums').update({ copyright: value || null }).eq('id', album.id);
+        if (error) {
+          console.error('AstroRaf: auteursrecht opslaan mislukt', error);
+          window.alert(`Opslaan mislukt: ${error.message || error}`);
+          return;
+        }
+        album.copyright = value || null;
+      });
+
+      wrap.appendChild(input);
+      return wrap;
+    }
+
+    const p = document.createElement('p');
+    p.className = 'album-copyright';
+    p.textContent = album.copyright || '';
+    if (!album.copyright) p.hidden = true;
+    return p;
+  }
+
+  function buildNewPhotoTile(album) {
+    const tile = document.createElement('button');
+    tile.type = 'button';
+    tile.className = 'album-card album-card-new';
+
+    const plus = document.createElement('span');
+    plus.className = 'album-card-new-icon';
+    plus.textContent = '+';
+
+    const label = document.createElement('span');
+    label.className = 'album-name';
+    label.textContent = "Foto's toevoegen";
+
+    tile.appendChild(plus);
+    tile.appendChild(label);
+    tile.addEventListener('click', () => openAddPhotosModal(album));
+    return tile;
+  }
+
   function buildAlbumDetail(album, photos) {
     const detail = document.createElement('div');
     detail.className = 'album-detail';
@@ -182,9 +233,11 @@ window.astrorafDynamicAlbumsReady = (async () => {
     const grid = document.createElement('div');
     grid.className = 'photo-grid';
     photos.forEach((photo) => grid.appendChild(buildPhotoTile(photo, album)));
+    if (isEditor) grid.appendChild(buildNewPhotoTile(album));
 
     detail.appendChild(backBtn);
     detail.appendChild(title);
+    detail.appendChild(buildCopyrightField(album));
     detail.appendChild(grid);
     gallerySection.appendChild(detail);
   }
