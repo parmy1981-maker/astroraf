@@ -779,6 +779,7 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Footer ---------- */
 .site-footer {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -786,7 +787,17 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
   padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
   background: var(--header-bg);
-  border-top: 1px solid var(--border);
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, var(--header-bg));
+  pointer-events: none;
 }
 
 .footer-info {
