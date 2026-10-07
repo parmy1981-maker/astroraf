@@ -42,7 +42,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
     langRefs.forEach((ref) => {
       const value = ref.compute();
       if (ref.attr === 'text') ref.el.textContent = value;
-      else ref.el.setAttribute(ref.attr, value);
+      else ref.el[ref.attr] = value;
     });
   }
 
@@ -120,7 +120,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
     if (album.copyright) {
       const copyrightSpan = document.createElement('span');
       copyrightSpan.className = 'album-card-copyright';
-      copyrightSpan.textContent = album.copyright;
+      copyrightSpan.textContent = `Auteursrecht: ${album.copyright}`;
       card.appendChild(copyrightSpan);
     }
 
@@ -171,10 +171,14 @@ window.astrorafDynamicAlbumsReady = (async () => {
       const wrap = document.createElement('div');
       wrap.className = 'album-copyright-edit';
 
+      const label = document.createElement('span');
+      label.className = 'album-copyright-edit-label';
+      label.textContent = 'Auteursrecht:';
+
       const input = document.createElement('input');
       input.type = 'text';
       input.className = 'album-copyright-input';
-      input.placeholder = 'Auteursrecht (bv. © Raf Janssens)';
+      input.placeholder = 'bv. © Raf Janssens';
       input.maxLength = 200;
       input.value = album.copyright || '';
 
@@ -191,13 +195,14 @@ window.astrorafDynamicAlbumsReady = (async () => {
         album.copyright = value || null;
       });
 
+      wrap.appendChild(label);
       wrap.appendChild(input);
       return wrap;
     }
 
     const p = document.createElement('p');
     p.className = 'album-copyright';
-    p.textContent = album.copyright || '';
+    p.textContent = album.copyright ? `Auteursrecht: ${album.copyright}` : '';
     if (!album.copyright) p.hidden = true;
     return p;
   }
