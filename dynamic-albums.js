@@ -117,6 +117,13 @@ window.astrorafDynamicAlbumsReady = (async () => {
     card.appendChild(cover);
     card.appendChild(nameSpan);
 
+    if (album.copyright) {
+      const copyrightSpan = document.createElement('span');
+      copyrightSpan.className = 'album-card-copyright';
+      copyrightSpan.textContent = album.copyright;
+      card.appendChild(copyrightSpan);
+    }
+
     if (isEditor) {
       card.appendChild(makeIconButton('icon-btn-delete', trashSvg(), 'Album verwijderen', (e) => {
         e.stopPropagation();
@@ -195,6 +202,41 @@ window.astrorafDynamicAlbumsReady = (async () => {
     return p;
   }
 
+  function buildTitleField(album) {
+    if (!isEditor) {
+      const h2 = document.createElement('h2');
+      h2.className = 'section-title';
+      registerLangRef(h2, 'text', () => albumName(album));
+      return h2;
+    }
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'section-title album-title-input';
+    input.maxLength = 80;
+    registerLangRef(input, 'value', () => albumName(album));
+
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') input.blur(); });
+    input.addEventListener('blur', async () => {
+      const field = 'name_' + currentLang();
+      const value = input.value.trim();
+      if (!value) { input.value = albumName(album); return; }
+      if (value === (album[field] || '')) return;
+
+      const { error } = await supabaseClient.from('albums').update({ [field]: value }).eq('id', album.id);
+      if (error) {
+        console.error('AstroRaf: albumnaam opslaan mislukt', error);
+        window.alert(`Opslaan mislukt: ${error.message || error}`);
+        input.value = albumName(album);
+        return;
+      }
+      album[field] = value;
+      applyLanguage();
+    });
+
+    return input;
+  }
+
   function buildNewPhotoTile(album) {
     const tile = document.createElement('button');
     tile.type = 'button';
@@ -226,9 +268,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
     backBtn.setAttribute('data-close-album', '');
     backBtn.innerHTML = '&larr; <span>Terug naar albums</span>';
 
-    const title = document.createElement('h2');
-    title.className = 'section-title';
-    registerLangRef(title, 'text', () => albumName(album));
+    const title = buildTitleField(album);
 
     const grid = document.createElement('div');
     grid.className = 'photo-grid';
