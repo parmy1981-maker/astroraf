@@ -26,9 +26,23 @@
       </div>
 
       <div class="admin-state" id="stateNoAccess" hidden>
-        <p>Dit Google-account staat niet op de lijst van albumbeheerders.</p>
-        <p class="checkout-form-note" id="noAccessEmail"></p>
+        <p>Dit Google-account (<span id="noAccessEmail"></span>) wordt niet herkend om toegang te verlenen.</p>
+
+        <form id="accessRequestForm" class="checkout-form">
+          <label class="form-field">
+            <span>Bericht (optioneel)</span>
+            <textarea id="accessRequestMessage" rows="3" placeholder="Bv. geef een reden op waarom je toegang wenst."></textarea>
+          </label>
+          <button type="submit" class="checkout-submit" id="requestAccessBtn">Toegang aanvragen</button>
+        </form>
+
+        <p class="checkout-form-note" id="accessRequestError" hidden></p>
         <button type="button" class="checkout-submit" id="logoutBtnNoAccess">Uitloggen</button>
+      </div>
+
+      <div class="admin-state" id="stateRequestSent" hidden>
+        <p>Je aanvraag is verstuurd. Raf neemt deze door en neemt indien nodig contact met je op.</p>
+        <button type="button" class="checkout-submit" id="logoutBtnRequestSent">Uitloggen</button>
       </div>
 
       <div class="admin-state" id="stateRedirecting" hidden>

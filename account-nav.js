@@ -35,6 +35,14 @@ async function accountLogoutClick(e) {
   window.location.reload();
 }
 
+function accountLoginClick(e) {
+  e.preventDefault();
+  accountSupabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: new URL('admin.html', window.location.href).toString() },
+  });
+}
+
 async function initAccountNav() {
   if (!accountLink) return;
 
@@ -45,6 +53,8 @@ async function initAccountNav() {
   if (accountIsLoggedIn) {
     accountLink.setAttribute('href', '#');
     accountLink.addEventListener('click', accountLogoutClick);
+  } else {
+    accountLink.addEventListener('click', accountLoginClick);
   }
 }
 

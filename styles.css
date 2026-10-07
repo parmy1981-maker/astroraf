@@ -1337,6 +1337,8 @@ button.shop-card {
 
 .admin-google-btn { align-self: center; }
 
+#accessRequestForm { align-self: stretch; }
+
 .admin-status {
   margin: 0;
   font-size: 0.85rem;
