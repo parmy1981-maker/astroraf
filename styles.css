@@ -6,7 +6,7 @@
   --accent: #a9c4ff;
   --text: #eef1ff;
   --text-dim: #9aa3c7;
-  --header-bg: rgba(0, 21, 52, 0.6);
+  --header-bg: #001534;
   --border: rgba(255, 255, 255, 0.08);
 }
 
@@ -54,8 +54,6 @@ img { max-width: 100%; display: block; }
   display: flex;
   gap: 0.35rem;
 }
-
-.account-switch { display: flex; }
 
 .account-link {
   background: transparent;
@@ -793,9 +791,21 @@ img { max-width: 100%; display: block; }
   border-top: 1px solid var(--border);
 }
 
+.footer-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .footer-copy {
   color: var(--text-dim);
   font-size: 0.8rem;
+}
+
+.account-email {
+  color: var(--text-dim);
+  font-size: 0.72rem;
 }
 
 .socials { display: flex; gap: 1rem; }
