@@ -13,7 +13,7 @@ async function sendMail({ to, subject, html, replyTo }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'AstroRaf.be <onboarding@resend.dev>',
+      from: 'AstroRaf.be <meldingen@astroraf.be>',
       to: [to],
       subject,
       html,
