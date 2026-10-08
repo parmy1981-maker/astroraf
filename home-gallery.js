@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     return photo['caption_' + currentLang()] || photo.caption_nl || albumName(album);
   }
 
+  function t(key) {
+    const dict = (typeof translations !== 'undefined' && translations[currentLang()]) || {};
+    return dict[key] || '';
+  }
+
   function publicPhotoUrl(storagePath) {
     if (storagePath.startsWith(LOCAL_PREFIX)) return storagePath.slice(LOCAL_PREFIX.length);
     const { data } = supabaseClient.storage.from(STORAGE_BUCKET).getPublicUrl(storagePath);
@@ -99,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tag = document.createElement('a');
     tag.className = 'photo-album-tag';
     tag.href = `fotos.html#${album.slug}`;
-    langRefs.push({ el: tag, attr: 'html', compute: () => `Album: ${albumName(album)} &rarr;` });
+    langRefs.push({ el: tag, attr: 'html', compute: () => `${t('album_tag_prefix')} ${albumName(album)} &rarr;` });
 
     const likeTotal = document.createElement('span');
     likeTotal.className = 'photo-like-total';

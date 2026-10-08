@@ -17,6 +17,11 @@ window.astrorafDynamicAlbumsReady = (async () => {
     return localStorage.getItem('astroraf-lang') || 'nl';
   }
 
+  function t(key) {
+    const dict = (typeof translations !== 'undefined' && translations[currentLang()]) || {};
+    return dict[key] || '';
+  }
+
   function albumName(album) {
     return album['name_' + currentLang()] || album.name_nl;
   }
@@ -120,7 +125,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
     if (album.copyright) {
       const copyrightSpan = document.createElement('span');
       copyrightSpan.className = 'album-card-copyright';
-      copyrightSpan.textContent = `Auteursrecht: ${album.copyright}`;
+      registerLangRef(copyrightSpan, 'text', () => `${t('album_copyright_label')} ${album.copyright}`);
       card.appendChild(copyrightSpan);
     }
 
@@ -173,7 +178,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
       const label = document.createElement('span');
       label.className = 'album-copyright-edit-label';
-      label.textContent = 'Auteursrecht:';
+      registerLangRef(label, 'text', () => t('album_copyright_label'));
 
       const input = document.createElement('input');
       input.type = 'text';
@@ -202,8 +207,8 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
     const p = document.createElement('p');
     p.className = 'album-copyright';
-    p.textContent = album.copyright ? `Auteursrecht: ${album.copyright}` : '';
-    if (!album.copyright) p.hidden = true;
+    if (!album.copyright) { p.hidden = true; return p; }
+    registerLangRef(p, 'text', () => `${t('album_copyright_label')} ${album.copyright}`);
     return p;
   }
 
@@ -271,7 +276,8 @@ window.astrorafDynamicAlbumsReady = (async () => {
     backBtn.type = 'button';
     backBtn.className = 'back-link';
     backBtn.setAttribute('data-close-album', '');
-    backBtn.innerHTML = '&larr; <span>Terug naar albums</span>';
+    backBtn.innerHTML = '&larr; <span></span>';
+    registerLangRef(backBtn.querySelector('span'), 'text', () => t('back_to_albums'));
 
     const title = buildTitleField(album);
 

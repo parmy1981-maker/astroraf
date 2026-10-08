@@ -234,6 +234,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return localStorage.getItem('astroraf-lang') || 'nl';
   }
 
+  function t(key) {
+    const dict = (typeof translations !== 'undefined' && translations[currentLang()]) || {};
+    return dict[key] || '';
+  }
+
   function materialLabel(material) {
     const dict = materialNames[currentLang()] || materialNames.nl;
     return dict[material] || material;
@@ -402,17 +407,17 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
       const bodyLines = [
-        'Nieuwe bestelling via AstroRaf.be',
+        t('order_body_title'),
         '',
         ...orderLines,
         '',
-        `Naam: ${name}`,
-        `E-mail: ${email}`,
-        `Adres: ${address}`,
-        `Opmerkingen: ${notes || '-'}`,
+        `${t('order_name_label')}: ${name}`,
+        `${t('order_email_label')}: ${email}`,
+        `${t('order_address_label')}: ${address}`,
+        `${t('order_notes_label')}: ${notes || '-'}`,
       ];
 
-      const subject = encodeURIComponent('Nieuwe bestelling - AstroRaf.be');
+      const subject = encodeURIComponent(t('order_subject'));
       const body = encodeURIComponent(bodyLines.join('\n'));
       window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
 
