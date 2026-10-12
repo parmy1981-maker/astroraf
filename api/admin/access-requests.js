@@ -121,7 +121,7 @@ async function handleList(req, res, serviceKey) {
 async function handleAction(req, res, serviceKey, adminEmail) {
   const email = String(req.body?.email || '').toLowerCase().trim();
   const action = req.body?.action;
-  if (!email || !['accept', 'revoke', 'block', 'unblock', 'delete'].includes(action)) {
+  if (!email || !['accept', 'revoke', 'block', 'unblock', 'delete', 'promote', 'demote'].includes(action)) {
     res.status(400).json({ error: 'Ongeldige actie' });
     return;
   }
@@ -136,7 +136,7 @@ async function handleAction(req, res, serviceKey, adminEmail) {
     'Content-Type': 'application/json',
   };
 
-  if (action === 'revoke' || action === 'block' || action === 'delete') {
+  if (action === 'revoke' || action === 'block' || action === 'delete' || action === 'demote') {
     const adminsRes = await fetch(
       `${SUPABASE_URL}/rest/v1/editors?select=email&role=eq.admin`,
       { headers: sbHeaders }
@@ -144,14 +144,29 @@ async function handleAction(req, res, serviceKey, adminEmail) {
     const admins = adminsRes.ok ? await adminsRes.json() : [];
     const targetIsOnlyAdmin = admins.length === 1 && admins[0].email === email;
     if (targetIsOnlyAdmin) {
-      res.status(400).json({ error: 'Kan de laatste admin niet verwijderen' });
+      res.status(400).json({ error: 'Kan de laatste admin niet verwijderen/degraderen' });
       return;
     }
+  }
+
+  if (action === 'revoke' || action === 'block' || action === 'delete') {
     const delRes = await fetch(
       `${SUPABASE_URL}/rest/v1/editors?email=eq.${encodeURIComponent(email)}`,
       { method: 'DELETE', headers: sbHeaders }
     );
     if (!delRes.ok) throw new Error(await delRes.text());
+  }
+
+  if (action === 'promote' || action === 'demote') {
+    const roleRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/editors?email=eq.${encodeURIComponent(email)}`,
+      {
+        method: 'PATCH',
+        headers: { ...sbHeaders, Prefer: 'return=minimal' },
+        body: JSON.stringify({ role: action === 'promote' ? 'admin' : 'editor' }),
+      }
+    );
+    if (!roleRes.ok) throw new Error(await roleRes.text());
   }
 
   if (action === 'accept') {

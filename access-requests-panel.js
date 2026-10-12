@@ -84,6 +84,14 @@ function accessReqRenderRow(row) {
     onClick: () => accessReqAction(row.email, row.status === 'accepted' ? 'revoke' : 'accept'),
   });
 
+  const adminToggle = row.status === 'accepted' ? accessReqMakeToggle({
+    isOn: row.role === 'admin',
+    labelOn: 'Admin',
+    labelOff: 'Editor',
+    title: row.role === 'admin' ? 'Admin-rechten intrekken' : 'Admin-rechten geven (mag dit gebruikersbeheer ook zelf bedienen)',
+    onClick: () => accessReqAction(row.email, row.role === 'admin' ? 'demote' : 'promote'),
+  }) : null;
+
   const blockToggle = accessReqMakeToggle({
     isOn: row.status === 'blocked',
     labelOn: 'Geblokkeerd',
@@ -107,6 +115,7 @@ function accessReqRenderRow(row) {
   });
 
   actions.appendChild(accessToggle);
+  if (adminToggle) actions.appendChild(adminToggle);
   actions.appendChild(blockToggle);
   actions.appendChild(deleteBtn);
   wrap.appendChild(info);
