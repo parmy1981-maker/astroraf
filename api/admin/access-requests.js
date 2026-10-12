@@ -121,11 +121,11 @@ async function handleList(req, res, serviceKey) {
 async function handleAction(req, res, serviceKey, adminEmail) {
   const email = String(req.body?.email || '').toLowerCase().trim();
   const action = req.body?.action;
-  if (!email || !['accept', 'revoke', 'block', 'unblock', 'delete', 'promote', 'demote'].includes(action)) {
+  if (!email || !['accept', 'revoke', 'delete', 'promote', 'demote'].includes(action)) {
     res.status(400).json({ error: 'Ongeldige actie' });
     return;
   }
-  if (email === adminEmail && (action === 'revoke' || action === 'block' || action === 'delete')) {
+  if (email === adminEmail && (action === 'revoke' || action === 'delete')) {
     res.status(400).json({ error: 'Je kan jezelf niet verwijderen/blokkeren' });
     return;
   }
@@ -136,7 +136,7 @@ async function handleAction(req, res, serviceKey, adminEmail) {
     'Content-Type': 'application/json',
   };
 
-  if (action === 'revoke' || action === 'block' || action === 'delete' || action === 'demote') {
+  if (action === 'revoke' || action === 'delete' || action === 'demote') {
     const adminsRes = await fetch(
       `${SUPABASE_URL}/rest/v1/editors?select=email&role=eq.admin`,
       { headers: sbHeaders }
@@ -149,7 +149,7 @@ async function handleAction(req, res, serviceKey, adminEmail) {
     }
   }
 
-  if (action === 'revoke' || action === 'block' || action === 'delete') {
+  if (action === 'revoke' || action === 'delete') {
     const delRes = await fetch(
       `${SUPABASE_URL}/rest/v1/editors?email=eq.${encodeURIComponent(email)}`,
       { method: 'DELETE', headers: sbHeaders }
@@ -188,30 +188,21 @@ async function handleAction(req, res, serviceKey, adminEmail) {
     }
   }
 
-  if (action === 'block' || action === 'unblock') {
+  if (action === 'revoke') {
+    // Toegang intrekken blokkeert ook meteen: voorkomt dat een net ontzegde
+    // editor zomaar via een nieuwe aanvraag weer binnenkomt. Enkel "delete"
+    // zet iemand volledig op nul (mag dan opnieuw aanvragen).
     const upsertRes = await fetch(`${SUPABASE_URL}/rest/v1/access_requests`, {
       method: 'POST',
       headers: { ...sbHeaders, Prefer: 'resolution=merge-duplicates,return=minimal' },
       body: JSON.stringify({
         email,
-        status: action === 'block' ? 'blocked' : 'pending',
+        status: 'blocked',
         decided_at: new Date().toISOString(),
         decided_by: adminEmail,
       }),
     });
     if (!upsertRes.ok) throw new Error(await upsertRes.text());
-  }
-
-  if (action === 'revoke') {
-    const updRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/access_requests?email=eq.${encodeURIComponent(email)}`,
-      {
-        method: 'PATCH',
-        headers: { ...sbHeaders, Prefer: 'return=minimal' },
-        body: JSON.stringify({ decided_at: new Date().toISOString(), decided_by: adminEmail }),
-      }
-    );
-    void updRes;
   }
 
   if (action === 'delete') {
