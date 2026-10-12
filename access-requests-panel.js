@@ -21,6 +21,10 @@ function accessReqEnsureModal() {
       <button type="button" class="modal-close" data-close>&times;</button>
       <h2>Gebruikersbeheer</h2>
       <p class="access-requests-hint">Nieuwste login staat boven.</p>
+      <div class="access-requests-legend">
+        <span><span class="req-toggle is-on req-toggle-demo"><span class="req-toggle-knob"></span></span> schuifje = toegang verlenen/intrekken</span>
+        <span><button type="button" class="req-block-btn is-text" disabled>Blokkeren</button> = weigeren + ook toekomstige aanvragen van dit e-mailadres negeren</span>
+      </div>
       <div class="access-requests-list" id="accessRequestsList"></div>
     </div>
   `;
@@ -56,6 +60,8 @@ function accessReqRenderRow(row) {
   const actions = document.createElement('div');
   actions.className = 'access-request-actions';
 
+  const toggleWrap = document.createElement('div');
+  toggleWrap.className = 'req-toggle-wrap';
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'req-toggle' + (row.status === 'accepted' ? ' is-on' : '');
@@ -64,22 +70,27 @@ function accessReqRenderRow(row) {
   toggle.title = row.status === 'accepted' ? 'Toegang intrekken' : 'Toegang verlenen';
   toggle.innerHTML = '<span class="req-toggle-knob"></span>';
   toggle.addEventListener('click', () => accessReqAction(row.email, row.status === 'accepted' ? 'revoke' : 'accept'));
+  const toggleLabel = document.createElement('span');
+  toggleLabel.className = 'req-toggle-label';
+  toggleLabel.textContent = row.status === 'accepted' ? 'Toegang' : 'Geen toegang';
+  toggleWrap.appendChild(toggle);
+  toggleWrap.appendChild(toggleLabel);
 
   const blockBtn = document.createElement('button');
   blockBtn.type = 'button';
-  blockBtn.className = 'req-block-btn';
+  blockBtn.className = 'req-block-btn is-text';
   if (row.status === 'blocked') {
-    blockBtn.classList.add('is-text');
     blockBtn.title = 'Deblokkeren';
     blockBtn.textContent = 'Deblokkeren';
     blockBtn.addEventListener('click', () => accessReqAction(row.email, 'unblock'));
   } else {
-    blockBtn.title = 'Blokkeren';
-    blockBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg>';
+    blockBtn.classList.add('is-danger');
+    blockBtn.title = 'Blokkeren (weigert + negeert toekomstige aanvragen van dit e-mailadres)';
+    blockBtn.textContent = 'Blokkeren';
     blockBtn.addEventListener('click', () => accessReqAction(row.email, 'block'));
   }
 
-  actions.appendChild(toggle);
+  actions.appendChild(toggleWrap);
   actions.appendChild(blockBtn);
   wrap.appendChild(info);
   wrap.appendChild(actions);
