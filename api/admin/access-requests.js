@@ -125,8 +125,10 @@ async function handleAction(req, res, serviceKey, adminEmail) {
     res.status(400).json({ error: 'Ongeldige actie' });
     return;
   }
-  if (email === adminEmail && (action === 'revoke' || action === 'delete')) {
-    res.status(400).json({ error: 'Je kan jezelf niet verwijderen/blokkeren' });
+  if (email === adminEmail && (action === 'revoke' || action === 'delete' || action === 'demote')) {
+    // Altijd door een andere admin te laten doen, zodat niemand zichzelf per
+    // ongeluk buitenspel zet (toegang intrekken, verwijderen of degraderen).
+    res.status(400).json({ error: 'Dit moet een andere admin voor je doen, niet jezelf' });
     return;
   }
 

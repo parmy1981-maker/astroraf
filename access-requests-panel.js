@@ -60,6 +60,8 @@ function accessReqMakeToggle({ isOn, labelOn, labelOff, disabled, danger, title,
 }
 
 function accessReqRenderRow(row) {
+  const isSelf = row.email === (accessReqSession?.user?.email || '').toLowerCase();
+
   const wrap = document.createElement('div');
   wrap.className = 'access-request-row';
 
@@ -79,11 +81,13 @@ function accessReqRenderRow(row) {
     isOn: row.status === 'accepted',
     labelOn: 'Toegang',
     labelOff: row.status === 'blocked' ? 'Geblokkeerd' : 'Geen toegang',
-    disabled: row.status === 'blocked',
+    disabled: row.status === 'blocked' || isSelf,
     danger: row.status === 'blocked',
-    title: row.status === 'accepted'
-      ? 'Toegang intrekken (blokkeert ook meteen nieuwe aanvragen van dit e-mailadres)'
-      : 'Toegang verlenen',
+    title: isSelf
+      ? 'Een andere admin moet dit voor jou doen'
+      : row.status === 'accepted'
+        ? 'Toegang intrekken (blokkeert ook meteen nieuwe aanvragen van dit e-mailadres)'
+        : 'Toegang verlenen',
     onClick: () => accessReqAction(row.email, row.status === 'accepted' ? 'revoke' : 'accept'),
   });
 
@@ -91,14 +95,18 @@ function accessReqRenderRow(row) {
     isOn: row.role === 'admin',
     labelOn: 'Admin',
     labelOff: 'Editor',
-    title: row.role === 'admin' ? 'Admin-rechten intrekken' : 'Admin-rechten geven (mag dit gebruikersbeheer ook zelf bedienen)',
+    disabled: isSelf && row.role === 'admin',
+    title: isSelf && row.role === 'admin'
+      ? 'Een andere admin moet dit voor jou doen'
+      : row.role === 'admin' ? 'Admin-rechten intrekken' : 'Admin-rechten geven (mag dit gebruikersbeheer ook zelf bedienen)',
     onClick: () => accessReqAction(row.email, row.role === 'admin' ? 'demote' : 'promote'),
   }) : null;
 
   const deleteBtn = document.createElement('button');
   deleteBtn.type = 'button';
   deleteBtn.className = 'req-delete-btn';
-  deleteBtn.title = 'Volledig verwijderen (geen blokkade — kan opnieuw een aanvraag indienen)';
+  deleteBtn.disabled = isSelf;
+  deleteBtn.title = isSelf ? 'Een andere admin moet dit voor jou doen' : 'Volledig verwijderen (geen blokkade — kan opnieuw een aanvraag indienen)';
   deleteBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg>';
   deleteBtn.addEventListener('click', () => {
     if (confirm(`"${row.display_name || row.email}" (${row.email}) volledig verwijderen?\n\nGeen blokkade: deze persoon kan daarna opnieuw een toegangsaanvraag indienen.`)) {
