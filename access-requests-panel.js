@@ -22,8 +22,9 @@ function accessReqEnsureModal() {
       <h2>Gebruikersbeheer</h2>
       <p class="access-requests-hint">Nieuwste login staat boven.</p>
       <div class="access-requests-legend">
-        <span><span class="req-toggle is-on req-toggle-demo"><span class="req-toggle-knob"></span></span> schuifje = toegang verlenen/intrekken</span>
-        <span><button type="button" class="req-block-btn is-text" disabled>Blokkeren</button> = weigeren + ook toekomstige aanvragen van dit e-mailadres negeren</span>
+        <span><span class="req-toggle is-on req-toggle-demo"><span class="req-toggle-knob"></span></span> Toegang verlenen/intrekken</span>
+        <span><span class="req-toggle is-on is-danger-toggle req-toggle-demo"><span class="req-toggle-knob"></span></span> Blokkeren (negeert ook toekomstige aanvragen)</span>
+        <span><button type="button" class="req-delete-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg></button> Volledig verwijderen (geen blokkade)</span>
       </div>
       <div class="access-requests-list" id="accessRequestsList"></div>
     </div>
@@ -44,6 +45,25 @@ function accessReqStatusLabel(row) {
   return 'Aanvraag in afwachting';
 }
 
+function accessReqMakeToggle({ isOn, labelOn, labelOff, disabled, danger, title, onClick }) {
+  const wrap = document.createElement('div');
+  wrap.className = 'req-toggle-wrap';
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'req-toggle' + (isOn ? ' is-on' : '') + (danger ? ' is-danger-toggle' : '');
+  toggle.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+  toggle.disabled = Boolean(disabled);
+  toggle.title = title;
+  toggle.innerHTML = '<span class="req-toggle-knob"></span>';
+  toggle.addEventListener('click', onClick);
+  const label = document.createElement('span');
+  label.className = 'req-toggle-label';
+  label.textContent = isOn ? labelOn : labelOff;
+  wrap.appendChild(toggle);
+  wrap.appendChild(label);
+  return wrap;
+}
+
 function accessReqRenderRow(row) {
   const wrap = document.createElement('div');
   wrap.className = 'access-request-row';
@@ -60,38 +80,40 @@ function accessReqRenderRow(row) {
   const actions = document.createElement('div');
   actions.className = 'access-request-actions';
 
-  const toggleWrap = document.createElement('div');
-  toggleWrap.className = 'req-toggle-wrap';
-  const toggle = document.createElement('button');
-  toggle.type = 'button';
-  toggle.className = 'req-toggle' + (row.status === 'accepted' ? ' is-on' : '');
-  toggle.setAttribute('aria-pressed', row.status === 'accepted' ? 'true' : 'false');
-  toggle.disabled = row.status === 'blocked';
-  toggle.title = row.status === 'accepted' ? 'Toegang intrekken' : 'Toegang verlenen';
-  toggle.innerHTML = '<span class="req-toggle-knob"></span>';
-  toggle.addEventListener('click', () => accessReqAction(row.email, row.status === 'accepted' ? 'revoke' : 'accept'));
-  const toggleLabel = document.createElement('span');
-  toggleLabel.className = 'req-toggle-label';
-  toggleLabel.textContent = row.status === 'accepted' ? 'Toegang' : 'Geen toegang';
-  toggleWrap.appendChild(toggle);
-  toggleWrap.appendChild(toggleLabel);
+  const accessToggle = accessReqMakeToggle({
+    isOn: row.status === 'accepted',
+    labelOn: 'Toegang',
+    labelOff: 'Geen toegang',
+    disabled: row.status === 'blocked',
+    title: row.status === 'accepted' ? 'Toegang intrekken' : 'Toegang verlenen',
+    onClick: () => accessReqAction(row.email, row.status === 'accepted' ? 'revoke' : 'accept'),
+  });
 
-  const blockBtn = document.createElement('button');
-  blockBtn.type = 'button';
-  blockBtn.className = 'req-block-btn is-text';
-  if (row.status === 'blocked') {
-    blockBtn.title = 'Deblokkeren';
-    blockBtn.textContent = 'Deblokkeren';
-    blockBtn.addEventListener('click', () => accessReqAction(row.email, 'unblock'));
-  } else {
-    blockBtn.classList.add('is-danger');
-    blockBtn.title = 'Blokkeren (weigert + negeert toekomstige aanvragen van dit e-mailadres)';
-    blockBtn.textContent = 'Blokkeren';
-    blockBtn.addEventListener('click', () => accessReqAction(row.email, 'block'));
-  }
+  const blockToggle = accessReqMakeToggle({
+    isOn: row.status === 'blocked',
+    labelOn: 'Geblokkeerd',
+    labelOff: 'Niet geblokkeerd',
+    danger: true,
+    title: row.status === 'blocked'
+      ? 'Deblokkeren'
+      : 'Blokkeren (weigert toegang + negeert toekomstige aanvragen van dit e-mailadres)',
+    onClick: () => accessReqAction(row.email, row.status === 'blocked' ? 'unblock' : 'block'),
+  });
 
-  actions.appendChild(toggleWrap);
-  actions.appendChild(blockBtn);
+  const deleteBtn = document.createElement('button');
+  deleteBtn.type = 'button';
+  deleteBtn.className = 'req-delete-btn';
+  deleteBtn.title = 'Volledig verwijderen (geen blokkade — kan opnieuw een aanvraag indienen)';
+  deleteBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg>';
+  deleteBtn.addEventListener('click', () => {
+    if (confirm(`"${row.display_name || row.email}" (${row.email}) volledig verwijderen?\n\nGeen blokkade: deze persoon kan daarna opnieuw een toegangsaanvraag indienen.`)) {
+      accessReqAction(row.email, 'delete');
+    }
+  });
+
+  actions.appendChild(accessToggle);
+  actions.appendChild(blockToggle);
+  actions.appendChild(deleteBtn);
   wrap.appendChild(info);
   wrap.appendChild(actions);
   return wrap;

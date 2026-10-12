@@ -865,7 +865,7 @@ img { max-width: 100%; display: block; }
 
 .access-requests-legend > span { display: flex; align-items: center; gap: 0.4rem; }
 .req-toggle-demo { pointer-events: none; }
-.access-requests-legend .req-block-btn { pointer-events: none; height: 24px; }
+.access-requests-legend .req-delete-btn { pointer-events: none; width: 24px; height: 24px; }
 
 .access-requests-list {
   display: flex;
@@ -923,6 +923,8 @@ img { max-width: 100%; display: block; }
 }
 
 .req-toggle.is-on .req-toggle-knob { transform: translateX(18px); background: #34c779; }
+.req-toggle.is-danger-toggle.is-on { background: #ff5d7a55; border-color: #ff5d7a; }
+.req-toggle.is-danger-toggle.is-on .req-toggle-knob { background: #ff5d7a; }
 
 .req-toggle-wrap {
   display: flex;
@@ -936,9 +938,9 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
 }
 
-.req-block-btn {
+.req-delete-btn {
+  width: 32px;
   height: 32px;
-  padding: 0 0.7rem;
   border-radius: 6px;
   border: 1px solid var(--border);
   background: transparent;
@@ -947,14 +949,12 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.72rem;
-  font-weight: 600;
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.req-block-btn:hover { border-color: #ff5d7a; color: #ff5d7a; }
-.req-block-btn.is-danger { border-color: #ff5d7a55; color: #ff5d7a; }
-.req-block-btn.is-danger:hover { background: #ff5d7a1a; }
+.req-delete-btn svg { width: 16px; height: 16px; }
+.req-delete-btn:hover { border-color: #ff5d7a; color: #ff5d7a; }
+.req-delete-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .socials { display: flex; gap: 1rem; }
 
