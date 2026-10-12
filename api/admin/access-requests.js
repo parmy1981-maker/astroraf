@@ -85,7 +85,9 @@ async function handleList(req, res, serviceKey) {
     }),
   ]);
   if (!editorsRes.ok || !requestsRes.ok) {
-    throw new Error('lezen van editors/access_requests mislukt');
+    const editorsErr = editorsRes.ok ? null : await editorsRes.text();
+    const requestsErr = requestsRes.ok ? null : await requestsRes.text();
+    throw new Error(`lezen mislukt — editors: ${editorsErr || 'ok'} | access_requests: ${requestsErr || 'ok'}`);
   }
   const editors = await editorsRes.json();
   const requests = await requestsRes.json();
