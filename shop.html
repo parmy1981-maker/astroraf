@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="styles.css">
 <script src="vendor/supabase.js" defer></script>
 <script src="account-nav.js" defer></script>
+<script src="access-requests-panel.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="cart.js" defer></script>
 </head>
@@ -195,6 +196,10 @@
       <span class="footer-copy">&copy; 2026 AstroRaf.be &middot; v1.6.1</span>
       <a href="admin.html" class="account-link" id="accountLink">Inloggen</a>
       <span class="account-email" id="accountEmail" hidden></span>
+      <button type="button" class="account-admin-icon" id="accessRequestsIcon" hidden title="Gebruikersbeheer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 13c2.5 .3 4.5 2 4.5 4.5"/></svg>
+        <span class="admin-badge" id="accessRequestsBadge" hidden>0</span>
+      </button>
     </div>
     <div class="socials">
       <a href="mailto:info@astroraf.be" aria-label="E-mail" title="Stuur een e-mail naar info@astroraf.be" data-i18n-title="social_email_title">

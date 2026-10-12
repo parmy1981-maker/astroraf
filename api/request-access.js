@@ -59,11 +59,49 @@ export default async function handler(req, res) {
     return;
   }
 
+  const email = user.email.toLowerCase();
   const rawMessage = typeof req.body?.message === 'string' ? req.body.message.trim().slice(0, 2000) : '';
   const displayName = user.user_metadata?.full_name || user.email;
   const safeName = escapeHtml(displayName);
   const safeEmail = escapeHtml(user.email);
   const safeMessage = rawMessage ? escapeHtml(rawMessage) : '';
+
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  try {
+    const existingRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/access_requests?select=status&email=eq.${encodeURIComponent(email)}`,
+      { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } }
+    );
+    if (!existingRes.ok) throw new Error(await existingRes.text());
+    const [existing] = await existingRes.json();
+    if (existing?.status === 'blocked') {
+      // Stilletjes niets doen: geen mail, geen foutmelding die verklapt dat dit adres geblokkeerd is.
+      res.status(200).json({ ok: true });
+      return;
+    }
+
+    const upsertRes = await fetch(`${SUPABASE_URL}/rest/v1/access_requests`, {
+      method: 'POST',
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=minimal',
+      },
+      body: JSON.stringify({
+        email,
+        display_name: displayName,
+        message: rawMessage || null,
+        status: 'pending',
+        requested_at: new Date().toISOString(),
+      }),
+    });
+    if (!upsertRes.ok) throw new Error(await upsertRes.text());
+  } catch (err) {
+    console.error('request-access: aanvraag opslaan mislukt', err);
+    res.status(500).json({ error: 'Opslaan mislukt' });
+    return;
+  }
 
   const ownerHtml = `
     <p>Nieuwe toegangsaanvraag voor albumbeheer op AstroRaf.be:</p>
