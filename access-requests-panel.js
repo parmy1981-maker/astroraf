@@ -21,11 +21,6 @@ function accessReqEnsureModal() {
       <button type="button" class="modal-close" data-close>&times;</button>
       <h2>Gebruikersbeheer</h2>
       <p class="access-requests-hint">Nieuwste login staat boven.</p>
-      <div class="access-requests-legend">
-        <span><span class="req-toggle is-on req-toggle-demo"><span class="req-toggle-knob"></span></span> Toegang verlenen/intrekken</span>
-        <span><span class="req-toggle is-on is-danger-toggle req-toggle-demo"><span class="req-toggle-knob"></span></span> Blokkeren (negeert ook toekomstige aanvragen)</span>
-        <span><button type="button" class="req-delete-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg></button> Volledig verwijderen (geen blokkade)</span>
-      </div>
       <div class="access-requests-list" id="accessRequestsList"></div>
     </div>
   `;

@@ -849,23 +849,6 @@ img { max-width: 100%; display: block; }
   margin: -0.5rem 0 0.75rem;
 }
 
-.access-requests-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  color: var(--text-dim);
-  font-size: 0.72rem;
-  padding: 0.6rem 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.access-requests-legend > span { display: flex; align-items: center; gap: 0.4rem; }
-.req-toggle-demo { pointer-events: none; }
-.access-requests-legend .req-delete-btn { pointer-events: none; width: 24px; height: 24px; }
 
 .access-requests-list {
   display: flex;
