@@ -35,6 +35,8 @@ window.astrorafShopReady = (async () => {
   let productsByCategory = {};
   let currentProduct = null;
   let currentCategory = null;
+  let currentImages = [];
+  let currentImageIndex = 0;
   const langRefs = [];
 
   function currentLang() {
@@ -64,6 +66,13 @@ window.astrorafShopReady = (async () => {
     return data.publicUrl;
   }
 
+  function productImageUrls(product) {
+    return (product.shop_product_images || [])
+      .slice()
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .map((img) => mockupUrl(img.storage_path));
+  }
+
   function registerLangRef(el, attr, compute) {
     langRefs.push({ el, attr, compute });
     el[attr === 'text' ? 'textContent' : attr] = compute();
@@ -91,7 +100,7 @@ window.astrorafShopReady = (async () => {
 
     const { data: prodRows, error: prodError } = await supabaseClient
       .from('shop_products')
-      .select('id,category_id,album_photo_id,mockup_storage_path,sort_order,album_photos(caption_nl,caption_en,caption_fr,caption_de)')
+      .select('id,category_id,album_photo_id,sort_order,album_photos(caption_nl,caption_en,caption_fr,caption_de),shop_product_images(storage_path,sort_order)')
       .eq('active', true)
       .order('sort_order', { ascending: true });
     if (prodError) throw prodError;
@@ -103,18 +112,26 @@ window.astrorafShopReady = (async () => {
   }
 
   function buildProductTile(product, category, categoryTag) {
+    const images = productImageUrls(product);
+    if (!images.length) return null;
+
     const item = document.createElement('div');
     item.className = 'photo-grid-item';
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'photo-placeholder photo-open';
+    btn.className = 'shop-product-cover photo-open';
 
     const img = document.createElement('img');
-    img.src = mockupUrl(product.mockup_storage_path);
+    img.src = images[0];
     registerLangRef(img, 'alt', () => productLabel(product, category));
     btn.appendChild(img);
-    btn.addEventListener('click', () => openProductDetail(product, category));
+
+    if (images.length > 1) {
+      btn.addEventListener('mouseenter', () => { img.src = images[1]; });
+      btn.addEventListener('mouseleave', () => { img.src = images[0]; });
+    }
+    btn.addEventListener('click', () => openProductDetail(product, category, images));
 
     const label = document.createElement('span');
     label.className = 'shop-product-label';
@@ -143,8 +160,11 @@ window.astrorafShopReady = (async () => {
     section.appendChild(title);
 
     const grid = document.createElement('div');
-    grid.className = 'photo-grid';
-    products.forEach(({ product, category }) => grid.appendChild(buildProductTile(product, category, categoryTag)));
+    grid.className = 'shop-grid';
+    products.forEach(({ product, category }) => {
+      const tile = buildProductTile(product, category, categoryTag);
+      if (tile) grid.appendChild(tile);
+    });
     section.appendChild(grid);
 
     shopSections.appendChild(section);
@@ -190,9 +210,15 @@ window.astrorafShopReady = (async () => {
   const shopQtyIncrease = document.getElementById('shopQtyIncrease');
   const shopAddToCart = document.getElementById('shopAddToCart');
   const shopDetailBack = document.getElementById('shopDetailBack');
+  const shopDetailPrev = document.getElementById('shopDetailPrev');
+  const shopDetailNext = document.getElementById('shopDetailNext');
 
   let selectedFormat = shopFormatSelect ? shopFormatSelect.value : 'a3';
   let selectedMaterial = 'mat';
+
+  function isPostersCategory(category) {
+    return Boolean(category) && category.slug === 'posters';
+  }
 
   function applyPreviewFormat(format) {
     if (shopFormatDims) shopFormatDims.textContent = formatSizes[format] || '';
@@ -219,19 +245,54 @@ window.astrorafShopReady = (async () => {
     if (shopDetailImg) shopDetailImg.alt = label;
   }
 
-  function openProductDetail(product, category) {
+  // Past de voorbeeld-doos aan op de natuurlijke afmetingen van de huidige
+  // foto, zodat een liggende of staande mockup-foto ook zo getoond wordt
+  // (enkel voor niet-posters -- posters blijven schalen op het gekozen
+  // formaat, zie applyPreviewFormat).
+  function sizePreviewToImage() {
+    if (!shopPreviewBox || !shopDetailImg) return;
+    const apply = () => {
+      const nw = shopDetailImg.naturalWidth || 1;
+      const nh = shopDetailImg.naturalHeight || 1;
+      const scale = Math.min(PREVIEW_MAX_WIDTH / nw, PREVIEW_MAX_LONG_SIDE / nh);
+      shopPreviewBox.style.width = Math.round(nw * scale) + 'px';
+      shopPreviewBox.style.height = Math.round(nh * scale) + 'px';
+    };
+    if (shopDetailImg.complete && shopDetailImg.naturalWidth) apply();
+    else shopDetailImg.addEventListener('load', apply, { once: true });
+  }
+
+  function renderCurrentImage() {
+    if (!currentImages.length || !shopDetailImg) return;
+    shopDetailImg.src = currentImages[currentImageIndex];
+
+    const showNav = currentImages.length > 1;
+    if (shopDetailPrev) shopDetailPrev.hidden = !showNav;
+    if (shopDetailNext) shopDetailNext.hidden = !showNav;
+
+    if (!isPostersCategory(currentCategory)) sizePreviewToImage();
+  }
+
+  function showImageAtIndex(index) {
+    if (!currentImages.length) return;
+    currentImageIndex = (index + currentImages.length) % currentImages.length;
+    renderCurrentImage();
+  }
+
+  function openProductDetail(product, category, images) {
     currentProduct = product;
     currentCategory = category;
+    currentImages = images;
+    currentImageIndex = 0;
 
-    if (shopDetailImg) shopDetailImg.src = mockupUrl(product.mockup_storage_path);
     refreshDetailLanguage();
+    renderCurrentImage();
 
-    const isPosters = category.slug === 'posters';
+    const isPosters = isPostersCategory(category);
     if (shopFormatGroup) shopFormatGroup.hidden = !isPosters;
     if (shopMaterialGroup) shopMaterialGroup.hidden = !isPosters;
     if (shopNotesGroup) shopNotesGroup.hidden = !isPosters;
     if (isPosters) applyPreviewFormat(selectedFormat);
-    else if (shopPreviewBox) { shopPreviewBox.style.width = ''; shopPreviewBox.style.height = ''; }
 
     shopSections.hidden = true;
     if (shopEmpty) shopEmpty.hidden = true;
@@ -241,12 +302,22 @@ window.astrorafShopReady = (async () => {
   function closeProductDetail() {
     currentProduct = null;
     currentCategory = null;
+    currentImages = [];
+    currentImageIndex = 0;
     shopDetail.hidden = true;
     shopSections.hidden = false;
     if (shopEmpty) shopEmpty.hidden = shopSections.children.length > 0;
   }
 
   if (shopDetailBack) shopDetailBack.addEventListener('click', closeProductDetail);
+  if (shopDetailPrev) shopDetailPrev.addEventListener('click', () => showImageAtIndex(currentImageIndex - 1));
+  if (shopDetailNext) shopDetailNext.addEventListener('click', () => showImageAtIndex(currentImageIndex + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (shopDetail.hidden) return;
+    if (e.key === 'ArrowRight') showImageAtIndex(currentImageIndex + 1);
+    if (e.key === 'ArrowLeft') showImageAtIndex(currentImageIndex - 1);
+  });
 
   if (shopFormatSelect) {
     shopFormatSelect.addEventListener('change', () => {
@@ -286,7 +357,7 @@ window.astrorafShopReady = (async () => {
         id: ['product', currentProduct.id, format, material].filter(Boolean).join('-'),
         label: productLabel(currentProduct, currentCategory),
         categoryLabel: categoryName(currentCategory),
-        image: mockupUrl(currentProduct.mockup_storage_path),
+        image: currentImages[0] || '',
         format,
         material,
         qty,

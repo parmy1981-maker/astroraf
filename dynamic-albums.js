@@ -85,7 +85,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
     const { data: prodRows, error: prodError } = await supabaseClient
       .from('shop_products')
-      .select('id,category_id,album_photo_id,mockup_storage_path,active,sort_order');
+      .select('id,category_id,album_photo_id,active,sort_order');
     if (prodError) throw prodError;
 
     shopProductsByPhoto = {};
@@ -239,7 +239,15 @@ window.astrorafDynamicAlbumsReady = (async () => {
     if (!window.confirm('Deze foto uit de shop halen?')) return;
 
     try {
-      await supabaseClient.storage.from(STORAGE_BUCKET).remove([product.mockup_storage_path]);
+      const { data: images, error: imagesError } = await supabaseClient
+        .from('shop_product_images')
+        .select('storage_path')
+        .eq('product_id', product.id);
+      if (imagesError) throw imagesError;
+
+      const paths = (images || []).map((img) => img.storage_path);
+      if (paths.length) await supabaseClient.storage.from(STORAGE_BUCKET).remove(paths);
+
       const { error } = await supabaseClient.from('shop_products').delete().eq('id', product.id);
       if (error) throw error;
       window.location.reload();
@@ -301,10 +309,11 @@ window.astrorafDynamicAlbumsReady = (async () => {
     const mockupField = document.createElement('label');
     mockupField.className = 'form-field';
     const mockupSpan = document.createElement('span');
-    mockupSpan.textContent = 'Mockup-foto (bv. deze foto gedrukt op een T-shirt)';
+    mockupSpan.textContent = "Mockup-foto's (bv. deze foto gedrukt op een T-shirt) — voeg er gerust 2 of meer toe";
     const mockupInput = document.createElement('input');
     mockupInput.type = 'file';
     mockupInput.accept = 'image/jpeg,image/png,image/webp';
+    mockupInput.multiple = true;
     mockupInput.required = true;
     mockupField.appendChild(mockupSpan);
     mockupField.appendChild(mockupInput);
@@ -322,8 +331,8 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const file = mockupInput.files && mockupInput.files[0];
-      if (!file) { status.textContent = 'Kies een mockup-foto.'; return; }
+      const files = Array.from(mockupInput.files || []);
+      if (!files.length) { status.textContent = "Kies minstens 1 mockup-foto."; return; }
 
       submitBtn.disabled = true;
       try {
@@ -350,21 +359,48 @@ window.astrorafDynamicAlbumsReady = (async () => {
           categoryId = newCategory.id;
         }
 
-        status.textContent = 'Mockup-foto comprimeren...';
-        const compressed = await compressImage(file);
-        const path = `shop/${categoryId}/${crypto.randomUUID()}.jpg`;
+        // Al een product voor deze foto in deze rubriek? Dan voegen we de
+        // nieuwe foto's daar gewoon aan toe i.p.v. een dubbele rij te maken
+        // (category_id + album_photo_id is unique).
+        let product = (shopProductsByPhoto[photo.id] || []).find((p) => p.category_id === categoryId);
+        let existingImageCount = 0;
 
-        status.textContent = 'Mockup-foto uploaden...';
-        const { error: uploadError } = await supabaseClient.storage
-          .from(STORAGE_BUCKET)
-          .upload(path, compressed, { contentType: 'image/jpeg' });
-        if (uploadError) throw uploadError;
+        if (product) {
+          const { count, error: countError } = await supabaseClient
+            .from('shop_product_images')
+            .select('id', { count: 'exact', head: true })
+            .eq('product_id', product.id);
+          if (countError) throw countError;
+          existingImageCount = count || 0;
+        } else {
+          const sortOrder = (shopProductsByPhoto[photo.id] || []).length;
+          const { data: newProduct, error: productError } = await supabaseClient
+            .from('shop_products')
+            .insert({ category_id: categoryId, album_photo_id: photo.id, sort_order: sortOrder })
+            .select()
+            .single();
+          if (productError) throw productError;
+          product = newProduct;
+          if (!shopProductsByPhoto[photo.id]) shopProductsByPhoto[photo.id] = [];
+          shopProductsByPhoto[photo.id].push(product);
+        }
 
-        const sortOrder = (shopProductsByPhoto[photo.id] || []).length;
-        const { error: productError } = await supabaseClient
-          .from('shop_products')
-          .insert({ category_id: categoryId, album_photo_id: photo.id, mockup_storage_path: path, sort_order: sortOrder });
-        if (productError) throw productError;
+        for (let i = 0; i < files.length; i += 1) {
+          status.textContent = `Mockup-foto ${i + 1}/${files.length} comprimeren...`;
+          const compressed = await compressImage(files[i]);
+          const path = `shop/${categoryId}/${crypto.randomUUID()}.jpg`;
+
+          status.textContent = `Mockup-foto ${i + 1}/${files.length} uploaden...`;
+          const { error: uploadError } = await supabaseClient.storage
+            .from(STORAGE_BUCKET)
+            .upload(path, compressed, { contentType: 'image/jpeg' });
+          if (uploadError) throw uploadError;
+
+          const { error: imageError } = await supabaseClient
+            .from('shop_product_images')
+            .insert({ product_id: product.id, storage_path: path, sort_order: existingImageCount + i });
+          if (imageError) throw imageError;
+        }
 
         status.textContent = 'Toegevoegd, pagina wordt herladen...';
         window.location.reload();
