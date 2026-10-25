@@ -208,20 +208,12 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
     (shopProductsByPhoto[photo.id] || []).forEach((product) => {
       const category = shopCategoryById(product.category_id);
-      const pill = document.createElement('span');
+      const pill = document.createElement('button');
+      pill.type = 'button';
       pill.className = 'shop-tag-pill';
-
-      const label = document.createElement('span');
-      label.textContent = category ? category.name_nl : '?';
-      pill.appendChild(label);
-
-      const removeBtn = document.createElement('button');
-      removeBtn.type = 'button';
-      removeBtn.setAttribute('aria-label', 'Uit shop halen');
-      removeBtn.textContent = '×';
-      removeBtn.addEventListener('click', () => removeShopTag(product));
-      pill.appendChild(removeBtn);
-
+      pill.textContent = category ? category.name_nl : '?';
+      pill.title = 'Klik om te bewerken';
+      pill.addEventListener('click', () => openShopProductEditModal(product, category));
       wrap.appendChild(pill);
     });
 
@@ -255,6 +247,120 @@ window.astrorafDynamicAlbumsReady = (async () => {
       console.error('AstroRaf: foto uit shop halen mislukt', err);
       window.alert(`Mislukt: ${err.message || err}`);
     }
+  }
+
+  async function removeShopProductImage(image) {
+    if (!window.confirm('Deze foto verwijderen?')) return;
+
+    try {
+      await supabaseClient.storage.from(STORAGE_BUCKET).remove([image.storage_path]);
+      const { error } = await supabaseClient.from('shop_product_images').delete().eq('id', image.id);
+      if (error) throw error;
+      window.location.reload();
+    } catch (err) {
+      console.error('AstroRaf: shop-foto verwijderen mislukt', err);
+      window.alert(`Mislukt: ${err.message || err}`);
+    }
+  }
+
+  async function openShopProductEditModal(product, category) {
+    const { panel } = buildModal(`Shop: ${category ? category.name_nl : ''}`);
+
+    const status = document.createElement('p');
+    status.className = 'admin-status';
+    status.textContent = "Foto's laden...";
+    panel.appendChild(status);
+
+    const imagesGrid = document.createElement('div');
+    imagesGrid.className = 'shop-edit-images';
+    panel.appendChild(imagesGrid);
+
+    const { data: images, error: imagesError } = await supabaseClient
+      .from('shop_product_images')
+      .select('id,storage_path,sort_order')
+      .eq('product_id', product.id)
+      .order('sort_order', { ascending: true });
+
+    if (imagesError) {
+      status.textContent = `Mislukt: ${imagesError.message || imagesError}`;
+    } else {
+      status.textContent = '';
+      (images || []).forEach((image) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'shop-edit-thumb';
+
+        const img = document.createElement('img');
+        const { data: urlData } = supabaseClient.storage.from(STORAGE_BUCKET).getPublicUrl(image.storage_path);
+        img.src = urlData.publicUrl;
+        thumb.appendChild(img);
+
+        thumb.appendChild(makeIconButton('icon-btn-delete', trashSvg(), 'Foto verwijderen', () => removeShopProductImage(image)));
+        imagesGrid.appendChild(thumb);
+      });
+    }
+
+    const addForm = document.createElement('form');
+    addForm.className = 'checkout-form';
+    const { field: fileField, input: fileInput } = buildFileField();
+    addForm.appendChild(fileField);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'submit';
+    addBtn.className = 'checkout-submit';
+    addBtn.textContent = "Foto's toevoegen";
+    addForm.appendChild(addBtn);
+
+    const addStatus = document.createElement('p');
+    addStatus.className = 'admin-status';
+    addForm.appendChild(addStatus);
+
+    addForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const files = Array.from(fileInput.files || []);
+      if (!files.length) { addStatus.textContent = 'Kies minstens 1 foto.'; return; }
+
+      addBtn.disabled = true;
+      try {
+        const { count, error: countError } = await supabaseClient
+          .from('shop_product_images')
+          .select('id', { count: 'exact', head: true })
+          .eq('product_id', product.id);
+        if (countError) throw countError;
+        const base = count || 0;
+
+        for (let i = 0; i < files.length; i += 1) {
+          addStatus.textContent = `Foto ${i + 1}/${files.length} comprimeren...`;
+          const compressed = await compressImage(files[i]);
+          const path = `shop/${product.category_id}/${crypto.randomUUID()}.jpg`;
+
+          addStatus.textContent = `Foto ${i + 1}/${files.length} uploaden...`;
+          const { error: uploadError } = await supabaseClient.storage
+            .from(STORAGE_BUCKET)
+            .upload(path, compressed, { contentType: 'image/jpeg' });
+          if (uploadError) throw uploadError;
+
+          const { error: imageError } = await supabaseClient
+            .from('shop_product_images')
+            .insert({ product_id: product.id, storage_path: path, sort_order: base + i });
+          if (imageError) throw imageError;
+        }
+
+        window.location.reload();
+      } catch (err) {
+        console.error('AstroRaf: foto toevoegen aan shop-product mislukt', err);
+        addStatus.textContent = `Mislukt: ${err.message || err}`;
+        addBtn.disabled = false;
+      }
+    });
+
+    panel.appendChild(addForm);
+
+    const removeAllBtn = document.createElement('button');
+    removeAllBtn.type = 'button';
+    removeAllBtn.className = 'shop-edit-remove-all';
+    removeAllBtn.textContent = 'Dit product volledig uit de shop halen';
+    removeAllBtn.addEventListener('click', () => removeShopTag(product));
+    panel.appendChild(removeAllBtn);
   }
 
   function openShopTagModal(photo) {
