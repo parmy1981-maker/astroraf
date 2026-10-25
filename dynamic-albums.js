@@ -11,6 +11,8 @@ window.astrorafDynamicAlbumsReady = (async () => {
   let albums = [];
   let photosByAlbum = {};
   let isEditor = false;
+  let shopCategories = [];
+  let shopProductsByPhoto = {};
   const langRefs = [];
 
   function currentLang() {
@@ -71,6 +73,30 @@ window.astrorafDynamicAlbumsReady = (async () => {
         photosByAlbum[photo.album_id].push(photo);
       });
     }
+  }
+
+  async function loadShopData() {
+    const { data: catRows, error: catError } = await supabaseClient
+      .from('shop_categories')
+      .select('id,slug,name_nl,name_en,name_fr,name_de,sort_order')
+      .order('sort_order', { ascending: true });
+    if (catError) throw catError;
+    shopCategories = catRows || [];
+
+    const { data: prodRows, error: prodError } = await supabaseClient
+      .from('shop_products')
+      .select('id,category_id,album_photo_id,mockup_storage_path,active,sort_order');
+    if (prodError) throw prodError;
+
+    shopProductsByPhoto = {};
+    (prodRows || []).forEach((product) => {
+      if (!shopProductsByPhoto[product.album_photo_id]) shopProductsByPhoto[product.album_photo_id] = [];
+      shopProductsByPhoto[product.album_photo_id].push(product);
+    });
+  }
+
+  function shopCategoryById(id) {
+    return shopCategories.find((cat) => cat.id === id);
   }
 
   async function checkIsEditor() {
@@ -166,9 +192,190 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
     if (isEditor) {
       tile.appendChild(makeIconButton('photo-delete-btn', trashSvg(), 'Foto verwijderen', () => deletePhoto(photo)));
+      tile.appendChild(buildShopTagControls(photo));
     }
 
     return tile;
+  }
+
+  function shopTagSvg() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 7V5.5A2.5 2.5 0 0 1 9.5 3h5A2.5 2.5 0 0 1 17 5.5V7"/><rect x="4" y="7" width="16" height="13" rx="2"/><circle cx="9" cy="11" r="0.6" fill="currentColor" stroke="none"/><circle cx="15" cy="11" r="0.6" fill="currentColor" stroke="none"/></svg>';
+  }
+
+  function buildShopTagControls(photo) {
+    const wrap = document.createElement('div');
+    wrap.className = 'shop-tag-controls';
+
+    (shopProductsByPhoto[photo.id] || []).forEach((product) => {
+      const category = shopCategoryById(product.category_id);
+      const pill = document.createElement('span');
+      pill.className = 'shop-tag-pill';
+
+      const label = document.createElement('span');
+      label.textContent = category ? category.name_nl : '?';
+      pill.appendChild(label);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.setAttribute('aria-label', 'Uit shop halen');
+      removeBtn.textContent = '×';
+      removeBtn.addEventListener('click', () => removeShopTag(product));
+      pill.appendChild(removeBtn);
+
+      wrap.appendChild(pill);
+    });
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'shop-tag-add';
+    addBtn.innerHTML = `${shopTagSvg()}<span>In shop</span>`;
+    addBtn.addEventListener('click', () => openShopTagModal(photo));
+    wrap.appendChild(addBtn);
+
+    return wrap;
+  }
+
+  async function removeShopTag(product) {
+    if (!window.confirm('Deze foto uit de shop halen?')) return;
+
+    try {
+      await supabaseClient.storage.from(STORAGE_BUCKET).remove([product.mockup_storage_path]);
+      const { error } = await supabaseClient.from('shop_products').delete().eq('id', product.id);
+      if (error) throw error;
+      window.location.reload();
+    } catch (err) {
+      console.error('AstroRaf: foto uit shop halen mislukt', err);
+      window.alert(`Mislukt: ${err.message || err}`);
+    }
+  }
+
+  function openShopTagModal(photo) {
+    const { panel } = buildModal('Foto in de shop plaatsen');
+    const form = document.createElement('form');
+    form.className = 'checkout-form';
+
+    const categoryField = document.createElement('label');
+    categoryField.className = 'form-field';
+    const categorySpan = document.createElement('span');
+    categorySpan.textContent = 'Rubriek';
+    const categorySelect = document.createElement('select');
+    shopCategories.forEach((cat) => {
+      const opt = document.createElement('option');
+      opt.value = cat.id;
+      opt.textContent = cat.name_nl;
+      categorySelect.appendChild(opt);
+    });
+    const newOpt = document.createElement('option');
+    newOpt.value = '__new__';
+    newOpt.textContent = '+ Nieuwe rubriek...';
+    categorySelect.appendChild(newOpt);
+    categoryField.appendChild(categorySpan);
+    categoryField.appendChild(categorySelect);
+    form.appendChild(categoryField);
+
+    const newCategoryFields = document.createElement('div');
+    newCategoryFields.hidden = shopCategories.length > 0;
+    const newNameInputs = {};
+    [['name_nl', 'Rubrieknaam (NL)', true], ['name_en', 'Rubrieknaam (EN)', false], ['name_fr', 'Rubrieknaam (FR)', false], ['name_de', 'Rubrieknaam (DE)', false]]
+      .forEach(([key, label, required]) => {
+        const field = document.createElement('label');
+        field.className = 'form-field';
+        const span = document.createElement('span');
+        span.textContent = label;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 60;
+        if (required) input.required = true;
+        field.appendChild(span);
+        field.appendChild(input);
+        newCategoryFields.appendChild(field);
+        newNameInputs[key] = input;
+      });
+    form.appendChild(newCategoryFields);
+
+    categorySelect.addEventListener('change', () => {
+      newCategoryFields.hidden = categorySelect.value !== '__new__';
+    });
+    if (!shopCategories.length) categorySelect.value = '__new__';
+
+    const mockupField = document.createElement('label');
+    mockupField.className = 'form-field';
+    const mockupSpan = document.createElement('span');
+    mockupSpan.textContent = 'Mockup-foto (bv. deze foto gedrukt op een T-shirt)';
+    const mockupInput = document.createElement('input');
+    mockupInput.type = 'file';
+    mockupInput.accept = 'image/jpeg,image/png,image/webp';
+    mockupInput.required = true;
+    mockupField.appendChild(mockupSpan);
+    mockupField.appendChild(mockupInput);
+    form.appendChild(mockupField);
+
+    const submitBtn = document.createElement('button');
+    submitBtn.type = 'submit';
+    submitBtn.className = 'checkout-submit';
+    submitBtn.textContent = 'Toevoegen aan shop';
+    form.appendChild(submitBtn);
+
+    const status = document.createElement('p');
+    status.className = 'admin-status';
+    form.appendChild(status);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = mockupInput.files && mockupInput.files[0];
+      if (!file) { status.textContent = 'Kies een mockup-foto.'; return; }
+
+      submitBtn.disabled = true;
+      try {
+        let categoryId = categorySelect.value;
+        if (categoryId === '__new__') {
+          const nameNl = newNameInputs.name_nl.value.trim();
+          if (!nameNl) { status.textContent = 'Vul een rubrieknaam in.'; submitBtn.disabled = false; return; }
+          status.textContent = 'Rubriek aanmaken...';
+          const { data: { session } } = await supabaseClient.auth.getSession();
+          const { data: newCategory, error: categoryError } = await supabaseClient
+            .from('shop_categories')
+            .insert({
+              slug: slugify(nameNl),
+              name_nl: nameNl,
+              name_en: newNameInputs.name_en.value.trim() || null,
+              name_fr: newNameInputs.name_fr.value.trim() || null,
+              name_de: newNameInputs.name_de.value.trim() || null,
+              created_by: session ? session.user.email : null,
+            })
+            .select()
+            .single();
+          if (categoryError) throw categoryError;
+          shopCategories.push(newCategory);
+          categoryId = newCategory.id;
+        }
+
+        status.textContent = 'Mockup-foto comprimeren...';
+        const compressed = await compressImage(file);
+        const path = `shop/${categoryId}/${crypto.randomUUID()}.jpg`;
+
+        status.textContent = 'Mockup-foto uploaden...';
+        const { error: uploadError } = await supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .upload(path, compressed, { contentType: 'image/jpeg' });
+        if (uploadError) throw uploadError;
+
+        const sortOrder = (shopProductsByPhoto[photo.id] || []).length;
+        const { error: productError } = await supabaseClient
+          .from('shop_products')
+          .insert({ category_id: categoryId, album_photo_id: photo.id, mockup_storage_path: path, sort_order: sortOrder });
+        if (productError) throw productError;
+
+        status.textContent = 'Toegevoegd, pagina wordt herladen...';
+        window.location.reload();
+      } catch (err) {
+        console.error('AstroRaf: foto in shop plaatsen mislukt', err);
+        status.textContent = `Mislukt: ${err.message || err}`;
+        submitBtn.disabled = false;
+      }
+    });
+
+    panel.appendChild(form);
   }
 
   function buildCopyrightField(album) {
@@ -573,6 +780,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
   try {
     isEditor = await checkIsEditor();
     await loadData();
+    if (isEditor) await loadShopData();
     buildAll();
   } catch (e) {
     console.error('AstroRaf: failed to load dynamic albums', e);

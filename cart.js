@@ -5,29 +5,6 @@ const materialNames = {
   de: { mat: 'Matt', glans: 'Glänzend' },
 };
 
-const posterNames = {
-  nl: {
-    start: 'Start', corona: 'Corona', einde: 'Einde',
-    maan_wolken: 'Maan achter wolken', maan_gedeeltelijk: 'Gedeeltelijke maansverduistering',
-    maan_sikkel: 'Maansverduistering (sikkel)', maan_totaal: 'Totale maansverduistering',
-  },
-  en: {
-    start: 'Start', corona: 'Corona', einde: 'End',
-    maan_wolken: 'Moon behind clouds', maan_gedeeltelijk: 'Partial lunar eclipse',
-    maan_sikkel: 'Lunar eclipse (crescent)', maan_totaal: 'Total lunar eclipse',
-  },
-  fr: {
-    start: 'Début', corona: 'Corona', einde: 'Fin',
-    maan_wolken: 'Lune derrière les nuages', maan_gedeeltelijk: 'Éclipse lunaire partielle',
-    maan_sikkel: 'Éclipse lunaire (croissant)', maan_totaal: 'Éclipse lunaire totale',
-  },
-  de: {
-    start: 'Start', corona: 'Corona', einde: 'Ende',
-    maan_wolken: 'Mond hinter Wolken', maan_gedeeltelijk: 'Partielle Mondfinsternis',
-    maan_sikkel: 'Mondfinsternis (Sichel)', maan_totaal: 'Totale Mondfinsternis',
-  },
-};
-
 const formatNames = {
   a4: 'A4', a3: 'A3', a2: 'A2', 'a2-lang': 'A2 lang', b2: 'B2',
   a1: 'A1', b1: 'B1', a0: 'A0', b0: 'B0', abri: 'Abri',
@@ -58,30 +35,6 @@ function formatLabelFull(format) {
   const size = formatSizes[format] || '?';
   return name ? `${name} (${size})` : size;
 }
-
-const formatDimensions = {
-  a4: [21, 29.7],
-  a3: [29.7, 42],
-  '40x60': [40, 60],
-  a2: [42, 59.4],
-  'a2-lang': [29.7, 84],
-  b2: [50, 70],
-  '60x80': [60, 80],
-  a1: [59.4, 84],
-  '60x90': [60, 90],
-  b1: [70, 100],
-  a0: [84, 118.8],
-  b0: [100, 140],
-  abri: [118.5, 175],
-};
-
-const PREVIEW_MAX_WIDTH = 370;
-const PREVIEW_MIN_WIDTH = 165;
-const PREVIEW_MIN_LONG_SIDE = 285;
-const PREVIEW_MAX_LONG_SIDE = 480;
-
-const PREVIEW_CM_MIN = Math.sqrt(Math.min(...Object.values(formatDimensions).map((d) => Math.max(d[0], d[1]))));
-const PREVIEW_CM_MAX = Math.sqrt(Math.max(...Object.values(formatDimensions).map((d) => Math.max(d[0], d[1]))));
 
 const ORDER_EMAIL = 'info@astroraf.be';
 
@@ -114,111 +67,6 @@ window.addEventListener('load', positionCartWidget);
 document.addEventListener('DOMContentLoaded', () => {
   positionCartWidget();
 
-  /* ---------- Shop menu (Posters) ---------- */
-  const shopMenu = document.getElementById('shopMenu');
-  const shopDetails = document.querySelectorAll('[data-shop-detail]');
-
-  if (shopMenu) {
-    document.querySelectorAll('[data-open-shop]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-open-shop');
-        shopMenu.hidden = true;
-        shopDetails.forEach((section) => {
-          section.hidden = section.getAttribute('data-shop-detail') !== id;
-        });
-      });
-    });
-
-    document.querySelectorAll('[data-close-shop]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        shopDetails.forEach((section) => { section.hidden = true; });
-        shopMenu.hidden = false;
-      });
-    });
-  }
-
-  /* ---------- Poster configurator ---------- */
-  const posterThumbs = document.querySelectorAll('.poster-thumb');
-  const posterPreview = document.getElementById('posterPreview');
-  const posterPreviewImg = document.getElementById('posterPreviewImg');
-  const materialBtns = document.querySelectorAll('.material-btn');
-  const posterFormat = document.getElementById('posterFormat');
-  const posterQtyInput = document.getElementById('posterQtyInput');
-  const posterQtyDecrease = document.getElementById('posterQtyDecrease');
-  const posterQtyIncrease = document.getElementById('posterQtyIncrease');
-  const posterAddToCart = document.getElementById('posterAddToCart');
-  const posterFormatDims = document.getElementById('posterFormatDims');
-
-  let selectedKey = 'corona';
-  let selectedImage = "foto's/Eclips_Corona.jpg";
-  let selectedMaterial = 'mat';
-  let selectedFormat = posterFormat ? posterFormat.value : 'a3';
-
-  function applyPreviewFormat(format) {
-    if (posterFormatDims) posterFormatDims.textContent = formatSizes[format] || '';
-    if (posterPreview) {
-      const dims = formatDimensions[format];
-      if (dims) {
-        // Long side scales gently (square root) between the smallest and
-        // largest format, so bigger posters look bigger without the
-        // smallest ones shrinking to near-invisible.
-        const long = Math.max(dims[0], dims[1]);
-        const norm = (Math.sqrt(long) - PREVIEW_CM_MIN) / (PREVIEW_CM_MAX - PREVIEW_CM_MIN);
-        const targetLong = PREVIEW_MIN_LONG_SIDE + norm * (PREVIEW_MAX_LONG_SIDE - PREVIEW_MIN_LONG_SIDE);
-        const scale = targetLong / long;
-
-        const w = Math.min(PREVIEW_MAX_WIDTH, Math.max(PREVIEW_MIN_WIDTH, Math.round(dims[0] * scale)));
-        const h = Math.min(PREVIEW_MAX_LONG_SIDE, Math.round(dims[1] * scale));
-        posterPreview.style.width = w + 'px';
-        posterPreview.style.height = h + 'px';
-      }
-    }
-  }
-
-  applyPreviewFormat(selectedFormat);
-
-  if (posterFormat) {
-    posterFormat.addEventListener('change', () => {
-      selectedFormat = posterFormat.value;
-      applyPreviewFormat(selectedFormat);
-    });
-  }
-
-  posterThumbs.forEach((thumb) => {
-    thumb.addEventListener('click', () => {
-      posterThumbs.forEach((t) => t.classList.remove('is-active'));
-      thumb.classList.add('is-active');
-      selectedKey = thumb.getAttribute('data-poster-key');
-      selectedImage = thumb.getAttribute('data-image');
-
-      if (posterPreviewImg) {
-        const thumbImg = thumb.querySelector('img');
-        posterPreviewImg.src = selectedImage;
-        posterPreviewImg.alt = thumbImg ? thumbImg.alt : '';
-      }
-    });
-  });
-
-  materialBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      materialBtns.forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      selectedMaterial = btn.getAttribute('data-material');
-    });
-  });
-
-  if (posterQtyDecrease && posterQtyInput) {
-    posterQtyDecrease.addEventListener('click', () => {
-      posterQtyInput.value = Math.max(1, (parseInt(posterQtyInput.value, 10) || 1) - 1);
-    });
-  }
-
-  if (posterQtyIncrease && posterQtyInput) {
-    posterQtyIncrease.addEventListener('click', () => {
-      posterQtyInput.value = (parseInt(posterQtyInput.value, 10) || 1) + 1;
-    });
-  }
-
   /* ---------- Cart ---------- */
   const cartToggle = document.getElementById('cartToggle');
   const cartPanel = document.getElementById('cartPanel');
@@ -244,9 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return dict[material] || material;
   }
 
-  function posterLabel(key) {
-    const dict = posterNames[currentLang()] || posterNames.nl;
-    return dict[key] || key;
+  function cartItemLine(item, full) {
+    const parts = [item.label, item.categoryLabel];
+    if (item.format) parts.push(full ? formatLabelFull(item.format) : formatLabel(item.format));
+    if (item.material) parts.push(materialLabel(item.material));
+    return parts.filter(Boolean).join(full ? ' — ' : ' · ');
   }
 
   function renderCart() {
@@ -276,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const materialEl = document.createElement('div');
       materialEl.className = 'cart-item-material';
-      materialEl.textContent = `${formatLabel(item.format)} · ${materialLabel(item.material)}`;
+      materialEl.textContent = cartItemLine(item, false);
 
       const qtyRow = document.createElement('div');
       qtyRow.className = 'cart-item-qty';
@@ -303,17 +153,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function addToCart(id, key, material, format, image, qty) {
+  function addToCart(item) {
     const cart = loadCart();
-    const existing = cart.find((item) => item.id === id);
+    const existing = cart.find((entry) => entry.id === item.id);
     if (existing) {
-      existing.qty += qty;
+      existing.qty += item.qty;
     } else {
-      cart.push({ id, key, material, format, image, qty });
+      cart.push({ ...item });
     }
     saveCart(cart);
     renderCart();
   }
+
+  window.astrorafCart = { add: addToCart };
 
   function changeQty(id, delta) {
     let cart = loadCart();
@@ -325,27 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     saveCart(cart);
     renderCart();
-  }
-
-  if (posterAddToCart) {
-    posterAddToCart.addEventListener('click', () => {
-      const qty = posterQtyInput ? Math.max(1, parseInt(posterQtyInput.value, 10) || 1) : 1;
-
-      addToCart(
-        `poster-${selectedKey}-${selectedMaterial}-${selectedFormat}`,
-        selectedKey, selectedMaterial, selectedFormat, selectedImage, qty
-      );
-
-      if (posterQtyInput) posterQtyInput.value = 1;
-
-      const originalText = posterAddToCart.textContent;
-      posterAddToCart.classList.add('is-added');
-      posterAddToCart.textContent = '✓';
-      setTimeout(() => {
-        posterAddToCart.classList.remove('is-added');
-        posterAddToCart.textContent = originalText;
-      }, 1200);
-    });
   }
 
   function renderCheckoutSummary() {
@@ -361,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = '';
 
       const text = document.createElement('span');
-      text.textContent = `${posterLabel(item.key)} — ${formatLabelFull(item.format)} — ${materialLabel(item.material)} × ${item.qty}`;
+      text.textContent = `${cartItemLine(item, true)} × ${item.qty}`;
 
       row.append(img, text);
       checkoutSummary.appendChild(row);
@@ -402,9 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const address = data.get('address') || '';
       const notes = data.get('notes') || '';
 
-      const orderLines = loadCart().map(
-        (item) => `- ${posterLabel(item.key)}, ${formatLabelFull(item.format)}, ${materialLabel(item.material)} x${item.qty}`
-      );
+      const orderLines = loadCart().map((item) => `- ${cartItemLine(item, true)} x${item.qty}`);
 
       const bodyLines = [
         t('order_body_title'),
