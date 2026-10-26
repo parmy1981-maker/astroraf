@@ -32,6 +32,10 @@ window.astrorafDynamicAlbumsReady = (async () => {
     return photo['caption_' + currentLang()] || photo.caption_nl || albumName(album);
   }
 
+  function photoCaptionOnly(photo) {
+    return photo['caption_' + currentLang()] || photo.caption_nl || '';
+  }
+
   function publicPhotoUrl(storagePath) {
     if (storagePath.startsWith(LOCAL_PREFIX)) {
       return storagePath.slice(LOCAL_PREFIX.length);
@@ -116,6 +120,10 @@ window.astrorafDynamicAlbumsReady = (async () => {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-.8 12.1a2 2 0 0 1-2 1.9H9.8a2 2 0 0 1-2-1.9L7 7"/></svg>';
   }
 
+  function pencilSvg() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5.5 16.5 4 20Z"/><path d="M14 6.5 17.5 10"/></svg>';
+  }
+
   function makeIconButton(extraClass, svgContent, label, onClick) {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -190,8 +198,16 @@ window.astrorafDynamicAlbumsReady = (async () => {
     tile.appendChild(openBtn);
     tile.appendChild(likeBtn);
 
+    if (photoCaptionOnly(photo)) {
+      const caption = document.createElement('p');
+      caption.className = 'photo-caption';
+      registerLangRef(caption, 'text', () => photoCaptionOnly(photo));
+      tile.appendChild(caption);
+    }
+
     if (isEditor) {
       tile.appendChild(makeIconButton('photo-delete-btn', trashSvg(), 'Foto verwijderen', () => deletePhoto(photo)));
+      tile.appendChild(makeIconButton('photo-caption-btn', pencilSvg(), 'Bijschrift bewerken', () => openPhotoCaptionModal(photo)));
       tile.appendChild(buildShopTagControls(photo));
     }
 
@@ -959,6 +975,60 @@ window.astrorafDynamicAlbumsReady = (async () => {
       console.error('AstroRaf: album verwijderen mislukt', err);
       window.alert(`Verwijderen mislukt: ${err.message || err}`);
     }
+  }
+
+  function openPhotoCaptionModal(photo) {
+    const { panel } = buildModal('Bijschrift bewerken');
+    const form = document.createElement('form');
+    form.className = 'checkout-form';
+    const inputs = {};
+
+    [['caption_nl', 'Bijschrift (NL)'], ['caption_en', 'Bijschrift (EN)'], ['caption_fr', 'Bijschrift (FR)'], ['caption_de', 'Bijschrift (DE)']]
+      .forEach(([key, label]) => {
+        const field = document.createElement('label');
+        field.className = 'form-field';
+        const span = document.createElement('span');
+        span.textContent = label;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 200;
+        input.value = photo[key] || '';
+        field.appendChild(span);
+        field.appendChild(input);
+        form.appendChild(field);
+        inputs[key] = input;
+      });
+
+    const saveBtn = document.createElement('button');
+    saveBtn.type = 'submit';
+    saveBtn.className = 'checkout-submit';
+    saveBtn.textContent = 'Opslaan';
+    form.appendChild(saveBtn);
+
+    const status = document.createElement('p');
+    status.className = 'admin-status';
+    form.appendChild(status);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      saveBtn.disabled = true;
+      status.textContent = 'Opslaan...';
+      try {
+        const updates = {};
+        Object.keys(inputs).forEach((key) => {
+          updates[key] = inputs[key].value.trim() || null;
+        });
+        const { error } = await supabaseClient.from('album_photos').update(updates).eq('id', photo.id);
+        if (error) throw error;
+        window.location.reload();
+      } catch (err) {
+        console.error('AstroRaf: bijschrift opslaan mislukt', err);
+        status.textContent = `Mislukt: ${err.message || err}`;
+        saveBtn.disabled = false;
+      }
+    });
+
+    panel.appendChild(form);
   }
 
   async function deletePhoto(photo) {
