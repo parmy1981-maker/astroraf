@@ -951,7 +951,7 @@ img { max-width: 100%; display: block; }
 .socials svg { width: 20px; height: 20px; }
 
 /* ---------- Shop ---------- */
-.shop-intro { margin: 1rem auto 0; }
+.shop-intro { margin: 1rem auto 0 !important; }
 
 .shop-grid {
   display: grid;

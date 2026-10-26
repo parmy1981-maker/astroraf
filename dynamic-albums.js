@@ -85,7 +85,7 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
     const { data: prodRows, error: prodError } = await supabaseClient
       .from('shop_products')
-      .select('id,category_id,album_photo_id,active,sort_order');
+      .select('id,category_id,album_photo_id,active,sort_order,title_nl,title_en,title_fr,title_de,description_nl,description_en,description_fr,description_de');
     if (prodError) throw prodError;
 
     shopProductsByPhoto = {};
@@ -265,6 +265,66 @@ window.astrorafDynamicAlbumsReady = (async () => {
 
   async function openShopProductEditModal(product, category) {
     const { panel } = buildModal(`Shop: ${category ? category.name_nl : ''}`);
+
+    const textForm = document.createElement('form');
+    textForm.className = 'checkout-form';
+    const textInputs = {};
+    [
+      ['title_nl', 'Titel (NL)', 'input'],
+      ['title_en', 'Titel (EN)', 'input'],
+      ['title_fr', 'Titel (FR)', 'input'],
+      ['title_de', 'Titel (DE)', 'input'],
+      ['description_nl', 'Beschrijving (NL)', 'textarea'],
+      ['description_en', 'Beschrijving (EN)', 'textarea'],
+      ['description_fr', 'Beschrijving (FR)', 'textarea'],
+      ['description_de', 'Beschrijving (DE)', 'textarea'],
+    ].forEach(([key, label, tag]) => {
+      const field = document.createElement('label');
+      field.className = 'form-field';
+      const span = document.createElement('span');
+      span.textContent = label;
+      const input = document.createElement(tag);
+      if (tag === 'input') { input.type = 'text'; input.maxLength = 80; }
+      else { input.rows = 3; input.maxLength = 2000; }
+      input.value = product[key] || '';
+      field.appendChild(span);
+      field.appendChild(input);
+      textForm.appendChild(field);
+      textInputs[key] = input;
+    });
+
+    const textSaveBtn = document.createElement('button');
+    textSaveBtn.type = 'submit';
+    textSaveBtn.className = 'checkout-submit';
+    textSaveBtn.textContent = 'Tekst opslaan';
+    textForm.appendChild(textSaveBtn);
+
+    const textStatus = document.createElement('p');
+    textStatus.className = 'admin-status';
+    textForm.appendChild(textStatus);
+
+    textForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      textSaveBtn.disabled = true;
+      textStatus.textContent = 'Opslaan...';
+      try {
+        const updates = {};
+        Object.keys(textInputs).forEach((key) => {
+          updates[key] = textInputs[key].value.trim() || null;
+        });
+        const { error } = await supabaseClient.from('shop_products').update(updates).eq('id', product.id);
+        if (error) throw error;
+        Object.assign(product, updates);
+        textStatus.textContent = 'Opgeslagen.';
+      } catch (err) {
+        console.error('AstroRaf: shop-tekst opslaan mislukt', err);
+        textStatus.textContent = `Mislukt: ${err.message || err}`;
+      } finally {
+        textSaveBtn.disabled = false;
+      }
+    });
+
+    panel.appendChild(textForm);
 
     const status = document.createElement('p');
     status.className = 'admin-status';

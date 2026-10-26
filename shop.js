@@ -52,13 +52,12 @@ window.astrorafShopReady = (async () => {
     return category['name_' + currentLang()] || category.name_nl;
   }
 
-  function photoLabel(photoRow) {
-    if (!photoRow) return '';
-    return photoRow['caption_' + currentLang()] || photoRow.caption_nl || '';
+  function productTitle(product, category) {
+    return product['title_' + currentLang()] || product.title_nl || categoryName(category);
   }
 
-  function productLabel(product, category) {
-    return photoLabel(product.album_photos) || categoryName(category);
+  function productDescription(product) {
+    return product['description_' + currentLang()] || product.description_nl || '';
   }
 
   function mockupUrl(storagePath) {
@@ -100,7 +99,7 @@ window.astrorafShopReady = (async () => {
 
     const { data: prodRows, error: prodError } = await supabaseClient
       .from('shop_products')
-      .select('id,category_id,album_photo_id,sort_order,album_photos(caption_nl,caption_en,caption_fr,caption_de),shop_product_images(storage_path,sort_order)')
+      .select('id,category_id,album_photo_id,sort_order,title_nl,title_en,title_fr,title_de,description_nl,description_en,description_fr,description_de,shop_product_images(storage_path,sort_order)')
       .eq('active', true)
       .order('sort_order', { ascending: true });
     if (prodError) throw prodError;
@@ -124,7 +123,7 @@ window.astrorafShopReady = (async () => {
 
     const img = document.createElement('img');
     img.src = images[0];
-    registerLangRef(img, 'alt', () => productLabel(product, category));
+    registerLangRef(img, 'alt', () => productTitle(product, category));
     btn.appendChild(img);
 
     if (images.length > 1) {
@@ -135,7 +134,7 @@ window.astrorafShopReady = (async () => {
 
     const label = document.createElement('span');
     label.className = 'shop-product-label';
-    registerLangRef(label, 'text', () => productLabel(product, category));
+    registerLangRef(label, 'text', () => productTitle(product, category));
 
     item.appendChild(btn);
     item.appendChild(label);
@@ -209,6 +208,8 @@ window.astrorafShopReady = (async () => {
   const shopQtyDecrease = document.getElementById('shopQtyDecrease');
   const shopQtyIncrease = document.getElementById('shopQtyIncrease');
   const shopAddToCart = document.getElementById('shopAddToCart');
+  const shopProductDescription = document.getElementById('shopProductDescription');
+  const shopProductDescriptionText = document.getElementById('shopProductDescriptionText');
   const shopDetailBack = document.getElementById('shopDetailBack');
   const shopDetailPrev = document.getElementById('shopDetailPrev');
   const shopDetailNext = document.getElementById('shopDetailNext');
@@ -240,9 +241,12 @@ window.astrorafShopReady = (async () => {
 
   function refreshDetailLanguage() {
     if (!currentProduct || !currentCategory) return;
-    const label = productLabel(currentProduct, currentCategory);
+    const label = productTitle(currentProduct, currentCategory);
     if (shopDetailTitle) shopDetailTitle.textContent = label;
     if (shopDetailImg) shopDetailImg.alt = label;
+    const description = productDescription(currentProduct);
+    if (shopProductDescription) shopProductDescription.hidden = !description;
+    if (shopProductDescriptionText) shopProductDescriptionText.textContent = description;
   }
 
   // Past de voorbeeld-doos aan op de natuurlijke afmetingen van de huidige
@@ -355,7 +359,7 @@ window.astrorafShopReady = (async () => {
 
       window.astrorafCart.add({
         id: ['product', currentProduct.id, format, material].filter(Boolean).join('-'),
-        label: productLabel(currentProduct, currentCategory),
+        label: productTitle(currentProduct, currentCategory),
         categoryLabel: categoryName(currentCategory),
         image: currentImages[0] || '',
         format,
