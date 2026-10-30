@@ -54,10 +54,6 @@
 
       <div class="checkout-summary" id="checkoutSummary"></div>
 
-      <div class="shop-personal-note checkout-payment-note">
-        <p class="section-text" data-i18n-html="checkout_payment_note">Je bestelling gaat pas in productie van zodra de betaling ontvangen is op rekeningnummer <strong>BE52 3770 9348 5809</strong>. Na het versturen van je bestelling krijg je de betaalgegevens per e-mail; zodra het bedrag binnen is, start ik met de productie.</p>
-      </div>
-
       <form id="checkoutForm" class="checkout-form">
         <label class="form-field">
           <span data-i18n="checkout_name">Naam</span>
@@ -75,8 +71,12 @@
           <span data-i18n="checkout_notes">Opmerkingen (optioneel)</span>
           <textarea name="notes" rows="3"></textarea>
         </label>
-        <button type="submit" class="checkout-submit" data-i18n="checkout_submit">Bestelling versturen</button>
-        <p class="checkout-form-note" data-i18n="checkout_form_note">Dit opent je e-mailprogramma met je bestelling al ingevuld, klaar om te versturen.</p>
+        <div class="poster-option-group" id="checkoutMethodGroup">
+          <span class="poster-option-label" data-i18n="checkout_method_label">Betaalmethode</span>
+          <div class="checkout-methods" id="checkoutMethods"></div>
+        </div>
+        <button type="submit" class="checkout-submit" id="checkoutSubmitBtn" disabled data-i18n="checkout_submit">Bestelling versturen</button>
+        <p class="checkout-form-note" id="checkoutStatusMessage" hidden></p>
       </form>
     </div>
   </div>
@@ -87,6 +87,10 @@
       <p class="section-text" data-i18n-html="shop_personal_note">Alle winst van deze shop gaat rechtstreeks naar de website, om ze online te houden en om projecten te verwezenlijken. Waar ik nu mee bezig ben, is een raketlanceerder maken. Dat gaat best moeilijk, omdat ik het wil doen zonder chemische stoffen te gebruiken &mdash; ik wil het doen met middelpuntvliedende kracht. Ik hou jullie zeker op de hoogte van dit project. Eén van mijn vorige projecten was deze foto's nemen met mijn telescoop en deze website bouwen. Heb je interesse in iets specifieks, zoals een poster met een bepaalde foto? Ik heb er genoeg &mdash; ze staan zeker niet allemaal online &mdash; dus ik kan zeker voor iets specifieks zorgen. Ik bedank jullie alvast voor het bezoeken van mijn website. Als jongere ben ik jullie zeker dankbaar, want doordat jij dit leest, kan ik hiermee voortdoen :)</p>
     </div>
 
+    <div class="shop-personal-note" id="shopOrderStatus" hidden></div>
+
+    <div id="shopAdminTiles"></div>
+
     <div id="shopSections"></div>
     <p class="section-text shop-note" id="shopEmpty" hidden data-i18n="shop_empty">Binnenkort verschijnen hier de eerste producten.</p>
 
@@ -95,6 +99,8 @@
         &larr; <span data-i18n="back_to_shop">Terug naar shop</span>
       </button>
       <h2 class="section-title" id="shopDetailTitle"></h2>
+      <p class="admin-status" id="shopDetailProductNumber" hidden></p>
+      <button type="button" class="back-link" id="shopDetailEditBtn" hidden>Bewerken</button>
 
       <div class="poster-configurator">
         <div class="poster-preview" id="shopPreviewBox">
@@ -104,26 +110,6 @@
         </div>
 
         <div class="poster-options">
-          <div class="poster-option-group" id="shopFormatGroup" hidden>
-            <span class="poster-option-label" data-i18n="poster_format_label">Formaat</span>
-            <select class="format-select" id="shopFormatSelect">
-              <option value="a4">A4</option>
-              <option value="a3" selected data-i18n="format_a3">A3 — populair</option>
-              <option value="40x60">40 × 60</option>
-              <option value="a2">A2</option>
-              <option value="a2-lang">A2 lang</option>
-              <option value="b2">B2</option>
-              <option value="60x80">60 × 80</option>
-              <option value="a1" data-i18n="format_a1">A1 — populair</option>
-              <option value="60x90">60 × 90</option>
-              <option value="b1">B1</option>
-              <option value="a0" data-i18n="format_a0">A0 — populair</option>
-              <option value="b0">B0</option>
-              <option value="abri">Abri</option>
-            </select>
-            <span class="format-dims" id="shopFormatDims">29,7 × 42 cm</span>
-          </div>
-
           <div class="poster-option-group" id="shopMaterialGroup" hidden>
             <span class="poster-option-label" data-i18n="poster_material_label">Materiaal</span>
             <div class="poster-material">
@@ -132,14 +118,9 @@
             </div>
           </div>
 
-          <div class="poster-option-group">
-            <span class="poster-option-label" data-i18n="poster_qty_label">Aantal</span>
-            <div class="qty-stepper">
-              <button type="button" class="qty-btn" id="shopQtyDecrease" aria-label="-">&minus;</button>
-              <input type="number" class="qty-input" id="shopQtyInput" min="1" value="1" inputmode="numeric">
-              <button type="button" class="qty-btn" id="shopQtyIncrease" aria-label="+">&plus;</button>
-            </div>
-          </div>
+          <div class="shop-variant-rows" id="shopVariantRows"></div>
+          <div class="shop-surcharges" id="shopSurcharges" hidden></div>
+          <p class="shop-detail-total" id="shopDetailTotal"></p>
 
           <div class="poster-notes" id="shopNotesGroup" hidden>
             <p class="poster-quality-note" data-i18n="poster_quality_note">Deze posters worden professioneel gemaakt: de foto's gaan zonder watermerk en in de best beschikbare kwaliteit naar de printer. Zijn er problemen? Neem gerust contact met me op.</p>

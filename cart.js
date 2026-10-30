@@ -5,11 +5,9 @@ const materialNames = {
   de: { mat: 'Matt', glans: 'Glänzend' },
 };
 
-const formatNames = {
-  a4: 'A4', a3: 'A3', a2: 'A2', 'a2-lang': 'A2 lang', b2: 'B2',
-  a1: 'A1', b1: 'B1', a0: 'A0', b0: 'B0', abri: 'Abri',
-};
-
+// formatSizes blijft (nog gebruikt door shop.js om de postervoorbeeld-doos
+// op maat van het gekozen formaat te schalen) -- formatNames/formatLabel(Full)
+// zijn weg, weergave gebeurt nu via het veld-label dat de editor zelf kiest.
 const formatSizes = {
   a4: '21 × 29,7 cm',
   a3: '29,7 × 42 cm',
@@ -26,17 +24,9 @@ const formatSizes = {
   abri: '118,5 × 175 cm',
 };
 
-function formatLabel(format) {
-  return formatNames[format] || formatSizes[format] || format;
+function formatEuro(cents) {
+  return `€${(cents / 100).toFixed(2).replace('.', ',')}`;
 }
-
-function formatLabelFull(format) {
-  const name = formatNames[format];
-  const size = formatSizes[format] || '?';
-  return name ? `${name} (${size})` : size;
-}
-
-const ORDER_EMAIL = 'info@astroraf.be';
 
 const CART_KEY = 'astroraf-cart';
 
@@ -77,6 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkoutModal = document.getElementById('checkoutModal');
   const checkoutSummary = document.getElementById('checkoutSummary');
   const checkoutForm = document.getElementById('checkoutForm');
+  const checkoutMethods = document.getElementById('checkoutMethods');
+  const checkoutSubmitBtn = document.getElementById('checkoutSubmitBtn');
+  const checkoutStatusMessage = document.getElementById('checkoutStatusMessage');
+  const shopOrderStatus = document.getElementById('shopOrderStatus');
+
+  let selectedMethod = null;
 
   function currentLang() {
     return localStorage.getItem('astroraf-lang') || 'nl';
@@ -92,11 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return dict[material] || material;
   }
 
-  function cartItemLine(item, full) {
+  function cartItemLine(item, separator) {
     const parts = [item.label, item.categoryLabel];
-    if (item.format) parts.push(full ? formatLabelFull(item.format) : formatLabel(item.format));
+    if (item.fieldLabel) parts.push(item.fieldLabel);
     if (item.material) parts.push(materialLabel(item.material));
-    return parts.filter(Boolean).join(full ? ' — ' : ' · ');
+    return parts.filter(Boolean).join(separator);
   }
 
   function renderCart() {
@@ -126,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const materialEl = document.createElement('div');
       materialEl.className = 'cart-item-material';
-      materialEl.textContent = cartItemLine(item, false);
+      materialEl.textContent = cartItemLine(item, ' · ');
 
       const qtyRow = document.createElement('div');
       qtyRow.className = 'cart-item-qty';
@@ -179,11 +175,43 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
   }
 
+  // Verplichte algemene kosten komen altijd bij. Optionele kosten (bv.
+  // Verzendkosten als afhaling ook kan) tellen enkel mee als minstens één
+  // item van die rubriek in het winkelmandje ze aanvaard heeft op de
+  // productpagina.
+  function categorySurchargeCentsFor(categoryId, cart) {
+    const fields = window.astrorafShopPricing?.categoryFields?.[categoryId] || [];
+    const itemsInCategory = cart.filter((item) => item.categoryId === categoryId);
+    return fields.filter((f) => f.field_type === 'surcharge').reduce((sum, f) => {
+      const accepted = f.mandatory || itemsInCategory.some((item) =>
+        (item.acceptedSurchargeFieldIds || []).includes(f.id));
+      return sum + (accepted ? (f.price_cents || 0) : 0);
+    }, 0);
+  }
+
+  // Weergave-only: dezelfde "één keer per aanwezige rubriek"-logica als
+  // api/checkout/create-payment.js server-side toepast. De server herberekent
+  // dit gezaghebbend uit de database en vertrouwt dit cliëntgetal nooit.
+  function totalSurchargeCents(cart) {
+    const categoryIds = [...new Set(cart.map((item) => item.categoryId).filter(Boolean))];
+    return categoryIds.reduce((sum, id) => sum + categorySurchargeCentsFor(id, cart), 0);
+  }
+
+  function totalsRow(label, cents, strong) {
+    const row = document.createElement('div');
+    row.className = 'checkout-summary-item';
+    const text = document.createElement('span');
+    text.innerHTML = strong ? `<strong>${label}: ${formatEuro(cents)}</strong>` : `${label}: ${formatEuro(cents)}`;
+    row.appendChild(text);
+    return row;
+  }
+
   function renderCheckoutSummary() {
     if (!checkoutSummary) return;
     checkoutSummary.innerHTML = '';
 
-    loadCart().forEach((item) => {
+    const cart = loadCart();
+    cart.forEach((item) => {
       const row = document.createElement('div');
       row.className = 'checkout-summary-item';
 
@@ -192,16 +220,63 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = '';
 
       const text = document.createElement('span');
-      text.textContent = `${cartItemLine(item, true)} × ${item.qty}`;
+      const lineTotal = (item.unitPriceCents || 0) * item.qty;
+      text.textContent = `${cartItemLine(item, ' — ')} × ${item.qty} — ${formatEuro(lineTotal)}`;
 
       row.append(img, text);
       checkoutSummary.appendChild(row);
     });
+
+    const subtotal = cart.reduce((sum, item) => sum + (item.unitPriceCents || 0) * item.qty, 0);
+    const surcharge = totalSurchargeCents(cart);
+    checkoutSummary.appendChild(totalsRow(t('checkout_summary_subtotal'), subtotal, false));
+    checkoutSummary.appendChild(totalsRow(t('checkout_summary_shipping'), surcharge, false));
+    checkoutSummary.appendChild(totalsRow(t('checkout_summary_total'), subtotal + surcharge, true));
+  }
+
+  async function loadCheckoutMethods() {
+    if (!checkoutMethods) return;
+    selectedMethod = null;
+    if (checkoutSubmitBtn) checkoutSubmitBtn.disabled = true;
+    checkoutMethods.innerHTML = `<span class="admin-status">...</span>`;
+
+    try {
+      const res = await fetch(`/api/checkout/methods?lang=${currentLang()}`);
+      const body = await res.json();
+      checkoutMethods.innerHTML = '';
+      (body.methods || []).forEach((method) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'material-btn checkout-method-btn';
+        btn.textContent = method.label;
+        btn.addEventListener('click', () => {
+          checkoutMethods.querySelectorAll('.checkout-method-btn').forEach((b) => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          selectedMethod = method.id;
+          if (checkoutSubmitBtn) checkoutSubmitBtn.disabled = false;
+        });
+        checkoutMethods.appendChild(btn);
+      });
+      if (!body.methods?.length) {
+        checkoutMethods.innerHTML = `<span class="admin-status">${t('checkout_order_failed')}</span>`;
+      }
+    } catch (e) {
+      console.error('AstroRaf: betaalmethodes laden mislukt', e);
+      checkoutMethods.innerHTML = `<span class="admin-status">${t('checkout_order_failed')}</span>`;
+    }
+  }
+
+  function showCheckoutStatus(message) {
+    if (!checkoutStatusMessage) return;
+    checkoutStatusMessage.hidden = !message;
+    checkoutStatusMessage.textContent = message || '';
   }
 
   function openCheckoutModal() {
     if (!checkoutModal) return;
     renderCheckoutSummary();
+    showCheckoutStatus('');
+    loadCheckoutMethods();
     checkoutModal.hidden = false;
   }
 
@@ -224,37 +299,79 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (checkoutForm) {
-    checkoutForm.addEventListener('submit', (e) => {
+    checkoutForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!selectedMethod) return;
 
       const data = new FormData(checkoutForm);
-      const name = data.get('name') || '';
-      const email = data.get('email') || '';
-      const address = data.get('address') || '';
-      const notes = data.get('notes') || '';
+      const customer = {
+        name: data.get('name') || '',
+        email: data.get('email') || '',
+        address: data.get('address') || '',
+        notes: data.get('notes') || '',
+      };
+      const items = loadCart().map(({ productId, fieldId, material, qty, acceptedSurchargeFieldIds }) => ({
+        productId, fieldId, material, qty, acceptedSurchargeFieldIds: acceptedSurchargeFieldIds || [],
+      }));
 
-      const orderLines = loadCart().map((item) => `- ${cartItemLine(item, true)} x${item.qty}`);
+      checkoutSubmitBtn.disabled = true;
+      showCheckoutStatus('');
 
-      const bodyLines = [
-        t('order_body_title'),
-        '',
-        ...orderLines,
-        '',
-        `${t('order_name_label')}: ${name}`,
-        `${t('order_email_label')}: ${email}`,
-        `${t('order_address_label')}: ${address}`,
-        `${t('order_notes_label')}: ${notes || '-'}`,
-      ];
-
-      const subject = encodeURIComponent(t('order_subject'));
-      const body = encodeURIComponent(bodyLines.join('\n'));
-      window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
-
-      saveCart([]);
-      renderCart();
-      checkoutForm.reset();
-      closeCheckoutModal();
+      try {
+        const res = await fetch('/api/checkout/create-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ customer, method: selectedMethod, lang: currentLang(), items }),
+        });
+        const body = await res.json();
+        if (!res.ok || !body.checkoutUrl) throw new Error(body.error || 'onbekende fout');
+        window.location.href = body.checkoutUrl;
+      } catch (err) {
+        console.error('AstroRaf: betaling starten mislukt', err);
+        showCheckoutStatus(t('checkout_order_failed'));
+        checkoutSubmitBtn.disabled = false;
+      }
     });
+  }
+
+  async function handleOrderReturn() {
+    const orderId = new URLSearchParams(window.location.search).get('order');
+    if (!orderId || !shopOrderStatus) return;
+
+    shopOrderStatus.hidden = false;
+    shopOrderStatus.textContent = t('checkout_order_confirming');
+
+    const deadline = Date.now() + 15000;
+    for (;;) {
+      let status;
+      try {
+        const res = await fetch(`/api/checkout/order-status?order=${encodeURIComponent(orderId)}`);
+        const body = await res.json();
+        status = body.status;
+      } catch (e) {
+        console.error('AstroRaf: bestelstatus opvragen mislukt', e);
+        break;
+      }
+
+      if (status === 'paid') {
+        saveCart([]);
+        renderCart();
+        shopOrderStatus.textContent = t('checkout_order_success');
+        history.replaceState(null, '', window.location.pathname);
+        return;
+      }
+      if (status === 'failed' || status === 'canceled' || status === 'expired') {
+        shopOrderStatus.hidden = true;
+        history.replaceState(null, '', window.location.pathname);
+        openCheckoutModal();
+        showCheckoutStatus(t('checkout_order_failed'));
+        return;
+      }
+      if (Date.now() > deadline) break;
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+
+    shopOrderStatus.textContent = t('checkout_order_confirming');
   }
 
   if (cartToggle && cartPanel) {
@@ -289,4 +406,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('astroraf-lang-changed', renderCart);
 
   renderCart();
+  handleOrderReturn();
 });

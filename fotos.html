@@ -73,8 +73,12 @@
           <span data-i18n="checkout_notes">Opmerkingen (optioneel)</span>
           <textarea name="notes" rows="3"></textarea>
         </label>
-        <button type="submit" class="checkout-submit" data-i18n="checkout_submit">Bestelling versturen</button>
-        <p class="checkout-form-note" data-i18n="checkout_form_note">Dit opent je e-mailprogramma met je bestelling al ingevuld, klaar om te versturen.</p>
+        <div class="poster-option-group" id="checkoutMethodGroup">
+          <span class="poster-option-label" data-i18n="checkout_method_label">Betaalmethode</span>
+          <div class="checkout-methods" id="checkoutMethods"></div>
+        </div>
+        <button type="submit" class="checkout-submit" id="checkoutSubmitBtn" disabled data-i18n="checkout_submit">Bestelling versturen</button>
+        <p class="checkout-form-note" id="checkoutStatusMessage" hidden></p>
       </form>
     </div>
   </div>
