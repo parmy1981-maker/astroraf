@@ -101,7 +101,8 @@ const translations = {
       <p>Betalen kan via de betaalmethoden die in de kassa worden aangeboden (via Mollie). Je betaalgegevens worden rechtstreeks door Mollie verwerkt; wij zien of bewaren je kaart- of rekeningnummer niet.</p>
 
       <h3>6. Levering</h3>
-      <p>We streven ernaar bestellingen binnen de op de productpagina vermelde termijn te verzenden. Leveringstermijnen zijn indicatief. Het risico op verlies of beschadiging gaat over op jou vanaf het moment van levering.</p>
+      <p>We streven ernaar bestellingen binnen de op de productpagina vermelde termijn te verzenden. Leveringstermijnen zijn indicatief. Het risico op verlies of beschadiging tijdens het transport blijft bij ons tot jij (of een door jou aangewezen derde, niet de vervoerder) het pakket fysiek in ontvangst neemt.</p>
+      <p>Komt je bestelling niet of niet volledig aan, laat het ons binnen 30 dagen na de verwachte leverdatum weten via <a href="mailto:info@astroraf.be">info@astroraf.be</a>. We onderzoeken dit dan bij de vervoerder op basis van de verzendgegevens (track&amp;trace, eventueel een leveringsbewijs); bevestigt de vervoerder dat de levering wel degelijk correct op het opgegeven adres gebeurde, dan kunnen we je vragen eerst navraag te doen (bv. bij huisgenoten, buren of het lokale postpunt) voordat we een nieuwe verzending of terugbetaling voorzien. Werd door jou een fout of onvolledig afleveradres doorgegeven, dan is de vertraging of meerkost die daaruit voortvloeit voor jouw rekening.</p>
 
       <h3>7. Herroepingsrecht</h3>
       <p>Voor artikelen die we speciaal volgens jouw bestelling laten afdrukken of vervaardigen ("op bestelling gemaakt"), geldt het herroepingsrecht niet: dergelijke goederen zijn immers op maat van jou gemaakt en kunnen niet opnieuw verkocht worden (artikel VI.53, 3° Wetboek van Economisch Recht).</p>
@@ -255,7 +256,8 @@ const translations = {
       <p>You can pay using the payment methods offered at checkout (via Mollie). Your payment details are processed directly by Mollie; we never see or store your card or account number.</p>
 
       <h3>6. Delivery</h3>
-      <p>We aim to ship orders within the timeframe stated on the product page. Delivery times are indicative. The risk of loss or damage passes to you from the moment of delivery.</p>
+      <p>We aim to ship orders within the timeframe stated on the product page. Delivery times are indicative. The risk of loss or damage during transport remains with us until you (or a third party you designate, other than the carrier) physically take possession of the package.</p>
+      <p>If your order does not arrive, or arrives incomplete, let us know within 30 days of the expected delivery date at <a href="mailto:info@astroraf.be">info@astroraf.be</a>. We will then investigate with the carrier based on the shipping details (tracking, and where available a proof of delivery); if the carrier confirms the delivery was indeed made correctly to the address provided, we may ask you to check further (e.g. with housemates, neighbours or the local parcel point) before we arrange a replacement shipment or refund. If you provided an incorrect or incomplete delivery address, any resulting delay or extra cost is your responsibility.</p>
 
       <h3>7. Right of withdrawal</h3>
       <p>For items we print or produce specifically to your order ("made to order"), the right of withdrawal does not apply: such goods are made especially for you and cannot be resold (Article VI.53, 3° of the Belgian Economic Law Code).</p>
@@ -409,7 +411,8 @@ const translations = {
       <p>Le paiement se fait via les méthodes proposées lors du passage en caisse (via Mollie). Vos données de paiement sont traitées directement par Mollie ; nous ne voyons ni ne conservons jamais votre numéro de carte ou de compte.</p>
 
       <h3>6. Livraison</h3>
-      <p>Nous nous efforçons d'expédier les commandes dans le délai indiqué sur la page du produit. Les délais de livraison sont indicatifs. Le risque de perte ou de dommage vous est transféré à partir du moment de la livraison.</p>
+      <p>Nous nous efforçons d'expédier les commandes dans le délai indiqué sur la page du produit. Les délais de livraison sont indicatifs. Le risque de perte ou de dommage pendant le transport reste à notre charge jusqu'à ce que vous (ou un tiers que vous avez désigné, autre que le transporteur) preniez physiquement possession du colis.</p>
+      <p>Si votre commande n'arrive pas, ou arrive incomplète, prévenez-nous dans les 30 jours suivant la date de livraison prévue à <a href="mailto:info@astroraf.be">info@astroraf.be</a>. Nous mènerons alors une enquête auprès du transporteur sur la base des données d'expédition (suivi, et si disponible une preuve de livraison) ; si le transporteur confirme que la livraison a bien été effectuée correctement à l'adresse indiquée, nous pourrons vous demander de vérifier davantage (par ex. auprès de vos colocataires, voisins ou du point relais local) avant de procéder à un nouvel envoi ou à un remboursement. Si vous avez communiqué une adresse de livraison erronée ou incomplète, tout retard ou coût supplémentaire qui en résulte reste à votre charge.</p>
 
       <h3>7. Droit de rétractation</h3>
       <p>Pour les articles que nous imprimons ou fabriquons spécifiquement selon votre commande (« fabriqués sur mesure »), le droit de rétractation ne s'applique pas : ces biens sont en effet confectionnés spécialement pour vous et ne peuvent être revendus (article VI.53, 3° du Code de droit économique belge).</p>
@@ -563,7 +566,8 @@ const translations = {
       <p>Die Zahlung erfolgt über die an der Kasse angebotenen Zahlungsmethoden (über Mollie). Deine Zahlungsdaten werden direkt von Mollie verarbeitet; wir sehen oder speichern deine Karten- oder Kontonummer niemals.</p>
 
       <h3>6. Lieferung</h3>
-      <p>Wir bemühen uns, Bestellungen innerhalb der auf der Produktseite angegebenen Frist zu versenden. Lieferzeiten sind unverbindlich. Das Risiko für Verlust oder Beschädigung geht ab dem Zeitpunkt der Lieferung auf dich über.</p>
+      <p>Wir bemühen uns, Bestellungen innerhalb der auf der Produktseite angegebenen Frist zu versenden. Lieferzeiten sind unverbindlich. Das Risiko für Verlust oder Beschädigung während des Transports bleibt bei uns, bis du (oder ein von dir benannter Dritter, nicht der Zusteller) das Paket physisch in Besitz nimmst.</p>
+      <p>Kommt deine Bestellung nicht oder nicht vollständig an, teile uns dies bitte innerhalb von 30 Tagen nach dem erwarteten Liefertermin unter <a href="mailto:info@astroraf.be">info@astroraf.be</a> mit. Wir prüfen die Angelegenheit dann beim Zustelldienst anhand der Versanddaten (Sendungsverfolgung, sofern vorhanden ein Zustellnachweis); bestätigt der Zustelldienst, dass die Lieferung tatsächlich korrekt an die angegebene Adresse erfolgt ist, können wir dich bitten, zunächst weiter nachzuforschen (z. B. bei Mitbewohnern, Nachbarn oder der örtlichen Paketstelle), bevor wir eine Ersatzsendung oder Rückerstattung veranlassen. Hast du eine falsche oder unvollständige Lieferadresse angegeben, gehen eine daraus entstehende Verzögerung oder Mehrkosten zu deinen Lasten.</p>
 
       <h3>7. Widerrufsrecht</h3>
       <p>Für Artikel, die wir speziell nach deiner Bestellung drucken oder herstellen ("auf Bestellung gefertigt"), gilt kein Widerrufsrecht: Solche Waren werden eigens für dich angefertigt und können nicht weiterverkauft werden (Artikel VI.53, 3° des belgischen Wirtschaftsgesetzbuchs).</p>
