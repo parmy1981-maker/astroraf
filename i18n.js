@@ -92,7 +92,8 @@ const translations = {
       <p>Deze algemene voorwaarden zijn van toepassing op elke bestelling die je via astroraf.be plaatst. Door een bestelling te plaatsen, aanvaard je deze voorwaarden.</p>
 
       <h3>3. Aanbod en prijzen</h3>
-      <p>Alle prijzen op de website zijn vermeld in euro en zijn inclusief 21% btw, tenzij anders aangegeven. Bijkomende kosten (zoals verzendkosten) worden duidelijk vermeld vóór je de bestelling bevestigt. We doen ons best om alle informatie zo nauwkeurig mogelijk weer te geven; bij een kennelijke vergissing in de prijs behouden we ons het recht voor om de bestelling te annuleren.</p>
+      <p>Alle prijzen op de website zijn vermeld in euro en zijn inclusief 21% btw, tenzij anders aangegeven. Bijkomende kosten (zoals verzendkosten) worden duidelijk vermeld vóór je de bestelling bevestigt. We doen ons best om alle informatie zo nauwkeurig mogelijk weer te geven.</p>
+      <p>We behouden ons steeds het recht voor om een bestelling te annuleren &mdash; bijvoorbeeld bij een kennelijke fout in prijs of beschrijving, wanneer een artikel toch niet meer beschikbaar blijkt, of bij een ernstig vermoeden van fraude. In dat geval krijg je het volledige, reeds betaalde bedrag terugbetaald.</p>
 
       <h3>4. Totstandkoming van de overeenkomst</h3>
       <p>De overeenkomst komt tot stand op het moment dat je de betaling voltooit via onze betaalpartner Mollie. Je ontvangt een bevestiging per e-mail.</p>
@@ -122,8 +123,9 @@ const translations = {
       <h3>11. Klachten en geschillen</h3>
       <p>Heb je een klacht? Neem eerst contact met ons op via <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; we zoeken graag samen naar een oplossing. Kom je er met ons niet uit, dan kan je als EU-consument ook terecht bij het Europese platform voor onlinegeschillenbeslechting: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
 
-      <h3>12. Toepasselijk recht</h3>
+      <h3>12. Toepasselijk recht en bevoegde rechter</h3>
       <p>Op deze overeenkomst is Belgisch recht van toepassing, met behoud van de dwingende bepalingen ter bescherming van de consument in jouw land van verblijf.</p>
+      <p>Bij een geschil zijn, voor zover wettelijk toegelaten, de rechtbanken van het gerechtelijk arrondissement West-Vlaanderen, afdeling Ieper bevoegd (het rechtsgebied van onze bedrijfszetel). Dit doet geen afbreuk aan jouw recht als consument om de zaak in plaats daarvan voor te leggen aan de rechtbank van je eigen woonplaats, zoals de wet je toelaat.</p>
 
       <p class="legal-updated">Laatst bijgewerkt: november 2026.</p>
     `,
@@ -248,7 +250,8 @@ const translations = {
       <p>These terms and conditions apply to every order placed through astroraf.be. By placing an order, you accept these terms.</p>
 
       <h3>3. Offer and prices</h3>
-      <p>All prices on the website are shown in euro and include 21% VAT, unless stated otherwise. Any additional costs (such as shipping) are clearly shown before you confirm your order. We do our best to present all information as accurately as possible; in the event of an obvious pricing error, we reserve the right to cancel the order.</p>
+      <p>All prices on the website are shown in euro and include 21% VAT, unless stated otherwise. Any additional costs (such as shipping) are clearly shown before you confirm your order. We do our best to present all information as accurately as possible.</p>
+      <p>We always reserve the right to cancel an order &mdash; for example in the event of an obvious pricing or description error, when an item turns out to no longer be available, or in case of a serious suspicion of fraud. In that case you will receive a full refund of any amount already paid.</p>
 
       <h3>4. Formation of the contract</h3>
       <p>The contract is formed at the moment you complete payment through our payment partner Mollie. You will receive a confirmation by e-mail.</p>
@@ -278,8 +281,9 @@ const translations = {
       <h3>11. Complaints and disputes</h3>
       <p>Do you have a complaint? Please contact us first at <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; we're happy to look for a solution together. If we cannot resolve it, as an EU consumer you can also turn to the European Online Dispute Resolution platform: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
 
-      <h3>12. Governing law</h3>
+      <h3>12. Governing law and competent court</h3>
       <p>These terms are governed by Belgian law, without prejudice to the mandatory consumer protection provisions of your country of residence.</p>
+      <p>In the event of a dispute, and to the extent permitted by law, the courts of the judicial district of West Flanders (Ieper division) are competent (the district of our registered business address). This does not affect your right as a consumer to bring the matter before the court of your own place of residence instead, as the law allows.</p>
 
       <p class="legal-updated">Last updated: November 2026.</p>
     `,
@@ -404,7 +408,8 @@ const translations = {
       <p>Ces conditions générales s'appliquent à toute commande passée via astroraf.be. En passant une commande, vous acceptez ces conditions.</p>
 
       <h3>3. Offre et prix</h3>
-      <p>Tous les prix du site sont indiqués en euros et incluent la TVA à 21 %, sauf indication contraire. Les frais supplémentaires (comme les frais de livraison) sont clairement indiqués avant la confirmation de votre commande. Nous faisons tout notre possible pour présenter les informations de façon exacte ; en cas d'erreur manifeste sur un prix, nous nous réservons le droit d'annuler la commande.</p>
+      <p>Tous les prix du site sont indiqués en euros et incluent la TVA à 21 %, sauf indication contraire. Les frais supplémentaires (comme les frais de livraison) sont clairement indiqués avant la confirmation de votre commande. Nous faisons tout notre possible pour présenter les informations de façon exacte.</p>
+      <p>Nous nous réservons toujours le droit d'annuler une commande &mdash; par exemple en cas d'erreur manifeste sur le prix ou la description, lorsqu'un article s'avère ne plus être disponible, ou en cas de forte suspicion de fraude. Dans ce cas, vous serez intégralement remboursé du montant déjà payé.</p>
 
       <h3>4. Formation du contrat</h3>
       <p>Le contrat est conclu au moment où vous finalisez le paiement via notre partenaire de paiement Mollie. Vous recevrez une confirmation par e-mail.</p>
@@ -434,8 +439,9 @@ const translations = {
       <h3>11. Réclamations et litiges</h3>
       <p>Vous avez une réclamation ? Contactez-nous d'abord à <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; nous chercherons volontiers une solution ensemble. Si nous ne parvenons pas à un accord, en tant que consommateur européen, vous pouvez également vous adresser à la plateforme européenne de règlement en ligne des litiges : <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
 
-      <h3>12. Droit applicable</h3>
+      <h3>12. Droit applicable et tribunal compétent</h3>
       <p>Ces conditions sont régies par le droit belge, sans préjudice des dispositions impératives de protection des consommateurs de votre pays de résidence.</p>
+      <p>En cas de litige, et dans la mesure permise par la loi, les tribunaux de l'arrondissement judiciaire de Flandre-Occidentale, division d'Ypres, sont compétents (l'arrondissement de notre siège social). Ceci ne porte pas atteinte à votre droit, en tant que consommateur, de porter l'affaire devant le tribunal de votre propre domicile, comme la loi vous le permet.</p>
 
       <p class="legal-updated">Dernière mise à jour : novembre 2026.</p>
     `,
@@ -560,7 +566,8 @@ const translations = {
       <p>Diese allgemeinen Geschäftsbedingungen gelten für jede über astroraf.be aufgegebene Bestellung. Mit der Bestellung akzeptierst du diese Bedingungen.</p>
 
       <h3>3. Angebot und Preise</h3>
-      <p>Alle Preise auf der Website sind in Euro angegeben und enthalten, sofern nicht anders angegeben, 21 % Mehrwertsteuer. Zusätzliche Kosten (z. B. Versandkosten) werden vor Bestätigung deiner Bestellung deutlich angezeigt. Wir bemühen uns, alle Informationen so genau wie möglich darzustellen; bei einem offensichtlichen Preisfehler behalten wir uns das Recht vor, die Bestellung zu stornieren.</p>
+      <p>Alle Preise auf der Website sind in Euro angegeben und enthalten, sofern nicht anders angegeben, 21 % Mehrwertsteuer. Zusätzliche Kosten (z. B. Versandkosten) werden vor Bestätigung deiner Bestellung deutlich angezeigt. Wir bemühen uns, alle Informationen so genau wie möglich darzustellen.</p>
+      <p>Wir behalten uns stets das Recht vor, eine Bestellung zu stornieren &mdash; zum Beispiel bei einem offensichtlichen Preis- oder Beschreibungsfehler, wenn ein Artikel sich doch als nicht mehr verfügbar herausstellt, oder bei einem begründeten Betrugsverdacht. In diesem Fall erhältst du den bereits bezahlten Betrag vollständig zurück.</p>
 
       <h3>4. Zustandekommen des Vertrags</h3>
       <p>Der Vertrag kommt in dem Moment zustande, in dem du die Zahlung über unseren Zahlungsdienstleister Mollie abschließt. Du erhältst eine Bestätigung per E-Mail.</p>
@@ -590,8 +597,9 @@ const translations = {
       <h3>11. Beschwerden und Streitigkeiten</h3>
       <p>Du hast eine Beschwerde? Kontaktiere uns zuerst unter <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; wir suchen gerne gemeinsam nach einer Lösung. Kommen wir zu keiner Einigung, kannst du dich als EU-Verbraucher auch an die europäische Plattform zur Online-Streitbeilegung wenden: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
 
-      <h3>12. Anwendbares Recht</h3>
+      <h3>12. Anwendbares Recht und zuständiges Gericht</h3>
       <p>Auf diese Bedingungen findet belgisches Recht Anwendung, unbeschadet der zwingenden Verbraucherschutzbestimmungen deines Wohnsitzlandes.</p>
+      <p>Bei einer Streitigkeit sind, soweit gesetzlich zulässig, die Gerichte des Gerichtsbezirks Westflandern, Abteilung Ypern, zuständig (der Bezirk unseres Firmensitzes). Dies berührt nicht dein Recht als Verbraucher, die Angelegenheit stattdessen vor das Gericht deines eigenen Wohnsitzes zu bringen, soweit das Gesetz dies erlaubt.</p>
 
       <p class="legal-updated">Zuletzt aktualisiert: November 2026.</p>
     `,
