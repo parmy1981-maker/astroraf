@@ -54,6 +54,7 @@ const translations = {
     checkout_order_confirming: `We bevestigen je betaling...`,
     checkout_order_success: `Bedankt! Je betaling is ontvangen, je krijgt een bevestiging per e-mail.`,
     shop_price_from: `vanaf`,
+    price_vat_note: `Alle prijzen zijn inclusief 21% btw.`,
     alt_story_bende: `De campinggroep, bijgenaamd De Bende`,
     alt_story_paraat: `De groep staat paraat voor de zonsverduistering`,
     alt_story_fysicus: `De fysicus van de groep`,
@@ -79,6 +80,78 @@ const translations = {
     alt_gallery_maan_totaal: `Totale maansverduistering, astrofotografie door AstroRaf`,
     alt_gallery_maan: `De maan, astrofotografie door AstroRaf`,
     back_to_albums: `Terug naar albums`,
+    footer_terms: `Algemene voorwaarden`,
+    footer_privacy: `Privacybeleid`,
+    footer_colophon: `Wouter Parmentier &middot; Oude bosweg 2, 8920 Poelkapelle, België &middot; BTW BE0723668993`,
+    terms_title: `Algemene voorwaarden`,
+    terms_content: `
+      <h3>1. Wie zijn wij?</h3>
+      <p>Deze webshop (astroraf.be) wordt uitgebaat door Wouter Parmentier, Oude bosweg 2, 8920 Poelkapelle, België, ondernemingsnummer/BTW BE0723668993. Je kan ons bereiken via <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Toepassingsgebied</h3>
+      <p>Deze algemene voorwaarden zijn van toepassing op elke bestelling die je via astroraf.be plaatst. Door een bestelling te plaatsen, aanvaard je deze voorwaarden.</p>
+
+      <h3>3. Aanbod en prijzen</h3>
+      <p>Alle prijzen op de website zijn vermeld in euro en zijn inclusief 21% btw, tenzij anders aangegeven. Bijkomende kosten (zoals verzendkosten) worden duidelijk vermeld vóór je de bestelling bevestigt. We doen ons best om alle informatie zo nauwkeurig mogelijk weer te geven; bij een kennelijke vergissing in de prijs behouden we ons het recht voor om de bestelling te annuleren.</p>
+
+      <h3>4. Totstandkoming van de overeenkomst</h3>
+      <p>De overeenkomst komt tot stand op het moment dat je de betaling voltooit via onze betaalpartner Mollie. Je ontvangt een bevestiging per e-mail.</p>
+
+      <h3>5. Betaling</h3>
+      <p>Betalen kan via de betaalmethoden die in de kassa worden aangeboden (via Mollie). Je betaalgegevens worden rechtstreeks door Mollie verwerkt; wij zien of bewaren je kaart- of rekeningnummer niet.</p>
+
+      <h3>6. Levering</h3>
+      <p>We streven ernaar bestellingen binnen de op de productpagina vermelde termijn te verzenden. Leveringstermijnen zijn indicatief. Het risico op verlies of beschadiging gaat over op jou vanaf het moment van levering.</p>
+
+      <h3>7. Herroepingsrecht</h3>
+      <p>Voor artikelen die we speciaal volgens jouw bestelling laten afdrukken of vervaardigen ("op bestelling gemaakt"), geldt het herroepingsrecht niet: dergelijke goederen zijn immers op maat van jou gemaakt en kunnen niet opnieuw verkocht worden (artikel VI.53, 3° Wetboek van Economisch Recht).</p>
+      <p>Voor artikelen die we reeds in voorraad hebben en die niet specifiek voor jou gemaakt worden, heb je als consument het recht om binnen 14 kalenderdagen na ontvangst de overeenkomst zonder opgave van reden te herroepen. Je brengt ons hiervan op de hoogte via <a href="mailto:info@astroraf.be">info@astroraf.be</a>; de kosten en het risico van de terugzending zijn voor jouw rekening, en je ontvangt het aankoopbedrag terug zodra we het artikel in goede staat hebben terugontvangen.</p>
+      <p>Weet je niet zeker of jouw bestelling op maat gemaakt werd of uit voorraad kwam? Neem gerust contact met ons op via <a href="mailto:info@astroraf.be">info@astroraf.be</a>, dan bekijken we dit samen.</p>
+
+      <h3>8. Conformiteit en klachten over een product</h3>
+      <p>Als consument genie je van de wettelijke garantie: een product moet overeenstemmen met wat redelijkerwijze verwacht mag worden (bv. een afdruk zonder druk- of materiaalfouten). Vermoed je een gebrek, neem dan snel contact op via <a href="mailto:info@astroraf.be">info@astroraf.be</a>, met een foto en omschrijving van het probleem.</p>
+
+      <h3>9. Intellectuele eigendom</h3>
+      <p>Alle foto's blijven steeds eigendom van de fotograaf. De aankoop van een afdruk of product geeft je enkel het recht om het fysieke exemplaar te gebruiken voor persoonlijk, niet-commercieel gebruik; verveelvoudiging, verspreiding of commercieel gebruik van de foto zelf is niet toegestaan zonder voorafgaande schriftelijke toestemming.</p>
+
+      <h3>10. Aansprakelijkheid</h3>
+      <p>Onze aansprakelijkheid is beperkt tot het bedrag van je bestelling, behalve in geval van opzet of grove fout.</p>
+
+      <h3>11. Klachten en geschillen</h3>
+      <p>Heb je een klacht? Neem eerst contact met ons op via <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; we zoeken graag samen naar een oplossing. Kom je er met ons niet uit, dan kan je als EU-consument ook terecht bij het Europese platform voor onlinegeschillenbeslechting: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
+
+      <h3>12. Toepasselijk recht</h3>
+      <p>Op deze overeenkomst is Belgisch recht van toepassing, met behoud van de dwingende bepalingen ter bescherming van de consument in jouw land van verblijf.</p>
+
+      <p class="legal-updated">Laatst bijgewerkt: november 2026.</p>
+    `,
+    privacy_title: `Privacyverklaring`,
+    privacy_content: `
+      <h3>1. Wie is verantwoordelijk voor je gegevens?</h3>
+      <p>Wouter Parmentier, Oude bosweg 2, 8920 Poelkapelle, België (BTW BE0723668993) is verantwoordelijk voor de verwerking van persoonsgegevens via astroraf.be. Vragen? Mail naar <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Welke gegevens verzamelen we en waarom?</h3>
+      <ul>
+        <li><strong>Bestellingen:</strong> naam, e-mailadres, adres en bestelinhoud, om je bestelling te kunnen verwerken, leveren en opvolgen. Deze gegevens worden gedeeld met onze betaalpartner Mollie (betalingsverwerking) en, waar nodig, met de postdienst/koerier die je bestelling levert.</li>
+        <li><strong>Likes op foto's:</strong> om misbruik tegen te gaan (bv. automatisch massaal liken), houden we per like een anonieme sessie-ID, je IP-adres en je land bij. Dit gebeurt op basis van ons gerechtvaardigd belang om de werking van de website te beschermen; we gebruiken dit niet voor profilering of reclame.</li>
+        <li><strong>Toegangsaanvragen tot het beheerpaneel:</strong> naam, e-mailadres en eventueel bericht, enkel om jouw aanvraag te kunnen beoordelen en beantwoorden.</li>
+        <li><strong>Technische/functionele gegevens in je browser:</strong> je taalkeuze en de inhoud van je winkelmandje worden lokaal in je browser bewaard (geen reclame- of trackingcookies); als je inlogt als beheerder, bewaart je browser ook een inlogsessie.</li>
+      </ul>
+
+      <h3>3. Hoe lang bewaren we je gegevens?</h3>
+      <p>We bewaren bestelgegevens zolang wettelijk vereist (o.a. boekhoudkundige verplichtingen, doorgaans 7 jaar), en andere gegevens niet langer dan nodig voor het doel waarvoor ze verzameld werden.</p>
+
+      <h3>4. Met wie delen we je gegevens?</h3>
+      <p>We schakelen enkele dienstverleners in die je gegevens uitsluitend in onze opdracht verwerken: Mollie (betalingen), Supabase (databank), Vercel (webhosting), Resend (transactionele e-mails) en Cloudflare (beveiliging/detectie van je land). We verkopen je gegevens nooit aan derden.</p>
+
+      <h3>5. Jouw rechten</h3>
+      <p>Je hebt het recht op inzage, verbetering, verwijdering en beperking van je gegevens, en je kan bezwaar maken tegen verwerking op basis van ons gerechtvaardigd belang. Contacteer ons via <a href="mailto:info@astroraf.be">info@astroraf.be</a>. Je kan ook steeds een klacht indienen bij de Belgische Gegevensbeschermingsautoriteit (<a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener noreferrer">gegevensbeschermingsautoriteit.be</a>).</p>
+
+      <h3>6. Beveiliging</h3>
+      <p>We nemen redelijke technische en organisatorische maatregelen om je gegevens te beschermen tegen verlies of onrechtmatige toegang.</p>
+
+      <p class="legal-updated">Laatst bijgewerkt: november 2026.</p>
+    `,
   },
   en: {
     nav_home: `Home`,
@@ -132,6 +205,7 @@ const translations = {
     checkout_order_confirming: `Confirming your payment...`,
     checkout_order_success: `Thank you! Your payment has been received, you'll get a confirmation by email.`,
     shop_price_from: `from`,
+    price_vat_note: `All prices include 21% VAT.`,
     alt_hero_corona: `Total solar eclipse, astrophotography by AstroRaf`,
     alt_gallery_start: `Start of the solar eclipse, astrophotography by AstroRaf`,
     alt_gallery_corona: `Corona during the total solar eclipse, astrophotography by AstroRaf`,
@@ -160,6 +234,78 @@ const translations = {
     caption_paraat: `In the scorching heat of 36&nbsp;&deg;C we stood ready six hours in advance.<br>Determined, focused, waiting with anticipation for that one moment.`,
     caption_fysicus: `I met fantastic people there, every one of them so interested<br>&mdash; and especially the physicist. Everyone was so kind...`,
     back_to_albums: `Back to albums`,
+    footer_terms: `Terms and conditions`,
+    footer_privacy: `Privacy policy`,
+    footer_colophon: `Wouter Parmentier &middot; Oude Bosweg 2, 8920 Poelkapelle, Belgium &middot; VAT BE0723668993`,
+    terms_title: `Terms and conditions`,
+    terms_content: `
+      <h3>1. Who are we?</h3>
+      <p>This webshop (astroraf.be) is operated by Wouter Parmentier, Oude Bosweg 2, 8920 Poelkapelle, Belgium, company/VAT number BE0723668993. You can reach us at <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Scope</h3>
+      <p>These terms and conditions apply to every order placed through astroraf.be. By placing an order, you accept these terms.</p>
+
+      <h3>3. Offer and prices</h3>
+      <p>All prices on the website are shown in euro and include 21% VAT, unless stated otherwise. Any additional costs (such as shipping) are clearly shown before you confirm your order. We do our best to present all information as accurately as possible; in the event of an obvious pricing error, we reserve the right to cancel the order.</p>
+
+      <h3>4. Formation of the contract</h3>
+      <p>The contract is formed at the moment you complete payment through our payment partner Mollie. You will receive a confirmation by e-mail.</p>
+
+      <h3>5. Payment</h3>
+      <p>You can pay using the payment methods offered at checkout (via Mollie). Your payment details are processed directly by Mollie; we never see or store your card or account number.</p>
+
+      <h3>6. Delivery</h3>
+      <p>We aim to ship orders within the timeframe stated on the product page. Delivery times are indicative. The risk of loss or damage passes to you from the moment of delivery.</p>
+
+      <h3>7. Right of withdrawal</h3>
+      <p>For items we print or produce specifically to your order ("made to order"), the right of withdrawal does not apply: such goods are made especially for you and cannot be resold (Article VI.53, 3° of the Belgian Economic Law Code).</p>
+      <p>For items we already hold in stock and which are not made specifically for you, you have the right as a consumer to withdraw from the contract within 14 calendar days of receipt, without giving any reason. Let us know via <a href="mailto:info@astroraf.be">info@astroraf.be</a>; the cost and risk of the return shipment are your responsibility, and you will be refunded once we receive the item back in good condition.</p>
+      <p>Not sure whether your order was made to order or came from stock? Just contact us at <a href="mailto:info@astroraf.be">info@astroraf.be</a> and we'll sort it out together.</p>
+
+      <h3>8. Conformity and complaints about a product</h3>
+      <p>As a consumer you benefit from the statutory warranty: a product must conform to what can reasonably be expected (e.g. a print free of printing or material defects). If you suspect a defect, please contact us promptly at <a href="mailto:info@astroraf.be">info@astroraf.be</a>, with a photo and description of the issue.</p>
+
+      <h3>9. Intellectual property</h3>
+      <p>All photographs remain the property of the photographer at all times. Purchasing a print or product only grants you the right to use the physical item for personal, non-commercial use; reproducing, distributing or commercially using the photograph itself is not permitted without prior written consent.</p>
+
+      <h3>10. Liability</h3>
+      <p>Our liability is limited to the amount of your order, except in case of intent or gross negligence.</p>
+
+      <h3>11. Complaints and disputes</h3>
+      <p>Do you have a complaint? Please contact us first at <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; we're happy to look for a solution together. If we cannot resolve it, as an EU consumer you can also turn to the European Online Dispute Resolution platform: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
+
+      <h3>12. Governing law</h3>
+      <p>These terms are governed by Belgian law, without prejudice to the mandatory consumer protection provisions of your country of residence.</p>
+
+      <p class="legal-updated">Last updated: November 2026.</p>
+    `,
+    privacy_title: `Privacy policy`,
+    privacy_content: `
+      <h3>1. Who is responsible for your data?</h3>
+      <p>Wouter Parmentier, Oude Bosweg 2, 8920 Poelkapelle, Belgium (VAT BE0723668993) is responsible for processing personal data via astroraf.be. Questions? E-mail <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. What data do we collect and why?</h3>
+      <ul>
+        <li><strong>Orders:</strong> name, e-mail address, delivery address and order contents, to process, deliver and follow up your order. This data is shared with our payment partner Mollie (payment processing) and, where needed, with the postal service/courier delivering your order.</li>
+        <li><strong>Likes on photos:</strong> to prevent abuse (e.g. automated mass liking), we keep an anonymous session ID, your IP address and your country for each like. This is based on our legitimate interest in protecting the website's operation; we do not use this for profiling or advertising.</li>
+        <li><strong>Access requests for the admin panel:</strong> name, e-mail address and an optional message, solely to review and respond to your request.</li>
+        <li><strong>Technical/functional data in your browser:</strong> your language choice and the contents of your shopping cart are stored locally in your browser (no advertising or tracking cookies); if you log in as an administrator, your browser also stores a login session.</li>
+      </ul>
+
+      <h3>3. How long do we keep your data?</h3>
+      <p>We keep order data for as long as legally required (e.g. accounting obligations, typically 7 years), and other data no longer than necessary for the purpose it was collected for.</p>
+
+      <h3>4. Who do we share your data with?</h3>
+      <p>We use a number of service providers who process your data solely on our instructions: Mollie (payments), Supabase (database), Vercel (web hosting), Resend (transactional e-mails) and Cloudflare (security/country detection). We never sell your data to third parties.</p>
+
+      <h3>5. Your rights</h3>
+      <p>You have the right to access, correct, delete and restrict your data, and you can object to processing based on our legitimate interest. Contact us at <a href="mailto:info@astroraf.be">info@astroraf.be</a>. You can also file a complaint with the Belgian Data Protection Authority (<a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener noreferrer">gegevensbeschermingsautoriteit.be</a>).</p>
+
+      <h3>6. Security</h3>
+      <p>We take reasonable technical and organisational measures to protect your data against loss or unauthorised access.</p>
+
+      <p class="legal-updated">Last updated: November 2026.</p>
+    `,
   },
   fr: {
     nav_home: `Accueil`,
@@ -216,6 +362,7 @@ const translations = {
     checkout_order_confirming: `Nous confirmons ton paiement...`,
     checkout_order_success: `Merci ! Ton paiement a été reçu, tu recevras une confirmation par e-mail.`,
     shop_price_from: `à partir de`,
+    price_vat_note: `Tous les prix incluent la TVA à 21 %.`,
     alt_hero_corona: `Éclipse solaire totale, astrophotographie par AstroRaf`,
     alt_gallery_start: `Début de l'éclipse solaire, astrophotographie par AstroRaf`,
     alt_gallery_corona: `Couronne solaire pendant l'éclipse totale, astrophotographie par AstroRaf`,
@@ -241,6 +388,78 @@ const translations = {
     alt_gallery_maan_totaal: `Éclipse lunaire totale, astrophotographie par AstroRaf`,
     alt_gallery_maan: `La lune, astrophotographie par AstroRaf`,
     back_to_albums: `Retour aux albums`,
+    footer_terms: `Conditions générales`,
+    footer_privacy: `Politique de confidentialité`,
+    footer_colophon: `Wouter Parmentier &middot; Oude Bosweg 2, 8920 Poelkapelle, Belgique &middot; TVA BE0723668993`,
+    terms_title: `Conditions générales de vente`,
+    terms_content: `
+      <h3>1. Qui sommes-nous ?</h3>
+      <p>Cette boutique en ligne (astroraf.be) est exploitée par Wouter Parmentier, Oude Bosweg 2, 8920 Poelkapelle, Belgique, numéro d'entreprise/TVA BE0723668993. Vous pouvez nous contacter à <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Champ d'application</h3>
+      <p>Ces conditions générales s'appliquent à toute commande passée via astroraf.be. En passant une commande, vous acceptez ces conditions.</p>
+
+      <h3>3. Offre et prix</h3>
+      <p>Tous les prix du site sont indiqués en euros et incluent la TVA à 21 %, sauf indication contraire. Les frais supplémentaires (comme les frais de livraison) sont clairement indiqués avant la confirmation de votre commande. Nous faisons tout notre possible pour présenter les informations de façon exacte ; en cas d'erreur manifeste sur un prix, nous nous réservons le droit d'annuler la commande.</p>
+
+      <h3>4. Formation du contrat</h3>
+      <p>Le contrat est conclu au moment où vous finalisez le paiement via notre partenaire de paiement Mollie. Vous recevrez une confirmation par e-mail.</p>
+
+      <h3>5. Paiement</h3>
+      <p>Le paiement se fait via les méthodes proposées lors du passage en caisse (via Mollie). Vos données de paiement sont traitées directement par Mollie ; nous ne voyons ni ne conservons jamais votre numéro de carte ou de compte.</p>
+
+      <h3>6. Livraison</h3>
+      <p>Nous nous efforçons d'expédier les commandes dans le délai indiqué sur la page du produit. Les délais de livraison sont indicatifs. Le risque de perte ou de dommage vous est transféré à partir du moment de la livraison.</p>
+
+      <h3>7. Droit de rétractation</h3>
+      <p>Pour les articles que nous imprimons ou fabriquons spécifiquement selon votre commande (« fabriqués sur mesure »), le droit de rétractation ne s'applique pas : ces biens sont en effet confectionnés spécialement pour vous et ne peuvent être revendus (article VI.53, 3° du Code de droit économique belge).</p>
+      <p>Pour les articles que nous avons déjà en stock et qui ne sont pas fabriqués spécifiquement pour vous, vous disposez, en tant que consommateur, du droit de vous rétracter du contrat dans un délai de 14 jours calendaires à compter de la réception, sans devoir justifier votre décision. Informez-nous via <a href="mailto:info@astroraf.be">info@astroraf.be</a> ; les frais et le risque du renvoi sont à votre charge, et vous serez remboursé dès que nous aurons reçu l'article en bon état.</p>
+      <p>Vous ne savez pas si votre commande a été fabriquée sur mesure ou provenait du stock ? Contactez-nous simplement à <a href="mailto:info@astroraf.be">info@astroraf.be</a>, nous regarderons cela ensemble.</p>
+
+      <h3>8. Conformité et réclamations concernant un produit</h3>
+      <p>En tant que consommateur, vous bénéficiez de la garantie légale : un produit doit correspondre à ce qui peut raisonnablement être attendu (par ex. un tirage sans défaut d'impression ou de matériau). Si vous suspectez un défaut, contactez-nous rapidement à <a href="mailto:info@astroraf.be">info@astroraf.be</a>, avec une photo et une description du problème.</p>
+
+      <h3>9. Propriété intellectuelle</h3>
+      <p>Toutes les photographies restent en permanence la propriété du photographe. L'achat d'un tirage ou d'un produit vous donne uniquement le droit d'utiliser l'exemplaire physique à des fins personnelles et non commerciales ; la reproduction, la diffusion ou l'utilisation commerciale de la photographie elle-même n'est pas autorisée sans accord écrit préalable.</p>
+
+      <h3>10. Responsabilité</h3>
+      <p>Notre responsabilité est limitée au montant de votre commande, sauf en cas de faute intentionnelle ou de faute grave.</p>
+
+      <h3>11. Réclamations et litiges</h3>
+      <p>Vous avez une réclamation ? Contactez-nous d'abord à <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; nous chercherons volontiers une solution ensemble. Si nous ne parvenons pas à un accord, en tant que consommateur européen, vous pouvez également vous adresser à la plateforme européenne de règlement en ligne des litiges : <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
+
+      <h3>12. Droit applicable</h3>
+      <p>Ces conditions sont régies par le droit belge, sans préjudice des dispositions impératives de protection des consommateurs de votre pays de résidence.</p>
+
+      <p class="legal-updated">Dernière mise à jour : novembre 2026.</p>
+    `,
+    privacy_title: `Politique de confidentialité`,
+    privacy_content: `
+      <h3>1. Qui est responsable de vos données ?</h3>
+      <p>Wouter Parmentier, Oude Bosweg 2, 8920 Poelkapelle, Belgique (TVA BE0723668993) est responsable du traitement des données personnelles via astroraf.be. Des questions ? Écrivez à <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Quelles données collectons-nous et pourquoi ?</h3>
+      <ul>
+        <li><strong>Commandes :</strong> nom, adresse e-mail, adresse de livraison et contenu de la commande, afin de traiter, livrer et suivre votre commande. Ces données sont partagées avec notre partenaire de paiement Mollie (traitement des paiements) et, si nécessaire, avec le service postal/transporteur qui livre votre commande.</li>
+        <li><strong>« J'aime » sur les photos :</strong> afin d'éviter les abus (par ex. des « j'aime » automatisés en masse), nous conservons, pour chaque « j'aime », un identifiant de session anonyme, votre adresse IP et votre pays. Ce traitement repose sur notre intérêt légitime à protéger le bon fonctionnement du site ; nous ne l'utilisons pas à des fins de profilage ou de publicité.</li>
+        <li><strong>Demandes d'accès au panneau de gestion :</strong> nom, adresse e-mail et message facultatif, uniquement afin d'examiner et de répondre à votre demande.</li>
+        <li><strong>Données techniques/fonctionnelles dans votre navigateur :</strong> votre choix de langue et le contenu de votre panier sont conservés localement dans votre navigateur (aucun cookie publicitaire ou de suivi) ; si vous vous connectez en tant qu'administrateur, votre navigateur conserve également une session de connexion.</li>
+      </ul>
+
+      <h3>3. Combien de temps conservons-nous vos données ?</h3>
+      <p>Nous conservons les données de commande aussi longtemps que la loi l'exige (notamment les obligations comptables, généralement 7 ans), et les autres données pas plus longtemps que nécessaire pour la finalité pour laquelle elles ont été collectées.</p>
+
+      <h3>4. Avec qui partageons-nous vos données ?</h3>
+      <p>Nous faisons appel à plusieurs prestataires qui traitent vos données uniquement sur nos instructions : Mollie (paiements), Supabase (base de données), Vercel (hébergement web), Resend (e-mails transactionnels) et Cloudflare (sécurité/détection du pays). Nous ne vendons jamais vos données à des tiers.</p>
+
+      <h3>5. Vos droits</h3>
+      <p>Vous avez le droit d'accéder à vos données, de les corriger, de les supprimer et d'en limiter le traitement, et vous pouvez vous opposer au traitement fondé sur notre intérêt légitime. Contactez-nous à <a href="mailto:info@astroraf.be">info@astroraf.be</a>. Vous pouvez également déposer une plainte auprès de l'Autorité de protection des données belge (<a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener noreferrer">gegevensbeschermingsautoriteit.be</a>).</p>
+
+      <h3>6. Sécurité</h3>
+      <p>Nous prenons des mesures techniques et organisationnelles raisonnables pour protéger vos données contre la perte ou l'accès non autorisé.</p>
+
+      <p class="legal-updated">Dernière mise à jour : novembre 2026.</p>
+    `,
   },
   de: {
     nav_home: `Startseite`,
@@ -297,6 +516,7 @@ const translations = {
     checkout_order_confirming: `Wir bestätigen deine Zahlung...`,
     checkout_order_success: `Danke! Deine Zahlung ist eingegangen, du erhältst eine Bestätigung per E-Mail.`,
     shop_price_from: `ab`,
+    price_vat_note: `Alle Preise beinhalten 21 % Mehrwertsteuer.`,
     alt_hero_corona: `Totale Sonnenfinsternis, Astrofotografie von AstroRaf`,
     alt_gallery_start: `Beginn der Sonnenfinsternis, Astrofotografie von AstroRaf`,
     alt_gallery_corona: `Korona während der totalen Sonnenfinsternis, Astrofotografie von AstroRaf`,
@@ -322,6 +542,78 @@ const translations = {
     alt_gallery_maan_totaal: `Totale Mondfinsternis, Astrofotografie von AstroRaf`,
     alt_gallery_maan: `Der Mond, Astrofotografie von AstroRaf`,
     back_to_albums: `Zurück zu den Alben`,
+    footer_terms: `Allgemeine Geschäftsbedingungen`,
+    footer_privacy: `Datenschutzerklärung`,
+    footer_colophon: `Wouter Parmentier &middot; Oude Bosweg 2, 8920 Poelkapelle, Belgien &middot; USt-IdNr. BE0723668993`,
+    terms_title: `Allgemeine Geschäftsbedingungen`,
+    terms_content: `
+      <h3>1. Wer sind wir?</h3>
+      <p>Dieser Webshop (astroraf.be) wird betrieben von Wouter Parmentier, Oude Bosweg 2, 8920 Poelkapelle, Belgien, Unternehmens-/USt-IdNr. BE0723668993. Du erreichst uns unter <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Geltungsbereich</h3>
+      <p>Diese allgemeinen Geschäftsbedingungen gelten für jede über astroraf.be aufgegebene Bestellung. Mit der Bestellung akzeptierst du diese Bedingungen.</p>
+
+      <h3>3. Angebot und Preise</h3>
+      <p>Alle Preise auf der Website sind in Euro angegeben und enthalten, sofern nicht anders angegeben, 21 % Mehrwertsteuer. Zusätzliche Kosten (z. B. Versandkosten) werden vor Bestätigung deiner Bestellung deutlich angezeigt. Wir bemühen uns, alle Informationen so genau wie möglich darzustellen; bei einem offensichtlichen Preisfehler behalten wir uns das Recht vor, die Bestellung zu stornieren.</p>
+
+      <h3>4. Zustandekommen des Vertrags</h3>
+      <p>Der Vertrag kommt in dem Moment zustande, in dem du die Zahlung über unseren Zahlungsdienstleister Mollie abschließt. Du erhältst eine Bestätigung per E-Mail.</p>
+
+      <h3>5. Zahlung</h3>
+      <p>Die Zahlung erfolgt über die an der Kasse angebotenen Zahlungsmethoden (über Mollie). Deine Zahlungsdaten werden direkt von Mollie verarbeitet; wir sehen oder speichern deine Karten- oder Kontonummer niemals.</p>
+
+      <h3>6. Lieferung</h3>
+      <p>Wir bemühen uns, Bestellungen innerhalb der auf der Produktseite angegebenen Frist zu versenden. Lieferzeiten sind unverbindlich. Das Risiko für Verlust oder Beschädigung geht ab dem Zeitpunkt der Lieferung auf dich über.</p>
+
+      <h3>7. Widerrufsrecht</h3>
+      <p>Für Artikel, die wir speziell nach deiner Bestellung drucken oder herstellen ("auf Bestellung gefertigt"), gilt kein Widerrufsrecht: Solche Waren werden eigens für dich angefertigt und können nicht weiterverkauft werden (Artikel VI.53, 3° des belgischen Wirtschaftsgesetzbuchs).</p>
+      <p>Für Artikel, die wir bereits auf Lager haben und die nicht speziell für dich hergestellt werden, hast du als Verbraucher das Recht, den Vertrag innerhalb von 14 Kalendertagen nach Erhalt ohne Angabe von Gründen zu widerrufen. Teile uns dies über <a href="mailto:info@astroraf.be">info@astroraf.be</a> mit; die Kosten und das Risiko der Rücksendung trägst du selbst, und du erhältst den Kaufbetrag zurück, sobald wir den Artikel in einwandfreiem Zustand zurückerhalten haben.</p>
+      <p>Bist du nicht sicher, ob deine Bestellung eigens gefertigt wurde oder aus dem Lager kam? Kontaktiere uns einfach unter <a href="mailto:info@astroraf.be">info@astroraf.be</a>, dann klären wir das gemeinsam.</p>
+
+      <h3>8. Konformität und Beschwerden zu einem Produkt</h3>
+      <p>Als Verbraucher profitierst du von der gesetzlichen Gewährleistung: Ein Produkt muss dem entsprechen, was vernünftigerweise erwartet werden darf (z. B. ein Druck ohne Druck- oder Materialfehler). Vermutest du einen Mangel, melde dich bitte zeitnah unter <a href="mailto:info@astroraf.be">info@astroraf.be</a>, mit Foto und Beschreibung des Problems.</p>
+
+      <h3>9. Geistiges Eigentum</h3>
+      <p>Alle Fotografien bleiben stets Eigentum des Fotografen. Der Kauf eines Drucks oder Produkts gibt dir lediglich das Recht, das physische Exemplar persönlich und nicht gewerblich zu nutzen; eine Vervielfältigung, Verbreitung oder gewerbliche Nutzung der Fotografie selbst ist ohne vorherige schriftliche Zustimmung nicht erlaubt.</p>
+
+      <h3>10. Haftung</h3>
+      <p>Unsere Haftung ist auf den Betrag deiner Bestellung begrenzt, außer im Falle von Vorsatz oder grober Fahrlässigkeit.</p>
+
+      <h3>11. Beschwerden und Streitigkeiten</h3>
+      <p>Du hast eine Beschwerde? Kontaktiere uns zuerst unter <a href="mailto:info@astroraf.be">info@astroraf.be</a> &mdash; wir suchen gerne gemeinsam nach einer Lösung. Kommen wir zu keiner Einigung, kannst du dich als EU-Verbraucher auch an die europäische Plattform zur Online-Streitbeilegung wenden: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.</p>
+
+      <h3>12. Anwendbares Recht</h3>
+      <p>Auf diese Bedingungen findet belgisches Recht Anwendung, unbeschadet der zwingenden Verbraucherschutzbestimmungen deines Wohnsitzlandes.</p>
+
+      <p class="legal-updated">Zuletzt aktualisiert: November 2026.</p>
+    `,
+    privacy_title: `Datenschutzerklärung`,
+    privacy_content: `
+      <h3>1. Wer ist für deine Daten verantwortlich?</h3>
+      <p>Wouter Parmentier, Oude Bosweg 2, 8920 Poelkapelle, Belgien (USt-IdNr. BE0723668993) ist verantwortlich für die Verarbeitung personenbezogener Daten über astroraf.be. Fragen? Schreib an <a href="mailto:info@astroraf.be">info@astroraf.be</a>.</p>
+
+      <h3>2. Welche Daten erfassen wir und warum?</h3>
+      <ul>
+        <li><strong>Bestellungen:</strong> Name, E-Mail-Adresse, Lieferadresse und Bestellinhalt, um deine Bestellung zu verarbeiten, zu liefern und nachzuverfolgen. Diese Daten werden mit unserem Zahlungsdienstleister Mollie (Zahlungsabwicklung) und, falls nötig, mit dem Post-/Zustelldienst geteilt, der deine Bestellung liefert.</li>
+        <li><strong>„Gefällt mir“ bei Fotos:</strong> Um Missbrauch zu verhindern (z. B. automatisiertes Massen-Liken), speichern wir pro Like eine anonyme Sitzungs-ID, deine IP-Adresse und dein Land. Dies erfolgt auf Grundlage unseres berechtigten Interesses, den Betrieb der Website zu schützen; wir nutzen dies nicht zu Profiling- oder Werbezwecken.</li>
+        <li><strong>Zugangsanfragen für das Verwaltungspanel:</strong> Name, E-Mail-Adresse und optionale Nachricht, ausschließlich um deine Anfrage zu prüfen und zu beantworten.</li>
+        <li><strong>Technische/funktionale Daten in deinem Browser:</strong> deine Sprachauswahl und der Inhalt deines Warenkorbs werden lokal in deinem Browser gespeichert (keine Werbe- oder Tracking-Cookies); wenn du dich als Administrator anmeldest, speichert dein Browser zudem eine Anmeldesitzung.</li>
+      </ul>
+
+      <h3>3. Wie lange speichern wir deine Daten?</h3>
+      <p>Wir speichern Bestelldaten so lange, wie es gesetzlich vorgeschrieben ist (u. a. buchhalterische Pflichten, üblicherweise 7 Jahre), und andere Daten nicht länger, als für den jeweiligen Zweck erforderlich ist.</p>
+
+      <h3>4. Mit wem teilen wir deine Daten?</h3>
+      <p>Wir setzen einige Dienstleister ein, die deine Daten ausschließlich in unserem Auftrag verarbeiten: Mollie (Zahlungen), Supabase (Datenbank), Vercel (Webhosting), Resend (transaktionale E-Mails) und Cloudflare (Sicherheit/Länderkennung). Wir verkaufen deine Daten niemals an Dritte.</p>
+
+      <h3>5. Deine Rechte</h3>
+      <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung deiner Daten und kannst der Verarbeitung auf Grundlage unseres berechtigten Interesses widersprechen. Kontaktiere uns unter <a href="mailto:info@astroraf.be">info@astroraf.be</a>. Du kannst außerdem jederzeit eine Beschwerde bei der belgischen Datenschutzbehörde einreichen (<a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener noreferrer">gegevensbeschermingsautoriteit.be</a>).</p>
+
+      <h3>6. Sicherheit</h3>
+      <p>Wir treffen angemessene technische und organisatorische Maßnahmen, um deine Daten vor Verlust oder unbefugtem Zugriff zu schützen.</p>
+
+      <p class="legal-updated">Zuletzt aktualisiert: November 2026.</p>
+    `,
   },
 };
 
